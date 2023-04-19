@@ -22,11 +22,12 @@ public class UserUI {
      */
     private static int menu() {
         System.out.println("#===== WELCOME TO SHOPPING SERVICE =====#");
-        System.out.println("1. Create a new product");
-        System.out.println("2. Edit an exist product");
-        System.out.println("3. Create new shopping cart");
-        System.out.println("4. Display all shopping carts");
-        System.out.println("Enter a number to interact with system:");
+        System.out.println("1. Product manager");
+        System.out.println("2. Shopping cart manager");
+        System.out.println("3. Select a cart to view details");
+        System.out.println("4. Sorting carts");
+        System.out.println("5. Print purchase receipts to the screen or a text file");
+        System.out.println("Please choose interaction by enter a number:");
         return Integer.parseInt(scanner.nextLine());
     }
 
