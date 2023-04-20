@@ -2,8 +2,11 @@
  * @author <Vo Thanh Thong - s3878071>
  */
 package ShoppingCart;
-
+import Product.Coupon;
+import Product.percentCoupon;
+import Product.priceCoupon;
 import Product.PhysicalProduct;
+import Product.Product;
 import Product.ProductManager;
 
 import java.util.HashMap;
@@ -103,11 +106,20 @@ public class ShoppingCart {
      * Base fee = 0.1
      */
     public double cartAmount() {
+        HashMap.Entry<String, Integer> lastEntry = null;
         this.amount = 0;
         for (String product: this.PRODUCTS.keySet()) {
             this.amount += ProductManager.PRODUCTS.get(product).getPrice();
         }
-
+        lastEntry = PRODUCTS.entrySet().stream().reduce((one, two) -> two).get();
+        Product p = ProductManager.PRODUCTS.get(lastEntry.getKey());
+        Coupon c = p.getCoupon();
+        if(c instanceof percentCoupon){
+            this.amount = this.amount - (this.amount * c.getDiscount())/100;
+        }
+        if(c instanceof priceCoupon){
+            this.amount = this.amount - c.getDiscount();
+        }
         this.shippingFee = calculateWeight() * 0.1;
         return this.amount + this.shippingFee;
     }
