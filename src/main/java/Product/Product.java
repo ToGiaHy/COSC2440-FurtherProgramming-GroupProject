@@ -12,6 +12,7 @@ public abstract class Product {
     private int quantityAvailable;
     private double price;
 
+    private Coupon coupon;
     /**
      * Constructor
      */
@@ -22,9 +23,26 @@ public abstract class Product {
         this.price = price;
     }
 
+    public Product(String name, String description, int quantityAvailable, double price, Coupon coupon) {
+        this.name = name;
+        this.description = description;
+        this.quantityAvailable = quantityAvailable;
+        this.price = price;
+        this.coupon = coupon;
+    }
+
+    public Coupon getCoupon() {
+        return coupon;
+    }
+
+    public void setCoupon(Coupon coupon) {
+        this.coupon = coupon;
+    }
+
     /**
      * Getter methods
      */
+
     public String getName() {
         return name;
     }
