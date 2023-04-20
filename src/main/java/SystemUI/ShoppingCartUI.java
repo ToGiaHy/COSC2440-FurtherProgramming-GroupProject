@@ -19,14 +19,23 @@ public class ShoppingCartUI {
      * This method will show all the option for user can choose by
      * enter a number. Then it will return user input.
      * </p>*/
-    private static int shoppingCartMenu() {
+    private static int menu() {
+        System.out.println("#==============================#");
         System.out.println("#===== SHOPPING CART MENU =====#");
+        System.out.println("#==============================#");
         System.out.println("1. Add product to current shopping cart");
         System.out.println("2. Remove product from current shopping cart");
         System.out.println("3. Display all products in cart");
         System.out.println("4. Complete cart");
         System.out.println("Please enter a number in the menu to interact with system:");
         return Integer.parseInt(scanner.nextLine());
+    }
+
+    /**
+     *
+     */
+    public void CartUI() {
+
     }
 
     /**
@@ -44,13 +53,13 @@ public class ShoppingCartUI {
         String productName;
         boolean flag = true;
 
-        userInput = shoppingCartMenu();
+        userInput = menu();
 
         while (flag) {
 
             switch (userInput) {
                 case 1:
-                    UserUI.browseMenu(ProductManager.PRODUCTS);
+//                    UserUI.browseMenu(ProductManager.PRODUCTS);
                     System.out.println("Enter name of product:");
                     productName = scanner.nextLine();
 
@@ -60,7 +69,7 @@ public class ShoppingCartUI {
                     } else {
                         System.out.println("#--- This product is not exist, run out of or already in cart ---#");
                     }
-                    userInput = shoppingCartMenu();
+                    userInput = menu();
                     break;
                 case 2:
                     System.out.println("Enter name of product:");
@@ -72,13 +81,13 @@ public class ShoppingCartUI {
                     } else {
                         System.out.println("#--- This product is not exist or not in current cart ---#");
                     }
-                    userInput = shoppingCartMenu();
+                    userInput = menu();
                     break;
                 case 3:
                     for (String product: cart.getPRODUCTS()) {
                         System.out.println(ProductManager.PRODUCTS.get(product));
                     }
-                    userInput = shoppingCartMenu();
+                    userInput = menu();
                     break;
                 case 4:
                     ShoppingCartManager.getShoppingCarts().add(cart);
@@ -90,11 +99,11 @@ public class ShoppingCartUI {
                     System.out.println("#====================================#");
                     System.out.println("# Please enter a number in the menu! #");
                     System.out.println("#====================================#");
-                    userInput = shoppingCartMenu();
+                    userInput = menu();
             }
         }
 
-        UserUI.startMenu();
+        UserUI.userUI();
     }
 
 }
