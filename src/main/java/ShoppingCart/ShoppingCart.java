@@ -3,8 +3,8 @@
  */
 package ShoppingCart;
 import Product.Coupon;
-import Product.percentCoupon;
-import Product.priceCoupon;
+import Product.PercentCoupon;
+import Product.PriceCoupon;
 import Product.PhysicalProduct;
 import Product.Product;
 import Product.ProductManager;
@@ -114,10 +114,10 @@ public class ShoppingCart {
         lastEntry = PRODUCTS.entrySet().stream().reduce((one, two) -> two).get();
         Product p = ProductManager.PRODUCTS.get(lastEntry.getKey());
         Coupon c = p.getCoupon();
-        if(c instanceof percentCoupon){
+        if(c instanceof PercentCoupon){
             this.amount = this.amount - (this.amount * c.getDiscount())/100;
         }
-        if(c instanceof priceCoupon){
+        if(c instanceof PriceCoupon){
             this.amount = this.amount - c.getDiscount();
         }
         this.shippingFee = calculateWeight() * 0.1;
