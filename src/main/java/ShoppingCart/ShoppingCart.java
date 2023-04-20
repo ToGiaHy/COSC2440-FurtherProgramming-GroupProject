@@ -2,19 +2,22 @@
  * @author <Vo Thanh Thong - s3878071>
  */
 package ShoppingCart;
-
+import Product.Coupon;
+import Product.percentCoupon;
+import Product.priceCoupon;
 import Product.PhysicalProduct;
+import Product.Product;
 import Product.ProductManager;
 
-import java.util.HashSet;
-import java.util.Set;
+import java.util.HashMap;
+
 
 public class ShoppingCart {
     /**
      * Shopping cart attributes
      */
     // Use Set interface
-    private final Set<String> PRODUCTS = new HashSet<String>();
+    private final HashMap<String,Integer > PRODUCTS = new HashMap<>();
     private final double BASE = 0.1;
     private String name;
     private double amount = 0;
@@ -39,15 +42,20 @@ public class ShoppingCart {
      * add the product name to the cart, and return true.
      * </p>
      */
-    public boolean addItem(String productName){
+    public boolean addItem(String productName, int quantity){
         if (ProductManager.PRODUCTS.get(productName).getQuantityAvailable() == 0) {
             return false;
-        } else if (this.PRODUCTS.contains(productName)) {
+        } else if (quantity > ProductManager.PRODUCTS.get(productName).getQuantityAvailable()) {
             return false;
-        } else if (this.PRODUCTS.add(productName)) {
+        } else if (this.PRODUCTS.containsKey(productName) & quantity <= ProductManager.PRODUCTS.get(productName).getQuantityAvailable()) {
             int currentQuantity = ProductManager.PRODUCTS.get(productName).getQuantityAvailable();
-            ProductManager.PRODUCTS.get(productName).setQuantityAvailable(currentQuantity - 1);
-            PRODUCTS.add(productName);
+            ProductManager.PRODUCTS.get(productName).setQuantityAvailable(currentQuantity - quantity);
+            this.PRODUCTS.put(productName, this.PRODUCTS.get(productName) + quantity);
+            return true;
+        } else if (quantity <= ProductManager.PRODUCTS.get(productName).getQuantityAvailable()) {
+            int currentQuantity = ProductManager.PRODUCTS.get(productName).getQuantityAvailable();
+            ProductManager.PRODUCTS.get(productName).setQuantityAvailable(currentQuantity - quantity);
+            PRODUCTS.put(productName, quantity);
             return true;
         }
         return false;
@@ -67,13 +75,12 @@ public class ShoppingCart {
         if (!ProductManager.PRODUCTS.containsKey(productName)) {
             return false;
         }
-        if (this.PRODUCTS.remove(productName)) {
+        else{
             int currentQuantity = ProductManager.PRODUCTS.get(productName).getQuantityAvailable();
-            ProductManager.PRODUCTS.get(productName).setQuantityAvailable(currentQuantity + 1);
+            ProductManager.PRODUCTS.get(productName).setQuantityAvailable(currentQuantity + PRODUCTS.get(productName));
             PRODUCTS.remove(productName);
             return true;
         }
-        return false;
     }
 
     /**
@@ -83,7 +90,7 @@ public class ShoppingCart {
     private double calculateWeight() {
         double weight = 0;
 
-        for (String product : this.PRODUCTS) {
+        for (String product : this.PRODUCTS.keySet()) {
             if (ProductManager.PRODUCTS.get(product) instanceof PhysicalProduct) {
                 weight += ((PhysicalProduct) ProductManager.PRODUCTS.get(product)).getWeight();
             }
@@ -99,11 +106,20 @@ public class ShoppingCart {
      * Base fee = 0.1
      */
     public double cartAmount() {
+        HashMap.Entry<String, Integer> lastEntry = null;
         this.amount = 0;
-        for (String product: this.PRODUCTS) {
+        for (String product: this.PRODUCTS.keySet()) {
             this.amount += ProductManager.PRODUCTS.get(product).getPrice();
         }
-
+        lastEntry = PRODUCTS.entrySet().stream().reduce((one, two) -> two).get();
+        Product p = ProductManager.PRODUCTS.get(lastEntry.getKey());
+        Coupon c = p.getCoupon();
+        if(c instanceof percentCoupon){
+            this.amount = this.amount - (this.amount * c.getDiscount())/100;
+        }
+        if(c instanceof priceCoupon){
+            this.amount = this.amount - c.getDiscount();
+        }
         this.shippingFee = calculateWeight() * 0.1;
         return this.amount + this.shippingFee;
     }
@@ -123,7 +139,7 @@ public class ShoppingCart {
         return calculateWeight();
     }
 
-    public Set<String> getPRODUCTS() {
+    public HashMap<String, Integer> getPRODUCTS() {
         return PRODUCTS;
     }
 
