@@ -1,13 +1,8 @@
 package Product;
 
-public abstract class Coupon {
-    protected double discount;
+public interface Coupon {
 
-    public Coupon(double discount) {
-        this.discount = discount;
-    }
+    public double getDiscount();
 
-    public abstract double getDiscount();
-
-    public abstract void setDiscount(double discount);
+    public void setDiscount(double discount);
 }

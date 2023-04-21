@@ -4,16 +4,15 @@
 
 package org.example;
 
+import Product.Product;
 import Product.ProductManager;
-import SystemUI.UserUI;
-
+import SystemUI.*;
 public class Main {
 
     public static void main(String[] args) {
         ProductManager.initialProducts();
 
         UserUI.startMenu();
-
 
     }
 

@@ -3,6 +3,9 @@
  */
 package Product;
 
+import java.util.HashMap;
+import java.util.Map;
+
 public abstract class Product {
     /**
      * Product attributes
@@ -12,7 +15,7 @@ public abstract class Product {
     private int quantityAvailable;
     private double price;
 
-    private Coupon coupon;
+    private HashMap<String,Coupon> couponList;
     /**
      * Constructor
      */
@@ -23,20 +26,20 @@ public abstract class Product {
         this.price = price;
     }
 
-    public Product(String name, String description, int quantityAvailable, double price, Coupon coupon) {
+    public Product(String name, String description, int quantityAvailable, double price, HashMap<String,Coupon> couponList) {
         this.name = name;
         this.description = description;
         this.quantityAvailable = quantityAvailable;
         this.price = price;
-        this.coupon = coupon;
+        this.couponList = couponList;
     }
 
-    public Coupon getCoupon() {
-        return coupon;
+    public HashMap<String,Coupon> getCoupon() {
+        return couponList;
     }
 
-    public void setCoupon(Coupon coupon) {
-        this.coupon = coupon;
+    public void setCoupon(HashMap<String,Coupon> couponList) {
+        this.couponList = couponList;
     }
 
     /**

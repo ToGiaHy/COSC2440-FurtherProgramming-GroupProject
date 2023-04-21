@@ -2,7 +2,6 @@
  * @author <Vo Thanh Thong - s3878071>
  */
 package ShoppingCart;
-import Product.Coupon;
 import Product.PercentCoupon;
 import Product.PriceCoupon;
 import Product.PhysicalProduct;
@@ -110,15 +109,6 @@ public class ShoppingCart {
         this.amount = 0;
         for (String product: this.PRODUCTS.keySet()) {
             this.amount += ProductManager.PRODUCTS.get(product).getPrice();
-        }
-        lastEntry = PRODUCTS.entrySet().stream().reduce((one, two) -> two).get();
-        Product p = ProductManager.PRODUCTS.get(lastEntry.getKey());
-        Coupon c = p.getCoupon();
-        if(c instanceof PercentCoupon){
-            this.amount = this.amount - (this.amount * c.getDiscount())/100;
-        }
-        if(c instanceof PriceCoupon){
-            this.amount = this.amount - c.getDiscount();
         }
         this.shippingFee = calculateWeight() * 0.1;
         return this.amount + this.shippingFee;

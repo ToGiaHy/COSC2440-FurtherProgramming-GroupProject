@@ -1,8 +1,10 @@
 package Product;
 
-public class PriceCoupon extends Coupon{
+public class PriceCoupon implements Coupon{
+    private double discount;
+
     public PriceCoupon(double discount) {
-        super(discount);
+        this.discount = discount;
     }
 
     @Override
