@@ -14,8 +14,8 @@ public class DigitalProduct extends Product {
      * @param quantityAvailable the number of products are available to buy
      * @param price product price
      */
-    public DigitalProduct(String name, String description, int quantityAvailable, double price) {
-        super(name, description, quantityAvailable, price);
+    public DigitalProduct(String name, String description, int quantityAvailable, double price, TaxType taxType) {
+        super(name, description, quantityAvailable, price, taxType);
     }
 
     /**
