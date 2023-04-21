@@ -49,4 +49,9 @@ public class DigitalProductCanBeGifted extends DigitalProduct implements CanBeGi
     public String getMessage() {
         return this.message;
     }
+
+    @Override
+    public String toFile() {
+        return String.format("GiftDigitalProduct,%s,%s,%d,%f,%f,%s",this.getName(), this.getDescription(), this.getQuantityAvailable(), this.getPrice(), this.message);
+    }
 }

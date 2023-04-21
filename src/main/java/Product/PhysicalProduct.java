@@ -49,4 +49,9 @@ public class PhysicalProduct extends Product{
     public String toString() {
         return "PHYSICAL - " + super.getName();
     }
+
+    @Override
+    public String toFile() {
+        return String.format("PhysicalProduct,%s,%s,%d,%f,%f",this.getName(), this.getDescription(), this.getQuantityAvailable(), this.getPrice(), this.getWeight());
+    }
 }

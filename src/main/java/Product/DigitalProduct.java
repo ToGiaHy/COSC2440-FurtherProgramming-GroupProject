@@ -30,4 +30,9 @@ public class DigitalProduct extends Product {
         String name = getName();
         return "DIGITAL - " + name;
     }
+
+    @Override
+    public String toFile() {
+        return String.format("DigitalProduct,%s,%s,%d,%f",this.getName(), this.getDescription(), this.getQuantityAvailable(), this.getPrice());
+    }
 }
