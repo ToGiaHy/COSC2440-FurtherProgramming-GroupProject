@@ -140,18 +140,18 @@ public class ProductUI {
 // todo ask the user the TaxType
         if (type == 1) {
             if (isGift) {
-                ProductManager.addProduct(new DigitalProductCanBeGifted(name, description, quantityAvailable, price));
+                ProductManager.addProduct(new DigitalProductCanBeGifted(name, description, quantityAvailable, price, TaxType.FREE,""));
             }
             else {
-                ProductManager.addProduct(new DigitalProduct(name, description, quantityAvailable, price));
+                ProductManager.addProduct(new DigitalProduct(name, description, quantityAvailable, price, TaxType.FREE));
             }
         }
         else if (type == 2){
             if (isGift) {
-                ProductManager.addProduct(new PhysicalProductCanBeGifted(name, description, quantityAvailable, price, weight));
+                ProductManager.addProduct(new PhysicalProductCanBeGifted(name, description, quantityAvailable, price, TaxType.FREE, weight,""));
             }
             else {
-                ProductManager.addProduct(new PhysicalProduct(name, description, quantityAvailable, price, weight));
+                ProductManager.addProduct(new PhysicalProduct(name, description, quantityAvailable, price, TaxType.FREE,weight));
             }
         }
 

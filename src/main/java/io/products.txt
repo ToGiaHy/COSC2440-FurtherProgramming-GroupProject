@@ -1,6 +1,6 @@
-PhysicalProduct,"T-Shirt","a shirt or sth", 5, 10,0.2
-PhysicalProduct,"Jeans","a pair of pants",10, 7,0.5
-DigitalProduct,"Ebook - Java", "Java for Dummies",2,70
-DigitalProduct,"Ebook - Python","Python for Beginners",0,70
-GiftPhysicalProduct,"Stuffed Animal","a nice stuffed toy", 1, 10,2,"Happy Birthday!"
-GiftDigitalProduct,"Spotify","one-month free music on Spotify", 1, 10,"Best Wishes to you"
+PhysicalProduct,"T-Shirt","a shirt or sth",5,10,0.1,0.2
+PhysicalProduct,"Jeans","a pair of pants",10,7,0.1,0.5
+DigitalProduct,"Ebook - Java", "Java for Dummies",2,70,0.2
+DigitalProduct,"Ebook - Python","Python for Beginners",0,70,0.2
+GiftPhysicalProduct,"Stuffed Animal","a nice stuffed toy",1,10,0,2,"Happy Birthday!",FREE
+GiftDigitalProduct,"Spotify","one-month free music on Spotify",1,10,0,"Best Wishes to you"

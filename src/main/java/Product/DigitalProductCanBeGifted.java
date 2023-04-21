@@ -18,8 +18,9 @@ public class DigitalProductCanBeGifted extends DigitalProduct implements CanBeGi
      * @param quantityAvailable the number of products are available to buy
      * @param price product price
      */
-    public DigitalProductCanBeGifted(String name, String description, int quantityAvailable, double price, TaxType taxType) {
+    public DigitalProductCanBeGifted(String name, String description, int quantityAvailable, double price, TaxType taxType, String message) {
         super(name, description, quantityAvailable, price, taxType);
+        this.message = message;
     }
 
     /**

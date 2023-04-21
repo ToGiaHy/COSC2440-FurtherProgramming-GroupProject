@@ -17,11 +17,11 @@ class ShoppingCartManagerTest {
     void getShoppingCarts() {
         ProductManager.initialProducts();
 
-        PhysicalProduct product1 = new PhysicalProduct("Iphone", "this is an iphone", 11, 500.0, 190.0);
-        DigitalProduct product2 = new DigitalProduct("Art work", "this is an art work", 12, 13.0);
-        PhysicalProduct product3 = new PhysicalProduct("Bicycle", "this is a bicycle", 11, 400.0, 2000.0);
-        DigitalProductCanBeGifted product4 = new DigitalProductCanBeGifted("NFT", "this is a NFT", 8, 300.0);
-        PhysicalProductCanBeGifted product5 = new PhysicalProductCanBeGifted("Desk", "this is a desk", 59, 149.0, 1000.0);
+        PhysicalProduct product1 = new PhysicalProduct("Iphone", "this is an iphone", 11, 500.0, TaxType.FREE,2);
+        DigitalProduct product2 = new DigitalProduct("Art work", "this is an art work", 12, 13.0, TaxType.FREE);
+        PhysicalProduct product3 = new PhysicalProduct("Bicycle", "this is a bicycle", 11, 400.0, TaxType.FREE,40);
+        DigitalProductCanBeGifted product4 = new DigitalProductCanBeGifted("NFT", "this is a NFT", 8, 300.0,TaxType.FREE,"");
+        PhysicalProductCanBeGifted product5 = new PhysicalProductCanBeGifted("Desk", "this is a desk", 59, 149.0, TaxType.FREE,1000.0,"");
 
         ShoppingCart cart1 = new ShoppingCart();
         cart1.setName("Test Cart 1");
