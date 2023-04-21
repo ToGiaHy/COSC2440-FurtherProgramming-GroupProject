@@ -137,7 +137,7 @@ public class ProductUI {
         System.out.println("Can this product be used as a gift ? Type 'true' or 'false'");
         boolean isGift;
         isGift = Boolean.parseBoolean(scanner.nextLine());
-
+// todo ask the user the TaxType
         if (type == 1) {
             if (isGift) {
                 ProductManager.addProduct(new DigitalProductCanBeGifted(name, description, quantityAvailable, price));

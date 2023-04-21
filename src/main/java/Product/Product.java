@@ -11,31 +11,26 @@ public abstract class Product {
     private String description;
     private int quantityAvailable;
     private double price;
+    private TaxType taxType;
 
     private Coupon coupon;
     /**
      * Constructor
      */
-    public Product(String name, String description, int quantityAvailable, double price) {
+    public Product(String name, String description, int quantityAvailable, double price, TaxType taxType) {
         this.name = name;
         this.description = description;
         this.quantityAvailable = quantityAvailable;
         this.price = price;
+        this.taxType = taxType;
     }
 
-    public Product(String name, String description, int quantityAvailable, double price, Coupon coupon) {
+    public Product(String name, String description, int quantityAvailable, double price, TaxType taxType, Coupon coupon) {
         this.name = name;
         this.description = description;
         this.quantityAvailable = quantityAvailable;
         this.price = price;
-        this.coupon = coupon;
-    }
-
-    public Coupon getCoupon() {
-        return coupon;
-    }
-
-    public void setCoupon(Coupon coupon) {
+        this.taxType = taxType;
         this.coupon = coupon;
     }
 
@@ -58,6 +53,14 @@ public abstract class Product {
     public double getPrice() {
         return price;
     }
+    public TaxType getTaxType() {
+        return taxType;
+    }
+
+    // Get the product's tax
+    public Coupon getCoupon() {
+        return coupon;
+    }
 
     /**
      * Setter methods
@@ -76,6 +79,13 @@ public abstract class Product {
 
     public void setPrice(Double price) {
         this.price = price;
+    }
+
+    public void setTaxType(TaxType taxType) {
+        this.taxType = taxType;
+    }
+    public void setCoupon(Coupon coupon) {
+        this.coupon = coupon;
     }
 
     @Override

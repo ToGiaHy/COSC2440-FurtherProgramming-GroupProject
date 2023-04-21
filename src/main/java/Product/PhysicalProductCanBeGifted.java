@@ -19,8 +19,8 @@ public class PhysicalProductCanBeGifted extends PhysicalProduct implements CanBe
      * @param price product price
      * @param weight product weight (Only physical product have weight attribute)
      */
-    public PhysicalProductCanBeGifted(String name, String description, int quantityAvailable, double price, double weight) {
-        super(name, description, quantityAvailable, price, weight);
+    public PhysicalProductCanBeGifted(String name, String description, int quantityAvailable, double price, TaxType taxType, double weight) {
+        super(name, description, quantityAvailable, price, taxType, weight);
     }
 
     /**
