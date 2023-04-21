@@ -2,6 +2,7 @@
  * @author <Vo Thanh Thong - s3878071>
  */
 package ShoppingCart;
+
 import Product.Coupon;
 import Product.PercentCoupon;
 import Product.PriceCoupon;
@@ -17,7 +18,7 @@ public class ShoppingCart {
      * Shopping cart attributes
      */
     // Use Set interface
-    private final HashMap<String,Integer > PRODUCTS = new HashMap<>();
+    private final HashMap<String, Integer> PRODUCTS = new HashMap<>();
     private final double BASE = 0.1;
     private String name;
     private double amount = 0;
@@ -42,7 +43,7 @@ public class ShoppingCart {
      * add the product name to the cart, and return true.
      * </p>
      */
-    public boolean addItem(String productName, int quantity){
+    public boolean addItem(String productName, int quantity) {
         if (ProductManager.PRODUCTS.get(productName).getQuantityAvailable() == 0) {
             return false;
         } else if (quantity > ProductManager.PRODUCTS.get(productName).getQuantityAvailable()) {
@@ -74,8 +75,7 @@ public class ShoppingCart {
     public boolean removeItem(String productName) {
         if (!ProductManager.PRODUCTS.containsKey(productName)) {
             return false;
-        }
-        else{
+        } else {
             int currentQuantity = ProductManager.PRODUCTS.get(productName).getQuantityAvailable();
             ProductManager.PRODUCTS.get(productName).setQuantityAvailable(currentQuantity + PRODUCTS.get(productName));
             PRODUCTS.remove(productName);
@@ -106,18 +106,21 @@ public class ShoppingCart {
      * Base fee = 0.1
      */
     public double cartAmount() {
-        HashMap.Entry<String, Integer> lastEntry = null;
+        HashMap.Entry<String, Integer> lastEntry;
+        double priceWithTax = 0;
         this.amount = 0;
-        for (String product: this.PRODUCTS.keySet()) {
-            this.amount += ProductManager.PRODUCTS.get(product).getPrice();
+        for (String product : this.PRODUCTS.keySet()) {
+            priceWithTax = ProductManager.PRODUCTS.get(product).getPrice() -
+                    (ProductManager.PRODUCTS.get(product).getPrice()* ProductManager.PRODUCTS.get(product).getTaxType().getPercentage());
+            this.amount += priceWithTax ;
         }
         lastEntry = PRODUCTS.entrySet().stream().reduce((one, two) -> two).get();
         Product p = ProductManager.PRODUCTS.get(lastEntry.getKey());
         Coupon c = p.getCoupon();
-        if(c instanceof PercentCoupon){
-            this.amount = this.amount - (this.amount * c.getDiscount())/100;
+        if (c instanceof PercentCoupon) {
+            this.amount = this.amount - (this.amount * c.getDiscount()) / 100;
         }
-        if(c instanceof PriceCoupon){
+        if (c instanceof PriceCoupon) {
             this.amount = this.amount - c.getDiscount();
         }
         this.shippingFee = calculateWeight() * 0.1;
@@ -145,7 +148,7 @@ public class ShoppingCart {
 
     @Override
     public String toString() {
-        return  getName() + ":" +
+        return getName() + ":" +
                 "Products: " + PRODUCTS +
                 ", totalWeight: " + getTotalWeight() +
                 ", amount: " + cartAmount() +
