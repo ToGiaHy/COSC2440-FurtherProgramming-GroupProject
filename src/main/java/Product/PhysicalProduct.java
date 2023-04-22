@@ -52,6 +52,13 @@ public class PhysicalProduct extends Product{
 
     @Override
     public String toFile() {
-        return String.format("PhysicalProduct,%s,%s,%d,%f,%f",this.getName(), this.getDescription(), this.getQuantityAvailable(), this.getPrice(), this.getWeight());
+        return String.format(
+                "PhysicalProduct,%s,%s,%d,%.2f,%.2f",
+                this.getName(),
+                this.getDescription(),
+                this.getQuantityAvailable(),
+                this.getPrice(),
+                this.getWeight()
+        );
     }
 }

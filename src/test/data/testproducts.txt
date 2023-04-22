@@ -1,0 +1,2 @@
+DigitalProduct,p1,testing,1,2.00
+PhysicalProduct,p2,testing,1,2.00,12.00

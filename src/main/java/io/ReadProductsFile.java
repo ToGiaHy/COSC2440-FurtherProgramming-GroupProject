@@ -27,30 +27,31 @@ public class ReadProductsFile {
                     String name = tokenizer.nextToken();
                     String description = tokenizer.nextToken();
                     int quantityAvailable = Integer.parseInt(tokenizer.nextToken());
-                    TaxType taxType = tokenizer.nextToken();
+                    TaxType taxType = switch (tokenizer.nextToken()) {
+                        case "FREE" -> TaxType.FREE;
+                        case "NORMAL" -> TaxType.NORMAL;
+                        case "LUXURY" -> TaxType.LUXURY;
+                        default -> throw new IllegalStateException("Unexpected value: " + tokenizer.nextToken());
+                    };
                     double price = Double.parseDouble(tokenizer.nextToken());
 
                     switch (type) {
-                        case "DigitalProduct":
-                            p = new DigitalProduct(name, description, quantityAvailable, price, taxType);
-                            break;
-                        case "PhysicalProduct":
+                        case "DigitalProduct" -> p = new DigitalProduct(name, description, quantityAvailable, price, taxType);
+                        case "PhysicalProduct" -> {
                             double weight = Double.parseDouble(tokenizer.nextToken());
                             p = new PhysicalProduct(name, description, quantityAvailable, price, taxType, weight);
-                            break;
-                        case "GiftDigitalProduct":
+                        }
+                        case "GiftDigitalProduct" -> {
                             String message = tokenizer.nextToken();
                             p = new DigitalProductCanBeGifted(name, description, quantityAvailable, price, taxType, message);
-                            break;
-                        case "GiftPhysicalProduct":
+                        }
+                        case "GiftPhysicalProduct" -> {
                             double weight = Double.parseDouble(tokenizer.nextToken());
                             String message = tokenizer.nextToken();
-                            p = new PhysicalProductCanBeGifted(name, description, quantityAvailable, price, TaxType, weight, message);
-                        default:
-                            System.out.println("Invalid product type: " + type);
-                            break;
+                            p = new PhysicalProductCanBeGifted(name, description, quantityAvailable, price, taxType, weight, message);
+                        }
+                        default -> System.out.println("Invalid product type: " + type);
                     }
-
                 }
             }
             System.out.println(p);

@@ -33,6 +33,11 @@ public class DigitalProduct extends Product {
 
     @Override
     public String toFile() {
-        return String.format("DigitalProduct,%s,%s,%d,%f",this.getName(), this.getDescription(), this.getQuantityAvailable(), this.getPrice());
+        return String.format("DigitalProduct,%s,%s,%d,%.2f",
+                this.getName(),
+                this.getDescription(),
+                this.getQuantityAvailable(),
+                this.getPrice()
+        );
     }
 }
