@@ -12,7 +12,7 @@ public class Main {
     public static void main(String[] args) {
         ProductManager.initialProducts();
 
-        UserUI.startMenu();
+        UserUI.userUI();
 
 
     }

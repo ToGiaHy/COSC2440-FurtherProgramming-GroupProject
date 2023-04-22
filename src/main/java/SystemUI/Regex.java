@@ -7,4 +7,5 @@ public class Regex {
     public final static String INTEGER_NUMBER = "[^[1-9]\\d*$]";
     public final static String DOUBLE_NUMBER = "^[1-9]\\d*(\\.\\d+)?$";
     public final static String TRUE_OR_FALSE = "true|false";
+    public final static String TAX_TYPE = "FREE|NORMAL|LUXURY";
 }
