@@ -53,6 +53,15 @@ public class PhysicalProductCanBeGifted extends PhysicalProduct implements CanBe
 
     @Override
     public String toFile() {
-        return String.format("GiftPhysicalProduct,%s,%s,%d,%f,%f,%s",this.getName(), this.getDescription(), this.getQuantityAvailable(), this.getPrice(), this.getWeight(), this.message);
+        return String.format(
+                "GiftPhysicalProduct,%s,%s,%d,%.2f,%s,%.2f,%s",
+                this.getName(),
+                this.getDescription(),
+                this.getQuantityAvailable(),
+                this.getPrice(),
+                this.getTaxType().toString(),
+                this.getWeight(),
+                this.message
+        );
     }
 }

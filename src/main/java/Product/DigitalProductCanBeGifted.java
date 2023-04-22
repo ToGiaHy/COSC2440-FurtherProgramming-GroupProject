@@ -53,6 +53,14 @@ public class DigitalProductCanBeGifted extends DigitalProduct implements CanBeGi
 
     @Override
     public String toFile() {
-        return String.format("GiftDigitalProduct,%s,%s,%d,%f,%f,%s",this.getName(), this.getDescription(), this.getQuantityAvailable(), this.getPrice(), this.message);
+        return String.format(
+                "GiftDigitalProduct,%s,%s,%d,%.2f,%s,%s",
+                this.getName(),
+                this.getDescription(),
+                this.getQuantityAvailable(),
+                this.getPrice(),
+                this.getTaxType().toString(),
+                this.message
+        );
     }
 }

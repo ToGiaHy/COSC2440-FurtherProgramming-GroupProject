@@ -30,8 +30,8 @@ class WriteProductsFileTest {
         // Check that the file has been written correctly
         String fileContent = Files.readString(Paths.get("./src/test/data/testproducts.txt"));
         String[] lines = fileContent.split("\n");
-        assertEquals("p1,testing,1,2,0.10", lines[0]);
-        assertEquals("p2,testing,1,2,0.2,12", lines[1]);
+        assertEquals("DigitalProduct,p1,testing,1,2,10%", lines[0]);    // TODO: fix tax type outcome
+        assertEquals("PhysicalProduct,p2,testing,1,2,20%,12", lines[1]);
 
         // Clean up test data
         File file = new File("./src/test/data/testproducts.txt");
