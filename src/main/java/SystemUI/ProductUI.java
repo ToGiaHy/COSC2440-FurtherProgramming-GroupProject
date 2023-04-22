@@ -3,7 +3,10 @@
  */
 
 package SystemUI;
+
 import Product.*;
+
+import java.util.Arrays;
 import java.util.Scanner;
 
 
@@ -118,6 +121,19 @@ public class ProductUI {
         }
         double price = Double.parseDouble(priceInput);
 
+        // Create an array of tax types to compare with the input
+        String[] taxValue = {"free", "normal", "luxury"};
+        System.out.println("Choose one type of tax below: ");
+        System.out.println(Arrays.toString(taxValue));
+        String tax = scanner.nextLine();
+        while (!Arrays.asList(taxValue).contains(tax.toLowerCase())) {
+            System.out.println("Please only choose a tax type above!");
+            tax = scanner.nextLine();
+        }
+
+        // Assign to the TaxType object
+        TaxType taxType = TaxType.getType(tax);
+
 //      todo Chưa xử lí nếu weight < 0
         double weight = 0.0;
         if (type == 2) {
@@ -137,21 +153,18 @@ public class ProductUI {
         System.out.println("Can this product be used as a gift ? Type 'true' or 'false'");
         boolean isGift;
         isGift = Boolean.parseBoolean(scanner.nextLine());
-// todo ask the user the TaxType
+
         if (type == 1) {
             if (isGift) {
-                ProductManager.addProduct(new DigitalProductCanBeGifted(name, description, quantityAvailable, price));
+                ProductManager.addProduct(new DigitalProductCanBeGifted(name, description, quantityAvailable, price, taxType));
+            } else {
+                ProductManager.addProduct(new DigitalProduct(name, description, quantityAvailable, price, taxType));
             }
-            else {
-                ProductManager.addProduct(new DigitalProduct(name, description, quantityAvailable, price));
-            }
-        }
-        else if (type == 2){
+        } else if (type == 2) {
             if (isGift) {
-                ProductManager.addProduct(new PhysicalProductCanBeGifted(name, description, quantityAvailable, price, weight));
-            }
-            else {
-                ProductManager.addProduct(new PhysicalProduct(name, description, quantityAvailable, price, weight));
+                ProductManager.addProduct(new PhysicalProductCanBeGifted(name, description, quantityAvailable, price, taxType, weight));
+            } else {
+                ProductManager.addProduct(new PhysicalProduct(name, description, quantityAvailable, price, taxType, weight));
             }
         }
 
@@ -162,7 +175,6 @@ public class ProductUI {
 
     /**
      * Edit Menu
-     *
      */
     public int editMenu() {
         String regex = "[0-4]";
