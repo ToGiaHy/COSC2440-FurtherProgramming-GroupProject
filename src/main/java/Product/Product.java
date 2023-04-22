@@ -90,4 +90,14 @@ public abstract class Product {
 
     @Override
     public abstract String toString();
+
+    public String toFile() {
+        return String.format(
+                "%s,%s,%d,%.2f",
+                this.getName(),
+                this.getDescription(),
+                this.getQuantityAvailable(),
+                this.getPrice()
+        );
+    }
 }

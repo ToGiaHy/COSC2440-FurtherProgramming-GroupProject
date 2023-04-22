@@ -18,8 +18,9 @@ public class DigitalProductCanBeGifted extends DigitalProduct implements CanBeGi
      * @param quantityAvailable the number of products are available to buy
      * @param price product price
      */
-    public DigitalProductCanBeGifted(String name, String description, int quantityAvailable, double price, TaxType taxType) {
+    public DigitalProductCanBeGifted(String name, String description, int quantityAvailable, double price, TaxType taxType, String message) {
         super(name, description, quantityAvailable, price, taxType);
+        this.message = message;
     }
 
     /**
@@ -48,5 +49,18 @@ public class DigitalProductCanBeGifted extends DigitalProduct implements CanBeGi
     @Override
     public String getMessage() {
         return this.message;
+    }
+
+    @Override
+    public String toFile() {
+        return String.format(
+                "GiftDigitalProduct,%s,%s,%d,%.2f,%s,%s",
+                this.getName(),
+                this.getDescription(),
+                this.getQuantityAvailable(),
+                this.getPrice(),
+                this.getTaxType().toString(),
+                this.message
+        );
     }
 }
