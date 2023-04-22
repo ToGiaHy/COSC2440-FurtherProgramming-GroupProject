@@ -137,23 +137,33 @@ public class ProductUI {
         System.out.println("Can this product be used as a gift ? Type 'true' or 'false'");
         boolean isGift;
         isGift = Boolean.parseBoolean(scanner.nextLine());
-// todo ask the user the TaxType
-        if (type == 1) {
-            if (isGift) {
-                ProductManager.addProduct(new DigitalProductCanBeGifted(name, description, quantityAvailable, price));
-            }
-            else {
-                ProductManager.addProduct(new DigitalProduct(name, description, quantityAvailable, price));
-            }
+
+    // todo ask the user the TaxType
+        System.out.println("What type of tax ?");
+        String taxInput = scanner.nextLine();
+        while (!taxInput.matches(Regex.TAX_TYPE)) {
+            System.out.println("Please choose type tax type (FREE, NORMAL or LUXURY): ");
+            taxInput = scanner.nextLine();
         }
-        else if (type == 2){
-            if (isGift) {
-                ProductManager.addProduct(new PhysicalProductCanBeGifted(name, description, quantityAvailable, price, weight));
-            }
-            else {
-                ProductManager.addProduct(new PhysicalProduct(name, description, quantityAvailable, price, weight));
-            }
-        }
+        String tax = taxInput;
+
+
+//        if (type == 1) {
+//            if (isGift) {
+//                ProductManager.addProduct(new DigitalProductCanBeGifted(name, description, quantityAvailable, price, TaxType[tax]));
+//            }
+//            else {
+//                ProductManager.addProduct(new DigitalProduct(name, description, quantityAvailable, price));
+//            }
+//        }
+//        else if (type == 2){
+//            if (isGift) {
+//                ProductManager.addProduct(new PhysicalProductCanBeGifted(name, description, quantityAvailable, price, weight));
+//            }
+//            else {
+//                ProductManager.addProduct(new PhysicalProduct(name, description, quantityAvailable, price, weight));
+//            }
+//        }
 
         System.out.println("#======================================#");
         System.out.println("# New Product is created successfully! #");
