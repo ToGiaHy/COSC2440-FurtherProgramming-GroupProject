@@ -20,9 +20,4 @@ public class WriteProductsFile {
             System.out.println("Error writing to database file: " + e.getMessage());
         }
     }
-
-    public static void writeProductsToDatabase(Map<String, Product> products) {
-        writeProductsToDatabase(products, "./src/main/java/io/products.txt");
-    }
 }
-

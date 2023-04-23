@@ -1,42 +1,47 @@
 package io;
 
 import Product.DigitalProduct;
+import Product.DigitalProductCanBeGifted;
 import Product.PhysicalProduct;
+import Product.PhysicalProductCanBeGifted;
 import Product.Product;
 import Product.TaxType;
 import org.junit.jupiter.api.Test;
 
-import java.io.IOException;
+import java.io.File;
 import java.util.HashMap;
 import java.util.Map;
 
 import static org.junit.jupiter.api.Assertions.*;
 
 class ReadProductsFileTest {
-    private final static Map<String, Product> products = new HashMap<>();
+    private final static Map<String, Product> outputProducts = new HashMap<>();
+
+
     @Test
-    void readProductsToDatabase() throws IOException {
-        ReadProductsFile.ReadProductsToDatabase("./src/test/data/testproducts.txt");
+    void readProductsToDatabase() {
+        // Prepare test data
+        outputProducts.put("p1", new DigitalProduct("p1", "testing",1,2, TaxType.NORMAL));
+        outputProducts.put("p2", new PhysicalProduct("p2", "testing",1,2,TaxType.LUXURY,12));
+        outputProducts.put("p3", new PhysicalProductCanBeGifted("p3", "testing",1,2,TaxType.FREE,12,"Mie is the best shuddup!!!"));
+        outputProducts.put("p4", new DigitalProductCanBeGifted("p4", "testing",1,2,TaxType.LUXURY,"Mike Wazowski agrees"));
+
+        // Call the method being tested
+        WriteProductsFile.writeProductsToDatabase(outputProducts, "./src/test/data/testproducts.txt");
+        Map<String, Product> inputProducts = ReadProductsFile.readProductsToDatabase("./src/test/data/testproducts.txt");
 
         // Verify products were added to database
-//        Map<String, Product> products = ProductDatabase.getInstance().getProducts();
-        assertNotNull(products);
 
-        Product p1 = products.get("p1");
-        assertNotNull(p1);
-        assertEquals("p1", p1.getName());
-        assertEquals("testing", p1.getDescription());
-        assertEquals(1, p1.getQuantityAvailable());
-        assertEquals(2.00, p1.getPrice());
-        assertEquals(TaxType.NORMAL, p1.getTaxType());
+        assertNotNull(inputProducts);
+        for (Map.Entry<String, Product> productEntry : outputProducts.entrySet()) {
+            assertEquals(
+                    productEntry.getValue().toFile(),
+                    inputProducts.get(productEntry.getKey()).toFile()
+            );
+        }
 
-        Product p2 = products.get("p2");
-        assertNotNull(p2);
-        assertEquals("p2", p2.getName());
-        assertEquals("testing", p2.getDescription());
-        assertEquals(1, p2.getQuantityAvailable());
-        assertEquals(2.00, p2.getPrice());
-        assertEquals(TaxType.LUXURY, p2.getTaxType());
-        assertEquals(12.00, ((PhysicalProduct) p2).getWeight());
+        // Clean up test data
+        File file = new File("./src/test/data/testproducts.txt");
+        assertTrue(file.delete());
     }
 }
