@@ -12,9 +12,9 @@ import java.io.IOException;
 import java.util.StringTokenizer;
 
 public class ReadProductsFile {
-    private static final String filename = "./src/main/java/io/products.txt";
+    public static final String filename = "./src/main/java/io/products.txt";
 
-    public static void ReadProductsToDatabase() throws IOException {
+    public static void ReadProductsToDatabase(String filename) throws IOException {
         // Read from file
         try {
             BufferedReader reader = new BufferedReader(new FileReader(filename));
