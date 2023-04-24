@@ -108,7 +108,7 @@ public class ShoppingCart {
      * Base fee = 0.1
      */
     public double cartAmount() {
-        HashMap.Entry<String, Integer> lastEntry;
+//        HashMap.Entry<String, Integer> lastEntry;
 
         double priceWithTax = 0;
         this.amount = 0;
@@ -118,15 +118,15 @@ public class ShoppingCart {
             this.amount += priceWithTax ;
         }
 
-        lastEntry = PRODUCTS.entrySet().stream().reduce((one, two) -> two).get();
-        Product p = database.get(lastEntry.getKey());
-        Coupon c = p.getCoupon();
-        if (c instanceof PercentCoupon) {
-            this.amount = this.amount - (this.amount * c.getDiscount()) / 100;
-        }
-        if (c instanceof PriceCoupon) {
-            this.amount = this.amount - c.getDiscount();
-        }
+//        lastEntry = PRODUCTS.entrySet().stream().reduce((one, two) -> two).get();
+//        Product p = database.get(lastEntry.getKey());
+//        Coupon c = p.getCoupon();
+//        if (c instanceof PercentCoupon) {
+//            this.amount = this.amount - (this.amount * c.getDiscount()) / 100;
+//        }
+//        if (c instanceof PriceCoupon) {
+//            this.amount = this.amount - c.getDiscount();
+//        }
         this.shippingFee = calculateWeight() * 0.1;
         return this.amount + this.shippingFee;
     }
