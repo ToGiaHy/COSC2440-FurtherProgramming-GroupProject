@@ -3,9 +3,6 @@
  */
 package ShoppingCart;
 
-import Product.Coupon;
-import Product.PercentCoupon;
-import Product.PriceCoupon;
 import Product.PhysicalProduct;
 import Product.Product;
 import Product.ProductManager;
@@ -168,12 +165,12 @@ public class ShoppingCart {
 
     public String toFile() {
         return String.format(
-                "%d,%.2f,%.2f,%.2f",
+                "%d,%s,%.2f,%.2f,%.2f",
                 cartId,
-                this.cartAmount(),
-                this.getTotalWeight(),
-                this.shippingFee
-
+                name,
+                amount,
+                totalWeight,
+                shippingFee
         );
     }
 }

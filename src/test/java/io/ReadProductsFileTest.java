@@ -31,7 +31,6 @@ class ReadProductsFileTest {
         Map<String, Product> inputProducts = ReadProductsFile.readProductsToDatabase("./src/test/data/testproducts.txt");
 
         // Verify products were added to database
-
         assertNotNull(inputProducts);
         for (Map.Entry<String, Product> productEntry : outputProducts.entrySet()) {
             assertEquals(
