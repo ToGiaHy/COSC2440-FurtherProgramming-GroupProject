@@ -11,6 +11,7 @@ import Product.Product;
 import Product.ProductManager;
 
 import java.util.HashMap;
+import java.util.Map;
 
 
 public class ShoppingCart {
@@ -26,6 +27,7 @@ public class ShoppingCart {
     public double totalWeight;
     private double shippingFee = 0;
     private final int cartId;
+    private final static Map<String, Product> database = ProductManager.PRODUCTS;
 
     /**
      * Constructor
@@ -47,18 +49,18 @@ public class ShoppingCart {
      * </p>
      */
     public boolean addItem(String productName, int quantity) {
-        if (ProductManager.PRODUCTS.get(productName).getQuantityAvailable() == 0) {
+        if (database.get(productName).getQuantityAvailable() == 0) {
             return false;
-        } else if (quantity > ProductManager.PRODUCTS.get(productName).getQuantityAvailable()) {
+        } else if (quantity > database.get(productName).getQuantityAvailable()) {
             return false;
-        } else if (this.PRODUCTS.containsKey(productName) & quantity <= ProductManager.PRODUCTS.get(productName).getQuantityAvailable()) {
-            int currentQuantity = ProductManager.PRODUCTS.get(productName).getQuantityAvailable();
-            ProductManager.PRODUCTS.get(productName).setQuantityAvailable(currentQuantity - quantity);
+        } else if (this.PRODUCTS.containsKey(productName) & quantity <= database.get(productName).getQuantityAvailable()) {
+            int currentQuantity = database.get(productName).getQuantityAvailable();
+            database.get(productName).setQuantityAvailable(currentQuantity - quantity);
             this.PRODUCTS.put(productName, this.PRODUCTS.get(productName) + quantity);
             return true;
-        } else if (quantity <= ProductManager.PRODUCTS.get(productName).getQuantityAvailable()) {
-            int currentQuantity = ProductManager.PRODUCTS.get(productName).getQuantityAvailable();
-            ProductManager.PRODUCTS.get(productName).setQuantityAvailable(currentQuantity - quantity);
+        } else if (quantity <= database.get(productName).getQuantityAvailable()) {
+            int currentQuantity = database.get(productName).getQuantityAvailable();
+            database.get(productName).setQuantityAvailable(currentQuantity - quantity);
             PRODUCTS.put(productName, quantity);
             return true;
         }
@@ -76,11 +78,11 @@ public class ShoppingCart {
      * </p>
      */
     public boolean removeItem(String productName) {
-        if (!ProductManager.PRODUCTS.containsKey(productName)) {
+        if (!database.containsKey(productName)) {
             return false;
         } else {
-            int currentQuantity = ProductManager.PRODUCTS.get(productName).getQuantityAvailable();
-            ProductManager.PRODUCTS.get(productName).setQuantityAvailable(currentQuantity + PRODUCTS.get(productName));
+            int currentQuantity = database.get(productName).getQuantityAvailable();
+            database.get(productName).setQuantityAvailable(currentQuantity + PRODUCTS.get(productName));
             PRODUCTS.remove(productName);
             return true;
         }
@@ -94,8 +96,8 @@ public class ShoppingCart {
         double weight = 0;
 
         for (String product : this.PRODUCTS.keySet()) {
-            if (ProductManager.PRODUCTS.get(product) instanceof PhysicalProduct) {
-                weight += ((PhysicalProduct) ProductManager.PRODUCTS.get(product)).getWeight();
+            if (database.get(product) instanceof PhysicalProduct) {
+                weight += ((PhysicalProduct) database.get(product)).getWeight();
             }
         }
         return weight;
@@ -109,23 +111,25 @@ public class ShoppingCart {
      * Base fee = 0.1
      */
     public double cartAmount() {
-        HashMap.Entry<String, Integer> lastEntry;
+//        HashMap.Entry<String, Integer> lastEntry;
+
         double priceWithTax = 0;
         this.amount = 0;
         for (String product : this.PRODUCTS.keySet()) {
-            priceWithTax = ProductManager.PRODUCTS.get(product).getPrice() -
-                    (ProductManager.PRODUCTS.get(product).getPrice()* ProductManager.PRODUCTS.get(product).getTaxType().getPercentage());
+            priceWithTax = database.get(product).getPrice() -
+                    (database.get(product).getPrice()* database.get(product).getTaxType().getPercentage());
             this.amount += priceWithTax ;
         }
-        lastEntry = PRODUCTS.entrySet().stream().reduce((one, two) -> two).get();
-        Product p = ProductManager.PRODUCTS.get(lastEntry.getKey());
-        Coupon c = p.getCoupon();
-        if (c instanceof PercentCoupon) {
-            this.amount = this.amount - (this.amount * c.getDiscount()) / 100;
-        }
-        if (c instanceof PriceCoupon) {
-            this.amount = this.amount - c.getDiscount();
-        }
+
+//        lastEntry = PRODUCTS.entrySet().stream().reduce((one, two) -> two).get();
+//        Product p = database.get(lastEntry.getKey());
+//        Coupon c = p.getCoupon();
+//        if (c instanceof PercentCoupon) {
+//            this.amount = this.amount - (this.amount * c.getDiscount()) / 100;
+//        }
+//        if (c instanceof PriceCoupon) {
+//            this.amount = this.amount - c.getDiscount();
+//        }
         this.shippingFee = calculateWeight() * 0.1;
         return this.amount + this.shippingFee;
     }
