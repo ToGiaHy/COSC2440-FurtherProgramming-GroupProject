@@ -13,7 +13,6 @@ public abstract class Product {
     private double price;
     private TaxType taxType;
 
-    private Coupon coupon;
     /**
      * Constructor
      */
@@ -25,14 +24,7 @@ public abstract class Product {
         this.taxType = taxType;
     }
 
-    public Product(String name, String description, int quantityAvailable, double price, TaxType taxType, Coupon coupon) {
-        this.name = name;
-        this.description = description;
-        this.quantityAvailable = quantityAvailable;
-        this.price = price;
-        this.taxType = taxType;
-        this.coupon = coupon;
-    }
+
 
     /**
      * Getter methods
@@ -58,9 +50,6 @@ public abstract class Product {
     }
 
     // Get the product's tax
-    public Coupon getCoupon() {
-        return coupon;
-    }
 
     /**
      * Setter methods
@@ -83,9 +72,6 @@ public abstract class Product {
 
     public void setTaxType(TaxType taxType) {
         this.taxType = taxType;
-    }
-    public void setCoupon(Coupon coupon) {
-        this.coupon = coupon;
     }
 
     @Override

@@ -3,9 +3,6 @@
  */
 package ShoppingCart;
 
-import Product.Coupon;
-import Product.PercentCoupon;
-import Product.PriceCoupon;
 import Product.PhysicalProduct;
 import Product.Product;
 import Product.ProductManager;
@@ -106,22 +103,12 @@ public class ShoppingCart {
      * Base fee = 0.1
      */
     public double cartAmount() {
-        HashMap.Entry<String, Integer> lastEntry;
         double priceWithTax = 0;
         this.amount = 0;
         for (String product : this.PRODUCTS.keySet()) {
             priceWithTax = ProductManager.PRODUCTS.get(product).getPrice() -
                     (ProductManager.PRODUCTS.get(product).getPrice()* ProductManager.PRODUCTS.get(product).getTaxType().getPercentage());
             this.amount += priceWithTax ;
-        }
-        lastEntry = PRODUCTS.entrySet().stream().reduce((one, two) -> two).get();
-        Product p = ProductManager.PRODUCTS.get(lastEntry.getKey());
-        Coupon c = p.getCoupon();
-        if (c instanceof PercentCoupon) {
-            this.amount = this.amount - (this.amount * c.getDiscount()) / 100;
-        }
-        if (c instanceof PriceCoupon) {
-            this.amount = this.amount - c.getDiscount();
         }
         this.shippingFee = calculateWeight() * 0.1;
         return this.amount + this.shippingFee;
