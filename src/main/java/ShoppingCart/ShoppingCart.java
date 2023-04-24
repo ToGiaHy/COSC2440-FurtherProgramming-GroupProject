@@ -25,7 +25,7 @@ public class ShoppingCart {
     private String name;
     private double amount = 0;
     public double totalWeight;
-    private double shippingFee = 0;
+    public double shippingFee = 0;
     private final int cartId;
     private final static Map<String, Product> database = ProductManager.PRODUCTS;
 
