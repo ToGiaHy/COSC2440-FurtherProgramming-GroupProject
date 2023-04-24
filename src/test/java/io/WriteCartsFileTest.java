@@ -10,7 +10,10 @@ import Product.ProductManager;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 
+import java.io.File;
 import java.io.IOException;
+import java.nio.file.Files;
+import java.nio.file.Paths;
 import java.util.ArrayList;
 
 import static org.junit.jupiter.api.Assertions.*;
@@ -59,12 +62,36 @@ class WriteCartsFileTest {
                 "./src/test/data/testcartproducts.txt"
         );
 
-//        // Check that the file has been written correctly
-//        String fileContent = Files.readString(Paths.get("./src/test/data/testcarts.txt"));
-//        String[] lines = fileContent.split("\n");
+        // Check that the file has been written correctly
+        String cartsFileContent = Files.readString(Paths.get("./src/test/data/testcarts.txt"));
+        assertEquals(
+                "1,null,0.00,0.00,0.00\n" +
+                "2,null,0.00,0.00,0.00\n" +
+                "3,null,0.00,0.00,0.00\n",
+                cartsFileContent
+        );
+
+        String cartProductsFileContent = Files.readString(Paths.get("./src/test/data/testcartproducts.txt"));
+        assertEquals(
+                "DigitalProduct,p1,testing,4,2.00,Normal,1\n" +
+                "PhysicalProduct,p2,testing,9,2.00,Luxury,12.00,1\n" +
+                "GiftPhysicalProduct,p3,testing,3,2.00,Free,12.00,Mie is the best shuddup!!!,1\n" +
+                "GiftDigitalProduct,p4,testing,0,2.00,Luxury,Mike Wazowski agrees,1\n" +
+                "DigitalProduct,p1,testing,4,2.00,Normal,2\n" +
+                "PhysicalProduct,p2,testing,9,2.00,Luxury,12.00,2\n" +
+                "GiftPhysicalProduct,p3,testing,3,2.00,Free,12.00,Mie is the best shuddup!!!,2\n" +
+                "GiftDigitalProduct,p4,testing,0,2.00,Luxury,Mike Wazowski agrees,2\n" +
+                "DigitalProduct,p1,testing,4,2.00,Normal,3\n" +
+                "PhysicalProduct,p2,testing,9,2.00,Luxury,12.00,3\n" +
+                "GiftPhysicalProduct,p3,testing,3,2.00,Free,12.00,Mie is the best shuddup!!!,3\n" +
+                "GiftDigitalProduct,p4,testing,0,2.00,Luxury,Mike Wazowski agrees,3\n",
+                cartProductsFileContent
+        );
 
         // Clean up test data
-//        File file = new File("./src/test/data/testcarts.txt");
-//        assertTrue(file.delete());
+        File file = new File("./src/test/data/testcarts.txt");
+        assertTrue(file.delete());
+        file = new File("./src/test/data/testcartproducts.txt");
+        assertTrue(file.delete());
     }
 }
