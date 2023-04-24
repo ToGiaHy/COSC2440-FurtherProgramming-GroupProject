@@ -17,7 +17,7 @@ public class ProductUI {
      * Menu
      * Display all option for user can interact with the system
      */
-    private static int menu() {
+    private int menu() {
         String userInput = "";
 
         while (!userInput.matches(Regex.NUM_1_TO_4)) {
@@ -46,7 +46,7 @@ public class ProductUI {
      * productUI
      * Process the requirement of user input from the menu
      */
-    public static void productUI() {
+    public void productUI() {
 
         int userInput = 0;
 

@@ -15,6 +15,8 @@ public class UserUI {
      * UserUI attributes
      */
     static Scanner scanner = new Scanner(System.in);
+    static ProductUI productUI = new ProductUI();
+    static ShoppingCartUI cartUI = new ShoppingCartUI();
 
 
     /**
@@ -61,21 +63,26 @@ public class UserUI {
             switch (userInput) {
                 case 1 -> {
                     System.out.println("Product mana mode!");
+                    productUI.productUI();
                     System.out.println();
                 }
                 case 2 -> {
                     System.out.println("Shopping cart mana mode!");
+                    cartUI.CartUI();
                     System.out.println();
                 }
                 case 3 -> {
+//                    todo display all cart UI and allow user select to view detail
                     System.out.println("View cart detail");
                     System.out.println();
                 }
                 case 4 -> {
+//                    todo sort all cart in cart list
                     System.out.println("Sorting Cart");
                     System.out.println();
                 }
                 case 5 -> {
+//                   todo display all cart and allow user select cart to print receipt
                     System.out.println("Print receipt.");
                     System.out.println();
                 }
