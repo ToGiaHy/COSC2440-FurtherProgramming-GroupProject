@@ -11,7 +11,7 @@ public class ProductManager {
     /**
      * Product manager attributes
      */
-    public final static Map<String, Product> PRODUCTS = new HashMap<String, Product>();
+    public static Map<String, Product> PRODUCTS = new HashMap<String, Product>();
 
     /**
      * Initial sample product data
