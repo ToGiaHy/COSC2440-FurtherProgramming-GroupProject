@@ -33,6 +33,8 @@ public class ShoppingCart {
         this.cartId = NEXT_ID++;
     }
 
+    public static void resetId() { NEXT_ID = 1; }
+
     /**
      * Add the product with the given name to the shopping cart
      * <p>

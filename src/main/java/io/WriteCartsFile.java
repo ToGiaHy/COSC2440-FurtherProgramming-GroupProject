@@ -7,8 +7,6 @@ import java.io.IOException;
 import java.util.ArrayList;
 import java.util.Map;
 
-import static Product.ProductManager.PRODUCTS;
-
 
 public class WriteCartsFile {
     public static void writeCartsToDatabase(ArrayList<ShoppingCart> carts, String cartsFilePath, String productsFilePath) {
