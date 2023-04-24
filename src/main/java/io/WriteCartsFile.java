@@ -5,6 +5,7 @@ import ShoppingCart.ShoppingCart;
 import java.io.FileWriter;
 import java.io.IOException;
 import java.util.ArrayList;
+import java.util.Map;
 
 import static Product.ProductManager.PRODUCTS;
 
@@ -17,8 +18,8 @@ public class WriteCartsFile {
 
             for (ShoppingCart cart : carts) {
                 cartWriter.write(cart.toFile() + "\n");
-                for (String product : cart.getPRODUCTS().keySet()) {
-                    cartProductWriter.write(PRODUCTS.get(product).toFile() + "," + cart.getId() + "\n");
+                for (Map.Entry<String, Integer> productEntry : cart.getPRODUCTS().entrySet()) {
+                    cartProductWriter.write(productEntry.getKey() + "," + productEntry.getValue() + "," + cart.getId() + "\n");
                 }
             }
 

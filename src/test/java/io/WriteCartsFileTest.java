@@ -73,18 +73,18 @@ class WriteCartsFileTest {
 
         String cartProductsFileContent = Files.readString(Paths.get("./src/test/data/testcartproducts.txt"));
         assertEquals(
-                "DigitalProduct,p1,testing,4,2.00,Normal,1\n" +
-                "PhysicalProduct,p2,testing,9,2.00,Luxury,12.00,1\n" +
-                "GiftPhysicalProduct,p3,testing,3,2.00,Free,12.00,Mie is the best shuddup!!!,1\n" +
-                "GiftDigitalProduct,p4,testing,0,2.00,Luxury,Mike Wazowski agrees,1\n" +
-                "DigitalProduct,p1,testing,4,2.00,Normal,2\n" +
-                "PhysicalProduct,p2,testing,9,2.00,Luxury,12.00,2\n" +
-                "GiftPhysicalProduct,p3,testing,3,2.00,Free,12.00,Mie is the best shuddup!!!,2\n" +
-                "GiftDigitalProduct,p4,testing,0,2.00,Luxury,Mike Wazowski agrees,2\n" +
-                "DigitalProduct,p1,testing,4,2.00,Normal,3\n" +
-                "PhysicalProduct,p2,testing,9,2.00,Luxury,12.00,3\n" +
-                "GiftPhysicalProduct,p3,testing,3,2.00,Free,12.00,Mie is the best shuddup!!!,3\n" +
-                "GiftDigitalProduct,p4,testing,0,2.00,Luxury,Mike Wazowski agrees,3\n",
+                "p1,1,1\n" +
+                "p2,1,1\n" +
+                "p3,1,1\n" +
+                "p4,1,1\n" +
+                "p1,2,2\n" +
+                "p2,2,2\n" +
+                "p3,2,2\n" +
+                "p4,2,2\n" +
+                "p1,3,3\n" +
+                "p2,3,3\n" +
+                "p3,3,3\n" +
+                "p4,3,3\n",
                 cartProductsFileContent
         );
 
