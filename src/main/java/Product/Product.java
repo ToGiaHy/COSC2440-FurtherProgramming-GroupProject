@@ -3,6 +3,8 @@
  */
 package Product;
 
+import java.util.HashMap;
+
 public abstract class Product {
     /**
      * Product attributes
@@ -13,7 +15,7 @@ public abstract class Product {
     private double price;
     private TaxType taxType;
 
-    private Coupon coupon;
+    private HashMap<String,Coupon> couponList;
     /**
      * Constructor
      */
@@ -25,13 +27,13 @@ public abstract class Product {
         this.taxType = taxType;
     }
 
-    public Product(String name, String description, int quantityAvailable, double price, TaxType taxType, Coupon coupon) {
+    public Product(String name, String description, int quantityAvailable, double price, TaxType taxType, HashMap<String,Coupon> couponList) {
         this.name = name;
         this.description = description;
         this.quantityAvailable = quantityAvailable;
         this.price = price;
         this.taxType = taxType;
-        this.coupon = coupon;
+        this.couponList = couponList;
     }
 
     /**
@@ -58,8 +60,8 @@ public abstract class Product {
     }
 
     // Get the product's tax
-    public Coupon getCoupon() {
-        return coupon;
+    public HashMap<String,Coupon> getCouponList() {
+        return couponList;
     }
 
     /**
@@ -84,8 +86,8 @@ public abstract class Product {
     public void setTaxType(TaxType taxType) {
         this.taxType = taxType;
     }
-    public void setCoupon(Coupon coupon) {
-        this.coupon = coupon;
+    public void setCouponList(HashMap<String,Coupon> couponList) {
+        this.couponList = couponList;
     }
 
     @Override
