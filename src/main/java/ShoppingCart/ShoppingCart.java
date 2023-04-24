@@ -3,9 +3,6 @@
  */
 package ShoppingCart;
 
-import Product.Coupon;
-import Product.PercentCoupon;
-import Product.PriceCoupon;
 import Product.PhysicalProduct;
 import Product.Product;
 import Product.ProductManager;
