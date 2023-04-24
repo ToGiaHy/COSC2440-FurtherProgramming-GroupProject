@@ -20,15 +20,18 @@ public class ShoppingCart {
     // Use Set interface
     private final HashMap<String, Integer> PRODUCTS = new HashMap<>();
     private final double BASE = 0.1;
+    private static int NEXT_ID = 1;
     private String name;
     private double amount = 0;
     public double totalWeight;
     private double shippingFee = 0;
+    private final int cartId;
 
     /**
      * Constructor
      */
     public ShoppingCart() {
+        this.cartId = NEXT_ID++;
     }
 
     /**
@@ -145,6 +148,9 @@ public class ShoppingCart {
     public HashMap<String, Integer> getPRODUCTS() {
         return PRODUCTS;
     }
+    public int getId() {
+        return cartId;
+    }
 
     @Override
     public String toString() {
@@ -154,5 +160,16 @@ public class ShoppingCart {
                 ", amount: " + cartAmount() +
                 ", base: " + BASE +
                 ", shipping fee: " + shippingFee;
+    }
+
+    public String toFile() {
+        return String.format(
+                "%d,%.2f,%.2f,%.2f",
+                cartId,
+                this.cartAmount(),
+                this.getTotalWeight(),
+                this.shippingFee
+
+        );
     }
 }
