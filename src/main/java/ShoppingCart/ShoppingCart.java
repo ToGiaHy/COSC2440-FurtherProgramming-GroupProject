@@ -3,15 +3,15 @@
  */
 package ShoppingCart;
 
-import Product.Coupon;
-import Product.PercentCoupon;
-import Product.PriceCoupon;
 import Product.PhysicalProduct;
 import Product.Product;
 import Product.ProductManager;
+import Product.PriceCoupon;
+import Product.PercentCoupon;
 
 import java.util.HashMap;
 import java.util.Map;
+import java.util.Objects;
 
 
 public class ShoppingCart {
@@ -23,9 +23,11 @@ public class ShoppingCart {
     private final double BASE = 0.1;
     private String name;
     private double amount = 0;
-    public double totalWeight;
+//    public double totalWeight;
     private double shippingFee = 0;
     private final static Map<String, Product> database = ProductManager.PRODUCTS;
+    private String coupon = "";
+    private Double couponDiscount = (double) 0;
 
     /**
      * Constructor
@@ -51,9 +53,12 @@ public class ShoppingCart {
         } else if (quantity > database.get(productName).getQuantityAvailable()) {
             return false;
         } else if (this.PRODUCTS.containsKey(productName) & quantity <= database.get(productName).getQuantityAvailable()) {
+
             int currentQuantity = database.get(productName).getQuantityAvailable();
             database.get(productName).setQuantityAvailable(currentQuantity - quantity);
+
             this.PRODUCTS.put(productName, this.PRODUCTS.get(productName) + quantity);
+
             return true;
         } else if (quantity <= database.get(productName).getQuantityAvailable()) {
             int currentQuantity = database.get(productName).getQuantityAvailable();
@@ -101,6 +106,26 @@ public class ShoppingCart {
     }
 
     /**
+     * Calculate total coupon discount
+     *
+     */
+    private double calculateCouponDiscount() {
+        double total = 0;
+
+        for (String product : this.PRODUCTS.keySet()) {
+            if (database.get(product).getCouponList().containsKey(this.coupon)) {
+                if (database.get(product).getCouponList().get(this.coupon) instanceof PriceCoupon priceCoupon) {
+                    return priceCoupon.getValue() * this.PRODUCTS.get(product);
+                } else if (database.get(product).getCouponList().get(this.coupon) instanceof PercentCoupon percentCoupon) {
+                    return percentCoupon.getValue() * this.PRODUCTS.get(product);
+                }
+            }
+        }
+
+        return total;
+    }
+
+    /**
      * Calculate and @return total price amount of all products in the cart
      * Note: if the cart contains physical products, the shipping fee will be
      * calculated and added to the total price of the cart
@@ -108,27 +133,29 @@ public class ShoppingCart {
      * Base fee = 0.1
      */
     public double cartAmount() {
-//        HashMap.Entry<String, Integer> lastEntry;
-
+//        Tax
         double priceWithTax = 0;
+
+
+//        Total amount
         this.amount = 0;
+
+//        Calculate total amount with tax
         for (String product : this.PRODUCTS.keySet()) {
             priceWithTax = database.get(product).getPrice() -
                     (database.get(product).getPrice()* database.get(product).getTaxType().getPercentage());
             this.amount += priceWithTax ;
         }
 
-//        lastEntry = PRODUCTS.entrySet().stream().reduce((one, two) -> two).get();
-//        Product p = database.get(lastEntry.getKey());
-//        Coupon c = p.getCoupon();
-//        if (c instanceof PercentCoupon) {
-//            this.amount = this.amount - (this.amount * c.getDiscount()) / 100;
-//        }
-//        if (c instanceof PriceCoupon) {
-//            this.amount = this.amount - c.getDiscount();
-//        }
+//        Calculate the total shipping fee
         this.shippingFee = calculateWeight() * 0.1;
-        return this.amount + this.shippingFee;
+
+//        Calculate the total coupon discount
+        if (!Objects.equals(getCoupon(), "")) {
+            this.couponDiscount = calculateCouponDiscount();
+        }
+
+        return this.amount + this.shippingFee + this.couponDiscount;
     }
 
     /**
@@ -150,6 +177,14 @@ public class ShoppingCart {
         return PRODUCTS;
     }
 
+    public String getCoupon() {
+        return coupon;
+    }
+
+    public void setCoupon(String coupon) {
+        this.coupon = coupon;
+    }
+
     @Override
     public String toString() {
         return getName() + ":" +
@@ -157,6 +192,7 @@ public class ShoppingCart {
                 ", totalWeight: " + getTotalWeight() +
                 ", amount: " + cartAmount() +
                 ", base: " + BASE +
-                ", shipping fee: " + shippingFee;
+                ", shipping fee: " + shippingFee +
+                ", coupon discount" + couponDiscount;
     }
 }

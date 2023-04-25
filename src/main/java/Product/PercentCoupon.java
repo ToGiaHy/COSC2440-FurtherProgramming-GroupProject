@@ -1,19 +1,23 @@
 package Product;
 
-public class PercentCoupon implements Coupon{
-    private double discount;
+public class PercentCoupon extends Coupon{
+    int value;
 
-    public PercentCoupon(double discount) {
-        this.discount = discount;
+    public PercentCoupon(String couponCode, int value) {
+        super(couponCode);
+        this.value = value;
+    }
+
+    public int getValue() {
+        return value;
+    }
+
+    public void setValue(int value) {
+        this.value = value;
     }
 
     @Override
-    public double getDiscount() {
-        return 0;
-    }
-
-    @Override
-    public void setDiscount(double discount) {
-
+    public String toString() {
+        return super.getCouponCode();
     }
 }

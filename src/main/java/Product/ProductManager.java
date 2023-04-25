@@ -23,7 +23,12 @@ public class ProductManager {
      * </p>
      */
     public static Map<String, Product> initialProducts() {
-        PRODUCTS.put("Song", new DigitalProduct("Song", "this is a song", 10, 15.0, TaxType.FREE));
+        Coupon c1 = new PercentCoupon("price1",20);
+        Coupon c2 = new PriceCoupon("price2",4);
+        HashMap<String,Coupon> tempCouponList = new HashMap<>();
+        tempCouponList.put("price1",c1);
+        tempCouponList.put("price2",c2);
+        PRODUCTS.put("Song", new DigitalProduct("Song", "this is a song", 10, 15.0, TaxType.FREE,tempCouponList));
         PRODUCTS.put("Picture", new DigitalProduct("Picture", "this is a picture", 5, 20.0, TaxType.NORMAL));
         PRODUCTS.put("Art work", new DigitalProduct("Art work", "this is an art work", 12, 13.0, TaxType.LUXURY));
         PRODUCTS.put("NFT", new DigitalProductCanBeGifted("NFT", "this is a NFT", 8, 300.0, TaxType.LUXURY, ""));

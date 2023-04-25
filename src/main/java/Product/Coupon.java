@@ -1,8 +1,20 @@
 package Product;
 
-public interface Coupon {
+public abstract class Coupon {
+    private String couponCode;
 
-    public abstract double getDiscount();
+    public Coupon(String couponCode) {
+        this.couponCode = couponCode;
+    }
 
-    public abstract void setDiscount(double discount);
+    public String getCouponCode() {
+        return couponCode;
+    }
+
+    public void setCouponCode(String couponCode) {
+        this.couponCode = couponCode;
+    }
+
+    @Override
+    public abstract String toString();
 }
