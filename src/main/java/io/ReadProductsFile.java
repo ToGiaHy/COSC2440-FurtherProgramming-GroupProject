@@ -30,12 +30,7 @@ public class ReadProductsFile {
                     int quantityAvailable = Integer.parseInt(tokenizer.nextToken());
                     double price = Double.parseDouble(tokenizer.nextToken());
                     String taxTypeStr = tokenizer.nextToken();
-                    TaxType taxType = switch (taxTypeStr) {
-                        case "Free" -> TaxType.FREE;
-                        case "Normal" -> TaxType.NORMAL;
-                        case "Luxury" -> TaxType.LUXURY;
-                        default -> throw new IllegalStateException("Unexpected value: " + taxTypeStr);
-                    };
+                    TaxType taxType = TaxType.getType(taxTypeStr);
 
                     switch (type) {
                         case "DigitalProduct" ->

@@ -4,6 +4,8 @@
 package Product;
 
 
+import java.util.HashMap;
+
 public class DigitalProduct extends Product {
 
     /**
@@ -16,6 +18,10 @@ public class DigitalProduct extends Product {
      */
     public DigitalProduct(String name, String description, int quantityAvailable, double price, TaxType taxType) {
         super(name, description, quantityAvailable, price, taxType);
+    }
+
+    public DigitalProduct(String name, String description, int quantityAvailable, double price, TaxType taxType, HashMap<String,Coupon> couponList) {
+        super(name, description, quantityAvailable, price, taxType, couponList);
     }
 
     /**

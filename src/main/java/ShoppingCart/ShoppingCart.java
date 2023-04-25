@@ -3,6 +3,9 @@
  */
 package ShoppingCart;
 
+import Product.Coupon;
+import Product.PercentCoupon;
+import Product.PriceCoupon;
 import Product.PhysicalProduct;
 import Product.Product;
 import Product.ProductManager;
@@ -21,10 +24,13 @@ public class ShoppingCart {
     private static int NEXT_ID = 1;
     private String name;
     private double amount = 0;
+//    public double totalWeight;
+    private double shippingFee = 0;
     public double totalWeight;
-    public double shippingFee = 0;
+    private double shippingFee = 0;
     private final int cartId;
     private final static Map<String, Product> database = ProductManager.PRODUCTS;
+    private String coupon = "";
 
     /**
      * Constructor
@@ -103,6 +109,14 @@ public class ShoppingCart {
     }
 
     /**
+     * Calculate total coupon discount
+     *
+     */
+//    private double calculateCouponDiscount() {
+//
+//    }
+
+    /**
      * Calculate and @return total price amount of all products in the cart
      * Note: if the cart contains physical products, the shipping fee will be
      * calculated and added to the total price of the cart
@@ -110,26 +124,27 @@ public class ShoppingCart {
      * Base fee = 0.1
      */
     public double cartAmount() {
-//        HashMap.Entry<String, Integer> lastEntry;
-
+//        Tax
         double priceWithTax = 0;
+
+//        Total amount
         this.amount = 0;
+
+//        Calculate total amount with tax
         for (String product : this.PRODUCTS.keySet()) {
             priceWithTax = database.get(product).getPrice() -
                     (database.get(product).getPrice()* database.get(product).getTaxType().getPercentage());
             this.amount += priceWithTax ;
         }
 
-//        lastEntry = PRODUCTS.entrySet().stream().reduce((one, two) -> two).get();
-//        Product p = database.get(lastEntry.getKey());
-//        Coupon c = p.getCoupon();
-//        if (c instanceof PercentCoupon) {
-//            this.amount = this.amount - (this.amount * c.getDiscount()) / 100;
-//        }
-//        if (c instanceof PriceCoupon) {
-//            this.amount = this.amount - c.getDiscount();
-//        }
+//        Calculate the total shipping fee
         this.shippingFee = calculateWeight() * 0.1;
+
+//        Calculate the total coupon discount
+        if (getCoupon() != "") {
+//            todo Calculate coupon
+        }
+
         return this.amount + this.shippingFee;
     }
 
@@ -153,6 +168,14 @@ public class ShoppingCart {
     }
     public int getId() {
         return cartId;
+    }
+
+    public String getCoupon() {
+        return coupon;
+    }
+
+    public void setCoupon(String coupon) {
+        this.coupon = coupon;
     }
 
     @Override

@@ -4,6 +4,8 @@
 
 package Product;
 
+import java.util.HashMap;
+
 public class PhysicalProductCanBeGifted extends PhysicalProduct implements CanBeGifted {
     /**
      * Physical product gift attributes
@@ -22,6 +24,10 @@ public class PhysicalProductCanBeGifted extends PhysicalProduct implements CanBe
     public PhysicalProductCanBeGifted(String name, String description, int quantityAvailable, double price, TaxType taxType, double weight, String message) {
         super(name, description, quantityAvailable, price, taxType, weight);
         this.message = message;
+    }
+
+    public PhysicalProductCanBeGifted(String name, String description, int quantityAvailable, double price, TaxType taxType, double weight) {
+        super(name, description, quantityAvailable, price, taxType, weight);
     }
     /**
      * String representation of this product
