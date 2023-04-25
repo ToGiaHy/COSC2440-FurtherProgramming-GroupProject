@@ -16,10 +16,10 @@ import io.WriteProductsFile;
 public class Main {
 
     public static void main(String[] args) {
-        ProductManager productManager = new ProductManager();
-        productManager.readFromFile();
+        FileActions productFileActions = new ProductFileActions();
+        productFileActions.readFromFile();
         UserUI.userUI();
-        productManager.writeToFile();
+        productFileActions.writeToFile();
     }
 
 }
