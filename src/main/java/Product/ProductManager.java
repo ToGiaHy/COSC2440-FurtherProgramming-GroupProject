@@ -4,13 +4,8 @@
 
 package Product;
 
-import java.io.BufferedReader;
-import java.io.FileReader;
-import java.io.FileWriter;
-import java.io.IOException;
 import java.util.HashMap;
 import java.util.Map;
-import java.util.StringTokenizer;
 
 public class ProductManager {
     /**
@@ -38,17 +33,13 @@ public class ProductManager {
         PRODUCTS.put("Picture", new DigitalProduct("Picture", "this is a picture", 5, 20.0, TaxType.NORMAL));
         PRODUCTS.put("Art work", new DigitalProduct("Art work", "this is an art work", 12, 13.0, TaxType.LUXURY));
         PRODUCTS.put("NFT", new DigitalProductCanBeGifted("NFT", "this is a NFT", 8, 300.0, TaxType.LUXURY, ""));
-        PRODUCTS.put("GenShin Impact", new DigitalProductCanBeGifted("GenShin Impact", "this is a game", 50, 250.0, TaxType.NORMAL, ""));
+        PRODUCTS.put("GenShin Impact", new DigitalProductCanBeGifted("GenShin Impact", "this is a game", 50, 250.0, TaxType.NORMAL,""));
         PRODUCTS.put("Iphone", new PhysicalProduct("Iphone", "this is an iphone", 11, 500.0, TaxType.LUXURY, 190.0));
-        PRODUCTS.put("Macbook", new PhysicalProduct("Macbook", "this is a macbook", 99, 2000.0, TaxType.LUXURY, 490.0));
-        PRODUCTS.put("Bicycle", new PhysicalProduct("Bicycle", "this is a bicycle", 11, 400.0, TaxType.NORMAL, 2000.0));
-        PRODUCTS.put("Desk", new PhysicalProductCanBeGifted("Desk", "this is a desk", 59, 149.0, TaxType.FREE, 1000.0, "This is a gift message"));
+        PRODUCTS.put("Macbook", new PhysicalProduct("Macbook", "this is a macbook", 99, 2000.0, TaxType.LUXURY,490.0));
+        PRODUCTS.put("Bicycle", new PhysicalProduct("Bicycle", "this is a bicycle", 11, 400.0, TaxType.NORMAL,2000.0));
+        PRODUCTS.put("Desk", new PhysicalProductCanBeGifted("Desk", "this is a desk", 59, 149.0, TaxType.FREE, 1000.0,"This is a gift message"));
         PRODUCTS.put("Chair", new PhysicalProductCanBeGifted("Chair", "this is a chair", 70, 59.0, TaxType.FREE, 400.0, "This is a gift message"));
 
-        return PRODUCTS;
-    }
-
-    public static Map<String, Product> getPRODUCTS() {
         return PRODUCTS;
     }
 
@@ -58,7 +49,6 @@ public class ProductManager {
      * This method is used to help user can create new product and add to the
      * product data of the system.
      * </p>
-     *
      * @param product An instance store information of the product
      */
     public static void addProduct(Product product) {
@@ -71,11 +61,18 @@ public class ProductManager {
      * This method is used to help user can delete a product and remove from the
      * product data of the system.
      * </p>
-     *
      * @param product An instance store information of the product
      */
     public static void removeProduct(Product product) {
         PRODUCTS.remove(product);
+    }
+
+    public static void displayAllProduct() {
+        for (String name: PRODUCTS.keySet()) {
+            Product value = PRODUCTS.get(name);
+            System.out.println("#=====#");
+            System.out.println(value);
+        }
     }
 
 
