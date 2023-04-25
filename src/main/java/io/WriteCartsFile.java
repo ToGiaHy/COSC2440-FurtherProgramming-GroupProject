@@ -1,12 +1,14 @@
 package io;
 
+import Product.CanBeGifted;
+import Product.DigitalProductCanBeGifted;
+import Product.PhysicalProductCanBeGifted;
 import ShoppingCart.ShoppingCart;
 
 import java.io.FileWriter;
 import java.io.IOException;
 import java.util.ArrayList;
 import java.util.Map;
-
 
 public class WriteCartsFile {
     public static void writeCartsToDatabase(ArrayList<ShoppingCart> carts, String cartsFilePath, String productsFilePath) {
@@ -15,9 +17,12 @@ public class WriteCartsFile {
             FileWriter cartProductWriter = new FileWriter(productsFilePath);
 
             for (ShoppingCart cart : carts) {
-                cartWriter.write(cart.toFile() + "\n");
+                cartWriter.write(cart.toFile() + ",");
                 for (Map.Entry<String, Integer> productEntry : cart.getPRODUCTS().entrySet()) {
-                    cartProductWriter.write(productEntry.getKey() + "," + productEntry.getValue() + "," + cart.getId() + "\n");
+                    if (productEntry instanceof PhysicalProductCanBeGifted || productEntry instanceof DigitalProductCanBeGifted) {
+                    }
+                    CanBeGifted giftOption = new CanbeGifted();
+                    cartProductWriter.write(productEntry.getKey() + "," + productEntry.getValue() + "," + giftOption.getMessage()+ "," + cart.getId() + "\n");
                 }
             }
 

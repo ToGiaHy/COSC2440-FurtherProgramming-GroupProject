@@ -3,9 +3,6 @@
  */
 package ShoppingCart;
 
-import Product.Coupon;
-import Product.PercentCoupon;
-import Product.PriceCoupon;
 import Product.PhysicalProduct;
 import Product.Product;
 import Product.ProductManager;
@@ -27,7 +24,6 @@ public class ShoppingCart {
 //    public double totalWeight;
     private double shippingFee = 0;
     public double totalWeight;
-    private double shippingFee = 0;
     private final int cartId;
     private final static Map<String, Product> database = ProductManager.PRODUCTS;
     private String coupon = "";
