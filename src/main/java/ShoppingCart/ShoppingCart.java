@@ -170,6 +170,17 @@ public class ShoppingCart {
     }
 
     /**
+     * Display all product in cart
+     *
+     */
+    public void displayAllProducts() {
+        for (String product : PRODUCTS.keySet()) {
+            System.out.println(product+": " +PRODUCTS.get(product));
+        }
+    }
+
+
+    /**
      * Getter and Setter methods
      */
     public String getName() {

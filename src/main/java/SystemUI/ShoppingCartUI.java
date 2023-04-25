@@ -40,6 +40,12 @@ public class ShoppingCartUI {
 
     public void CartUI() {
         int userInput = 0;
+        ShoppingCart cart = new ShoppingCart();
+        // Set name for cart
+        cart.setName("Cart " + ShoppingCartManager.getShoppingCarts().size());
+
+        String productName;
+        boolean flag = true;
 
         while (userInput != 6) {
 
@@ -47,29 +53,67 @@ public class ShoppingCartUI {
 
             switch (userInput) {
                 case 1 -> {
+                    System.out.println("All products in our shop:");
+                    ProductManager.displayAllProduct();
                     System.out.println("Added a product to current shopping cart");
-                    System.out.println();
+//                    Get name of product from user
+                    System.out.println("Enter name of product:");
+                    productName = scanner.nextLine();
+
+//                    Get quantity of product user want to add to cart
+                    System.out.println("Enter quantity: ");
+                    int quantity = Integer.parseInt(scanner.nextLine());
+
+                    // Check product exist in product list and can add to the cart
+                    if (ProductManager.PRODUCTS.containsKey(productName) && cart.addItem(productName, quantity)) {
+                        System.out.println("#--- Added product ---#");
+                    } else {
+                        System.out.println("#--- This product is not exist, run out of or already in cart ---#");
+                    }
+
                 }
                 case 2 -> {
                     System.out.println("Removed product from current shopping cart");
-                    System.out.println();
+//                    Display all product in shopping cart for user read to remove
+                    System.out.println("All current products in cart:");
+                    cart.displayAllProducts();
+
+//                    Get name of product from user
+                    System.out.println("Enter name of product:");
+                    productName = scanner.nextLine();
+
+//                    Get quantity of product user want to add to cart
+                    System.out.println("Enter quantity: ");
+                    int quantity = Integer.parseInt(scanner.nextLine());
+
+                    // Check product exist in product list and can remove from the cart
+                    if (ProductManager.PRODUCTS.containsKey(productName) && cart.removeItem(productName, quantity)) {
+                        System.out.println("#--- Removed product ---#");
+                    } else {
+                        System.out.println(ProductManager.PRODUCTS.containsKey(productName));
+                        System.out.println(cart.removeItem(productName, quantity));
+                        System.out.println("#--- This product is not exist or not in current cart ---#");
+                    }
                 }
                 case 3 -> {
                     System.out.println("Applied coupon to current shopping cart");
-                    System.out.println();
+                    System.out.println("Please enter coupon: ");
+                    String coupon = scanner.nextLine();
+                    cart.setCoupon(coupon);
+                    cart.cartAmount();
                 }
                 case 4 -> {
                     System.out.println("Removed coupon from current shopping cart");
-                    System.out.println();
+                    cart.setCoupon("");
+                    cart.cartAmount();
                 }
                 case 5 -> {
                     System.out.println("Displayed all products in cart");
-                    System.out.println();
+                    cart.displayAllProducts();
                 }
                 case 6 -> {
-//                    todo Question: Allow user can change detail of exist shopping cart
                     System.out.println("Completed cart");
-                    System.out.println();
+                    System.out.println(cart.cartAmount());
                     UserUI.userUI();
                 }
             }
@@ -96,54 +140,62 @@ public class ShoppingCartUI {
 
         while (flag) {
 
+            userInput = menu();
+
             switch (userInput) {
                 case 1 -> {
+//                    Get name of product from user
                     System.out.println("Enter name of product:");
                     productName = scanner.nextLine();
+
+//                    Get quantity of product user want to add to cart
                     System.out.println("Enter quantity: ");
                     int quantity = Integer.parseInt(scanner.nextLine());
+
                     // Check product exist in product list and can add to the cart
                     if (ProductManager.PRODUCTS.containsKey(productName) && cart.addItem(productName, quantity)) {
                         System.out.println("#--- Added product ---#");
                     } else {
                         System.out.println("#--- This product is not exist, run out of or already in cart ---#");
                     }
-                    userInput = menu();
                 }
                 case 2 -> {
+//                    Get name of product from user
                     System.out.println("Enter name of product:");
                     productName = scanner.nextLine();
 
+//                    Get quantity of product user want to add to cart
+                    System.out.println("Enter quantity: ");
+                    int quantity = Integer.parseInt(scanner.nextLine());
+
                     // Check product exist in product list and can remove from the cart
-                    if (ProductManager.PRODUCTS.containsKey(productName) && cart.removeItem(productName)) {
+                    if (ProductManager.PRODUCTS.containsKey(productName) && cart.removeItem(productName, quantity)) {
                         System.out.println("#--- Removed product ---#");
                     } else {
                         System.out.println("#--- This product is not exist or not in current cart ---#");
                     }
-                    userInput = menu();
                 }
                 case 3 -> {
                     for (String product : cart.getPRODUCTS().keySet()) {
                         System.out.println(ProductManager.PRODUCTS.get(product));
                     }
-                    userInput = menu();
                 }
                 case 4 -> {
 //                    ShoppingCartManager.getShoppingCarts().add(cart);
                     System.out.println(cart);
                     System.out.println("#=== Thank you for your order! ===#");
+                    UserUI.userUI();
                     flag = false;
                 }
                 default -> {
                     System.out.println("#====================================#");
                     System.out.println("# Please enter a number in the menu! #");
                     System.out.println("#====================================#");
-                    userInput = menu();
                 }
             }
+
         }
 
-        UserUI.userUI();
     }
 
 }

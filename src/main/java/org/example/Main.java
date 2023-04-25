@@ -22,9 +22,9 @@ public class Main {
 //        ProductManager.PRODUCTS = ReadProductsFile.readProductsToDatabase("./data/products.txt");
         ProductManager.initialProducts();
 //        UserUI.userUI();
-        productUI.productUI();
+//        productUI.productUI();
 //        WriteProductsFile.writeProductsToDatabase(ProductManager.PRODUCTS, "./data/products.txt");
-
+        cartUI.CartUI();
 
     }
 
