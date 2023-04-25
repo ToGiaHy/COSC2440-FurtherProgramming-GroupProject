@@ -6,8 +6,6 @@ package org.example;
 
 import Product.*;
 import SystemUI.UserUI;
-import io.ReadProductsFile;
-import io.WriteProductsFile;
 import java.util.HashMap;
 import io.FileActions;
 import io.ProductFileActions;
