@@ -4,6 +4,8 @@
 
 package Product;
 
+import java.util.HashMap;
+
 public class DigitalProductCanBeGifted extends DigitalProduct implements CanBeGifted {
     /**
      * Digital product gift attributes

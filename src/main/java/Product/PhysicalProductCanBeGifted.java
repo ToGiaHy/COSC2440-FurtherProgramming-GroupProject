@@ -4,6 +4,8 @@
 
 package Product;
 
+import java.util.HashMap;
+
 public class PhysicalProductCanBeGifted extends PhysicalProduct implements CanBeGifted {
     /**
      * Physical product gift attributes
