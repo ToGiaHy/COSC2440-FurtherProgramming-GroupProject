@@ -3,7 +3,7 @@ package SystemUI;
 import java.util.Scanner;
 import Product.*;
 public class CouponUI {
-    public Coupon createCoupon(){
+    public static Coupon createCoupon(){
         Scanner scn = new Scanner(System.in);
         System.out.println("Which type of coupon would you like?(Percent or Price)");
         String option = scn.nextLine();
