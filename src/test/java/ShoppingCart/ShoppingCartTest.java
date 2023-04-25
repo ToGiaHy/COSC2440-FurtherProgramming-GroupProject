@@ -3,6 +3,7 @@ package ShoppingCart;
 import Product.*;
 import org.junit.jupiter.api.Test;
 
+
 import java.util.Map;
 
 import static org.junit.jupiter.api.Assertions.*;
@@ -28,6 +29,7 @@ class ShoppingCartTest {
         System.out.println(s1.getCouponDiscount());
     }
     @Test
+
     void addItem() {
         //expected to return the cart with the product "Ball" by the quantity of 5
         Product p1 = new PhysicalProduct("Ball","Football sporting equipment",10,10.0,TaxType.FREE,10);
