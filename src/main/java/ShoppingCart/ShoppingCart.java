@@ -79,14 +79,24 @@ public class ShoppingCart {
      * remove the product name from the cart, and return true.
      * </p>
      */
-    public boolean removeItem(String productName) {
+    public boolean removeItem(String productName, int quantity) {
         if (!database.containsKey(productName)) {
             return false;
-        } else {
+        } else{
             int currentQuantity = database.get(productName).getQuantityAvailable();
-            database.get(productName).setQuantityAvailable(currentQuantity + PRODUCTS.get(productName));
-            PRODUCTS.remove(productName);
-            return true;
+            if(quantity == currentQuantity){
+                database.get(productName).setQuantityAvailable(currentQuantity + PRODUCTS.get(productName));
+                PRODUCTS.remove(productName);
+                return true;
+            }
+            else if(quantity < currentQuantity){
+                database.get(productName).setQuantityAvailable(currentQuantity + PRODUCTS.get(productName));
+                PRODUCTS.put(productName,currentQuantity - quantity);
+                return true;
+            }
+            else {
+                return false;
+            }
         }
     }
 
