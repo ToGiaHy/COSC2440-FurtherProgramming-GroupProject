@@ -215,9 +215,8 @@ public class ShoppingCart {
 
     public String toFile() {
         return String.format(
-                "%d,%s,%.2f,%.2f,%.2f",
+                "%d,%.2f,%.2f,%.2f",
                 cartId,
-                name,
                 amount,
                 totalWeight,
                 shippingFee
