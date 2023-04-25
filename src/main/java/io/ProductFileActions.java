@@ -6,19 +6,21 @@ import java.io.BufferedReader;
 import java.io.FileReader;
 import java.io.FileWriter;
 import java.io.IOException;
+import java.util.HashMap;
+import java.util.Map;
 import java.util.StringTokenizer;
 
-public class ProductFileActions implements FileActions{
+public class ProductFileActions{
 
     /**
      * Write products from PRODUCTS to the file
      *
      */
-    public void writeToFile(String filePath) {
+    public static void writeToFile(Map<String, Product> products, String filePath) {
         try {
             FileWriter writer = new FileWriter(filePath);
 
-            for (Product product : ProductManager.PRODUCTS.values()) {
+            for (Product product : products.values()) {
                 writer.write(product.toFile() + '\n');
             }
             writer.close();
@@ -30,9 +32,10 @@ public class ProductFileActions implements FileActions{
     /**
      * Read data from the file to PRODUCTS
      */
-    public void readFromFile(String filePath) {
+    public static Map<String, Product> readFromFile(String filePath) {
         // Read from file
         try {
+            Map<String, Product> products = new HashMap<>();
             BufferedReader reader = new BufferedReader(new FileReader(filePath));
             String line;
 
@@ -48,7 +51,7 @@ public class ProductFileActions implements FileActions{
                     TaxType taxType = TaxType.getType(taxTypeStr);
 
                     switch (type) {
-                        case "DIGITALPRODUCT" -> ProductManager.PRODUCTS.put(
+                        case "DIGITALPRODUCT" -> products.put(
                                 name,
                                 new DigitalProduct(
                                         name,
@@ -60,7 +63,7 @@ public class ProductFileActions implements FileActions{
                         );
                         case "PHYSICALPRODUCT" -> {
                             double weight = Double.parseDouble(tokenizer.nextToken());
-                            ProductManager.PRODUCTS.put(
+                            products.put(
                                     name,
                                     new PhysicalProduct(
                                             name,
@@ -74,7 +77,7 @@ public class ProductFileActions implements FileActions{
                         }
                         case "GIFTDIGITALPRODUCT" -> {
                             String message = tokenizer.nextToken();
-                            ProductManager.PRODUCTS.put(
+                            products.put(
                                     name,
                                     new DigitalProductCanBeGifted(
                                             name,
@@ -89,7 +92,7 @@ public class ProductFileActions implements FileActions{
                         case "GIFTPHYSICALPRODUCT" -> {
                             double weight = Double.parseDouble(tokenizer.nextToken());
                             String message = tokenizer.nextToken();
-                            ProductManager.PRODUCTS.put(
+                            products.put(
                                     name,
                                     new PhysicalProductCanBeGifted(
                                             name,
@@ -107,9 +110,11 @@ public class ProductFileActions implements FileActions{
                 }
             }
             reader.close();
+            return products;
         } catch (IOException e) {
             System.out.println("Error reading database file: " + e.getMessage());
         }
+        return null;
     }
 
 }

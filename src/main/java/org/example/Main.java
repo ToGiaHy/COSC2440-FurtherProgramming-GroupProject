@@ -20,17 +20,14 @@ public class Main {
     static ShoppingCartUI cartUI = new ShoppingCartUI();
 
     public static void main(String[] args) {
-//        ProductManager.PRODUCTS = ReadProductsFile.readProductsToDatabase("./data/products.txt");
+        ProductManager.PRODUCTS = ProductFileActions.readFromFile("./src/main/java/data/products.txt");
         ProductManager.initialProducts();
 //        UserUI.userUI();
 //        productUI.productUI();
-//        WriteProductsFile.writeProductsToDatabase(ProductManager.PRODUCTS, "./data/products.txt");
+        ProductFileActions.writeToFile(ProductManager.PRODUCTS, "./src/main/java/data/products.txt");
         cartUI.CartUI();
 
-        FileActions productFileActions = new ProductFileActions();
-        productFileActions.readFromFile("./src/main/java/data/products.txt");
         UserUI.userUI();
-        productFileActions.writeToFile("./src/main/java/data/products.txt");
     }
 
 }
