@@ -9,18 +9,14 @@ import java.io.IOException;
 import java.util.StringTokenizer;
 
 public class ProductFileActions implements FileActions{
-    /**
-     * Attributes
-     */
-    private static final String PRODUCT_FILEPATH = "./src/main/java/data/products.txt";
 
     /**
      * Write products from PRODUCTS to the file
      *
      */
-    public void writeToFile() {
+    public void writeToFile(String filePath) {
         try {
-            FileWriter writer = new FileWriter(PRODUCT_FILEPATH);
+            FileWriter writer = new FileWriter(filePath);
 
             for (Product product : ProductManager.PRODUCTS.values()) {
                 writer.write(product.toFile() + '\n');
@@ -34,10 +30,10 @@ public class ProductFileActions implements FileActions{
     /**
      * Read data from the file to PRODUCTS
      */
-    public void readFromFile() {
+    public void readFromFile(String filePath) {
         // Read from file
         try {
-            BufferedReader reader = new BufferedReader(new FileReader(PRODUCT_FILEPATH));
+            BufferedReader reader = new BufferedReader(new FileReader(filePath));
             String line;
 
             while ((line = reader.readLine()) != null) {
