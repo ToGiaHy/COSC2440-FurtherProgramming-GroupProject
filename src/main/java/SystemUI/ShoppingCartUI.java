@@ -11,6 +11,7 @@ import ShoppingCart.ShoppingCartManager;
 import java.util.Scanner;
 
 public class ShoppingCartUI {
+    // todo add Regex
     static Scanner scanner = new Scanner(System.in);
 
     /**
@@ -36,8 +37,8 @@ public class ShoppingCartUI {
     /**
      *
      */
-    public void CartUI() {
 
+    public void CartUI() {
         int userInput = 0;
 
         while (userInput != 6) {
