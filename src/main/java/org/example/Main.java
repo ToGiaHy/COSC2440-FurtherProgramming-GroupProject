@@ -4,7 +4,10 @@
 
 package org.example;
 
+import Product.Coupon;
+import Product.DigitalProduct;
 import Product.ProductManager;
+import Product.TaxType;
 import SystemUI.UserUI;
 import io.ReadProductsFile;
 import io.WriteProductsFile;
@@ -16,6 +19,7 @@ public class Main {
         ProductManager.PRODUCTS = ReadProductsFile.readProductsToDatabase("./data/products.txt");
         UserUI.userUI();
         WriteProductsFile.writeProductsToDatabase(ProductManager.PRODUCTS, "./data/products.txt");
+
     }
 
 }

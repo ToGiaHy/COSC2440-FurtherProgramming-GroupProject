@@ -4,6 +4,8 @@
 
 package Product;
 
+import java.util.HashMap;
+
 public class PhysicalProduct extends Product{
     /**
      * Physical product attributes
@@ -21,6 +23,11 @@ public class PhysicalProduct extends Product{
      */
     public PhysicalProduct(String name, String description, int quantityAvailable, double price, TaxType taxType, double weight) {
         super(name, description, quantityAvailable, price, taxType);
+        this.weight = weight;
+    }
+
+    public PhysicalProduct(String name, String description, int quantityAvailable, double price, TaxType taxType, HashMap<String,Coupon> couponList,double weight) {
+        super(name, description, quantityAvailable, price, taxType, couponList);
         this.weight = weight;
     }
 
