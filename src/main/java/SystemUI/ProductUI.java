@@ -59,6 +59,7 @@ public class ProductUI {
             switch (userInput) {
                 case 1 -> {
                     System.out.println("Show all products!");
+                    ProductManager.displayAllProduct();
                     System.out.println();
                 }
                 case 2 -> {
@@ -85,7 +86,7 @@ public class ProductUI {
      * then add to product list of the system
      * </p>
      */
-    public static void createNewProduct() {
+    public void createNewProduct() {
 
         System.out.println("#===== CREATE NEW PRODUCT =====#");
 
@@ -136,9 +137,11 @@ public class ProductUI {
             }
         }
 
+//        todo Chua validate
         System.out.println("Can this product be used as a gift ? Type 'true' or 'false'");
         boolean isGift;
         isGift = Boolean.parseBoolean(scanner.nextLine());
+
         System.out.println("What type of tax ?");
         String taxInput = scanner.nextLine();
         while (!taxInput.matches(Regex.TAX_TYPE)) {
@@ -147,6 +150,26 @@ public class ProductUI {
         }
         String tax = taxInput;
         TaxType taxType = TaxType.getType(tax);
+
+//        todo Chua validate
+//        System.out.println("Do you want to add coupon for this product ? Type 'true' or 'false'");
+//        boolean hasCoupon;
+//        hasCoupon = Boolean.parseBoolean(scanner.nextLine());
+//
+//        if (hasCoupon) {
+//            System.out.println("How many coupon do you want to add ? Enter an integer number please: ");
+//            int numCoupon;
+//            int count = 0;
+//            numCoupon = Integer.parseInt(scanner.nextLine());
+//
+//            while (count <= numCoupon) {
+//                count++;
+//                System.out.println("Enter coupon code: ");
+//                String couponCode = scanner.nextLine();
+//                System.out.println("Enter cou");
+//            }
+//        }
+
 //        if (type == 1) {
 //            if (isGift) {
 //                ProductManager.addProduct(new DigitalProductCanBeGifted(name, description, quantityAvailable, price, taxType));

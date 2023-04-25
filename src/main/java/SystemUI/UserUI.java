@@ -62,12 +62,10 @@ public class UserUI {
 
             switch (userInput) {
                 case 1 -> {
-                    System.out.println("Product mana mode!");
                     productUI.productUI();
                     System.out.println();
                 }
                 case 2 -> {
-                    System.out.println("Shopping cart mana mode!");
                     cartUI.CartUI();
                     System.out.println();
                 }

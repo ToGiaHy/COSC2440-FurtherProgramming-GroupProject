@@ -65,4 +65,12 @@ public class ProductManager {
     public static void removeProduct(Product product) {
         PRODUCTS.remove(product);
     }
+
+    public static void displayAllProduct() {
+        for (String name: PRODUCTS.keySet()) {
+            Product value = PRODUCTS.get(name);
+            System.out.println("#=====#");
+            System.out.println(value);
+        }
+    }
 }
