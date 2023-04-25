@@ -117,7 +117,7 @@ public class ShoppingCart {
                 if (database.get(product).getCouponList().get(this.coupon) instanceof PriceCoupon priceCoupon) {
                     return priceCoupon.getValue() * this.PRODUCTS.get(product);
                 } else if (database.get(product).getCouponList().get(this.coupon) instanceof PercentCoupon percentCoupon) {
-                    return (percentCoupon.getValue()*database.get(product).getPrice())/100 * this.PRODUCTS.get(product);
+                    return percentCoupon.getValue() * this.PRODUCTS.get(product);
                 }
             }
         }
@@ -142,9 +142,9 @@ public class ShoppingCart {
 
 //        Calculate total amount with tax
         for (String product : this.PRODUCTS.keySet()) {
-            priceWithTax = database.get(product).getPrice() +
+            priceWithTax = database.get(product).getPrice() -
                     (database.get(product).getPrice()* database.get(product).getTaxType().getPercentage());
-            this.amount += priceWithTax*this.PRODUCTS.get(product);
+            this.amount += priceWithTax ;
         }
 
 //        Calculate the total shipping fee
@@ -155,21 +155,12 @@ public class ShoppingCart {
             this.couponDiscount = calculateCouponDiscount();
         }
 
-        return this.amount + this.shippingFee - this.couponDiscount;
-    }
-
-    public Double getCouponDiscount() {
-        return couponDiscount;
-    }
-
-    public void setCouponDiscount(Double couponDiscount) {
-        this.couponDiscount = couponDiscount;
+        return this.amount + this.shippingFee + this.couponDiscount;
     }
 
     /**
      * Getter and Setter methods
      */
-
     public String getName() {
         return name;
     }
