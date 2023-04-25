@@ -82,7 +82,6 @@ public abstract class Product {
     public void setPrice(Double price) {
         this.price = price;
     }
-
     public void setTaxType(TaxType taxType) {
         this.taxType = taxType;
     }

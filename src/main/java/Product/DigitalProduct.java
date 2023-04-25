@@ -24,6 +24,8 @@ public class DigitalProduct extends Product {
         super(name, description, quantityAvailable, price, taxType, couponList);
     }
 
+
+
     /**
      * String representation of this product
      * <p>
@@ -34,17 +36,24 @@ public class DigitalProduct extends Product {
     @Override
     public String toString() {
         String name = getName();
-        return "DIGITAL - " + name;
-    }
-
-    @Override
-    public String toFile() {
-        return String.format("DigitalProduct,%s,%s,%d,%.2f,%s",
+        return String.format("DigitalProduct %s ,%s,%d,%.2f,%s,%s",
                 this.getName(),
                 this.getDescription(),
                 this.getQuantityAvailable(),
                 this.getPrice(),
-                this.getTaxType().toString()
+                this.getTaxType().toString(),
+                this.getCouponList().toString());
+    }
+
+    @Override
+    public String toFile() {
+        return String.format("DigitalProduct,%s,%s,%d,%.2f,%s,%s",
+                this.getName(),
+                this.getDescription(),
+                this.getQuantityAvailable(),
+                this.getPrice(),
+                this.getTaxType().toString(),
+                this.getCouponList().toString()
         );
     }
 }
