@@ -40,6 +40,7 @@ public enum TaxType {
             case "free" -> FREE;
             case "normal" -> NORMAL;
             case "luxury" -> LUXURY;
+            default -> throw new IllegalStateException("Unexpected value");
         };
     }
 
