@@ -16,9 +16,10 @@ import io.WriteProductsFile;
 public class Main {
 
     public static void main(String[] args) {
-        ProductManager.PRODUCTS = ReadProductsFile.readProductsToDatabase("./src/main/java/data/products.txt");
+        ProductManager productManager = new ProductManager();
+        productManager.readFromFile();
         UserUI.userUI();
-        WriteProductsFile.writeProductsToDatabase(ProductManager.PRODUCTS, "./src/main/java/data/products.txt");
+        productManager.writeToFile();
     }
 
 }
