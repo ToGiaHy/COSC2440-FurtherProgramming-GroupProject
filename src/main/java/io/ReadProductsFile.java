@@ -14,8 +14,6 @@ import java.util.Map;
 import java.util.StringTokenizer;
 
 public class ReadProductsFile {
-    public static final String filename = "./src/main/java/io/products.txt";
-
     public static Map<String, Product> readProductsToDatabase(String filename) {
         // Read from file
         try {
