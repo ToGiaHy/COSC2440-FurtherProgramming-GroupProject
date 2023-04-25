@@ -4,6 +4,8 @@
 
 package Product;
 
+import java.util.HashMap;
+
 public class DigitalProductCanBeGifted extends DigitalProduct implements CanBeGifted {
     /**
      * Digital product gift attributes
@@ -23,6 +25,10 @@ public class DigitalProductCanBeGifted extends DigitalProduct implements CanBeGi
         this.message = message;
     }
 
+    public DigitalProductCanBeGifted(String name, String description, int quantityAvailable, double price, TaxType taxType, HashMap<String,Coupon> couponList, String message) {
+        super(name, description, quantityAvailable, price, taxType, couponList);
+        this.message = message;
+    }
     /**
      * String representation of this product
      * <p>

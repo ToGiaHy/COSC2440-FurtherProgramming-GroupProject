@@ -20,6 +20,7 @@ public class Coupon {
         return name;
     }
     public double getValue() {
+//         if (type.)
         return value;
     }
 
@@ -33,6 +34,7 @@ public class Coupon {
     public void setValue(double value) {
         this.value = checkValue(value);
     }
+
     //validation method for the type of coupon
     public static String checkType(String type){
         if(type.equalsIgnoreCase("price") || type.equalsIgnoreCase("percent")){
@@ -43,6 +45,7 @@ public class Coupon {
         }
         return null;
     }
+
     //validation method for the value of coupon
     public double checkValue(double value){
         if(this.type.equalsIgnoreCase("percent") && value <= 1){
