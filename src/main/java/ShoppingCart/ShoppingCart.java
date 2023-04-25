@@ -84,14 +84,15 @@ public class ShoppingCart {
             return false;
         } else{
             int currentQuantity = database.get(productName).getQuantityAvailable();
-            if(quantity == currentQuantity){
+            int currentCartQuantity = PRODUCTS.get(productName);
+            if(quantity == currentCartQuantity){
                 database.get(productName).setQuantityAvailable(currentQuantity + PRODUCTS.get(productName));
                 PRODUCTS.remove(productName);
                 return true;
             }
-            else if(quantity < currentQuantity){
+            else if(quantity < currentCartQuantity){
                 database.get(productName).setQuantityAvailable(currentQuantity + PRODUCTS.get(productName));
-                PRODUCTS.put(productName,currentQuantity - quantity);
+                PRODUCTS.put(productName,currentCartQuantity - quantity);
                 return true;
             }
             else {
