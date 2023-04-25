@@ -1,8 +1,6 @@
 package io;
 
-import Product.CanBeGifted;
-import Product.DigitalProductCanBeGifted;
-import Product.PhysicalProductCanBeGifted;
+import Product.*;
 import ShoppingCart.ShoppingCart;
 
 import java.io.FileWriter;
@@ -19,10 +17,12 @@ public class WriteCartsFile {
             for (ShoppingCart cart : carts) {
                 cartWriter.write(cart.toFile() + ",");
                 for (Map.Entry<String, Integer> productEntry : cart.getPRODUCTS().entrySet()) {
-                    if (productEntry instanceof PhysicalProductCanBeGifted || productEntry instanceof DigitalProductCanBeGifted) {
-                    }
-                    CanBeGifted giftOption = new CanbeGifted();
-                    cartProductWriter.write(productEntry.getKey() + "," + productEntry.getValue() + "," + giftOption.getMessage()+ "," + cart.getId() + "\n");
+                    Product product = ProductManager.getPRODUCTS().get(productEntry.getKey());
+                    if (product instanceof CanBeGifted) {
+                        cartProductWriter.write(cart.getId() + "," + productEntry.getKey() + "," + productEntry.getValue() + "," + ((CanBeGifted) product).getMessage() + "\n");
+                    } else
+                        cartProductWriter.write(cart.getId() + "," + productEntry.getKey() + "," + productEntry.getValue() + "\n");
+
                 }
             }
 
