@@ -38,6 +38,9 @@ public class ShoppingCart {
     public ShoppingCart() {
         this.cartId = NEXT_ID++;
     }
+    public ShoppingCart(int cartId) {
+        this.cartId = cartId;
+    }
 
     public static void resetId() { NEXT_ID = 1; }
 

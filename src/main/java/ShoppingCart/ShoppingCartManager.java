@@ -20,14 +20,14 @@ public class ShoppingCartManager {
 
         return sort(SHOPPING_CARTS);
     }
+    public static ShoppingCart findCartByID(int id) {
+        for (ShoppingCart cart: SHOPPING_CARTS) {
+            if (cart.getId() == id) {
+                return cart;
+            }
+        }
+        return null;
+    }
 
-//    public String toFile() {
-//        return String.format(
-//                "%d,%.2f,%.2f,%.2f",
-//                cartId,
-//                this.amount,
-//                this.totalWeight,
-//                this.shippingFee
-//
-//        );
+
 }
