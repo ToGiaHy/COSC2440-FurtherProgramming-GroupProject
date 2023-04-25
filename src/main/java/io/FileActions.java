@@ -1,7 +1,7 @@
 package io;
 
 public interface FileActions {
-    void writeToFile();
+    void writeToFile(String filePath);
 
-    void readFromFile();
+    void readFromFile(String filePath);
 }
