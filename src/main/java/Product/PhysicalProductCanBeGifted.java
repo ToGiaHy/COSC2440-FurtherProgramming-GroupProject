@@ -26,9 +26,8 @@ public class PhysicalProductCanBeGifted extends PhysicalProduct implements CanBe
         this.message = message;
     }
 
-    public PhysicalProductCanBeGifted(String name, String description, int quantityAvailable, double price, TaxType taxType, double weight, HashMap<String,Coupon> couponList, String message) {
-        super(name, description, quantityAvailable, price, taxType, couponList, weight);
-        this.message = message;
+    public PhysicalProductCanBeGifted(String name, String description, int quantityAvailable, double price, TaxType taxType, double weight) {
+        super(name, description, quantityAvailable, price, taxType, weight);
     }
     /**
      * String representation of this product

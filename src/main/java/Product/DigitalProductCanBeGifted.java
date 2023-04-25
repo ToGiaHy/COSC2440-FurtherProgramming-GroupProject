@@ -25,9 +25,9 @@ public class DigitalProductCanBeGifted extends DigitalProduct implements CanBeGi
         this.message = message;
     }
 
-    public DigitalProductCanBeGifted(String name, String description, int quantityAvailable, double price, TaxType taxType, HashMap<String,Coupon> couponList, String message) {
-        super(name, description, quantityAvailable, price, taxType, couponList);
-        this.message = message;
+    public DigitalProductCanBeGifted(String name, String description, int quantityAvailable, double price, TaxType taxType) {
+        super(name, description, quantityAvailable, price, taxType);
+
     }
     /**
      * String representation of this product
