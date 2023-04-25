@@ -79,14 +79,25 @@ public class ShoppingCart {
      * remove the product name from the cart, and return true.
      * </p>
      */
-    public boolean removeItem(String productName) {
+    public boolean removeItem(String productName, int quantity) {
         if (!database.containsKey(productName)) {
             return false;
-        } else {
+        } else{
             int currentQuantity = database.get(productName).getQuantityAvailable();
-            database.get(productName).setQuantityAvailable(currentQuantity + PRODUCTS.get(productName));
-            PRODUCTS.remove(productName);
-            return true;
+            int currentCartQuantity = PRODUCTS.get(productName);
+            if(quantity == currentCartQuantity){
+                database.get(productName).setQuantityAvailable(currentQuantity + PRODUCTS.get(productName));
+                PRODUCTS.remove(productName);
+                return true;
+            }
+            else if(quantity < currentCartQuantity){
+                database.get(productName).setQuantityAvailable(currentQuantity + PRODUCTS.get(productName));
+                PRODUCTS.put(productName,currentCartQuantity - quantity);
+                return true;
+            }
+            else {
+                return false;
+            }
         }
     }
 
@@ -157,6 +168,17 @@ public class ShoppingCart {
 
         return this.amount + this.shippingFee - this.couponDiscount;
     }
+
+    /**
+     * Display all product in cart
+     *
+     */
+    public void displayAllProducts() {
+        for (String product : PRODUCTS.keySet()) {
+            System.out.println(product+": " +PRODUCTS.get(product));
+        }
+    }
+
 
     /**
      * Getter and Setter methods

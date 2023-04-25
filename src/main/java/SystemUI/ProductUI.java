@@ -6,6 +6,7 @@ package SystemUI;
 
 import Product.*;
 
+import java.util.HashMap;
 import java.util.Scanner;
 
 
@@ -59,6 +60,7 @@ public class ProductUI {
             switch (userInput) {
                 case 1 -> {
                     System.out.println("Show all products!");
+                    ProductManager.displayAllProduct();
                     System.out.println();
                 }
                 case 2 -> {
@@ -85,7 +87,7 @@ public class ProductUI {
      * then add to product list of the system
      * </p>
      */
-    public static void createNewProduct() {
+    public void createNewProduct() {
 
         System.out.println("#===== CREATE NEW PRODUCT =====#");
 
@@ -136,9 +138,11 @@ public class ProductUI {
             }
         }
 
+//        todo Chua validate
         System.out.println("Can this product be used as a gift ? Type 'true' or 'false'");
         boolean isGift;
         isGift = Boolean.parseBoolean(scanner.nextLine());
+
         System.out.println("What type of tax ?");
         String taxInput = scanner.nextLine();
         while (!taxInput.matches(Regex.TAX_TYPE)) {
@@ -147,19 +151,46 @@ public class ProductUI {
         }
         String tax = taxInput;
         TaxType taxType = TaxType.getType(tax);
-//        if (type == 1) {
-//            if (isGift) {
-//                ProductManager.addProduct(new DigitalProductCanBeGifted(name, description, quantityAvailable, price, taxType));
-//            } else {
-//                ProductManager.addProduct(new DigitalProduct(name, description, quantityAvailable, price, taxType));
-//            }
-//        } else if (type == 2) {
-//            if (isGift) {
-//                ProductManager.addProduct(new PhysicalProductCanBeGifted(name, description, quantityAvailable, price, taxType, weight));
-//            } else {
-//                ProductManager.addProduct(new PhysicalProduct(name, description, quantityAvailable, price, taxType, weight));
-//            }
-//        }
+
+//        todo Chua validate
+        System.out.println("Do you want to add coupon for this product ? Type 'true' or 'false'");
+        boolean hasCoupon;
+        hasCoupon = Boolean.parseBoolean(scanner.nextLine());
+        HashMap<String, Coupon> couponList = new HashMap<>();
+//
+        if (hasCoupon) {
+            System.out.println("How many coupon do you want to add ? Enter an integer number please: ");
+            int numCoupon;
+            int count = 0;
+            numCoupon = Integer.parseInt(scanner.nextLine());
+
+            while (count <= numCoupon) {
+                count++;
+                Coupon coupon = CouponUI.createCoupon();
+                if (coupon instanceof PercentCoupon percentCoupon) {
+                    couponList.put(percentCoupon.getCouponCode(), percentCoupon);
+                }
+                else {
+                    PriceCoupon priceCoupon = (PriceCoupon) coupon;
+                    couponList.put(priceCoupon.getCouponCode(), priceCoupon);
+                }
+
+            }
+        }
+
+        if (type == 1) {
+            if (isGift) {
+                ProductManager.addProduct(new DigitalProductCanBeGifted(name, description, quantityAvailable, price, taxType, couponList, ""));
+            } else {
+                ProductManager.addProduct(new DigitalProduct(name, description, quantityAvailable, price, taxType, couponList));
+            }
+        } else if (type == 2) {
+            if (isGift) {
+                ProductManager.addProduct(new PhysicalProductCanBeGifted(name, description, quantityAvailable, price, taxType, weight, couponList, ""));
+            } else {
+                ProductManager.addProduct(new PhysicalProduct(name, description, quantityAvailable, price, taxType, couponList,weight));
+            }
+        }
 
         System.out.println("#======================================#");
         System.out.println("# New Product is created successfully! #");
