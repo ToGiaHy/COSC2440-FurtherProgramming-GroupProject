@@ -147,19 +147,19 @@ public class ProductUI {
         }
         String tax = taxInput;
         TaxType taxType = TaxType.getType(tax);
-        if (type == 1) {
-            if (isGift) {
-                ProductManager.addProduct(new DigitalProductCanBeGifted(name, description, quantityAvailable, price, taxType));
-            } else {
-                ProductManager.addProduct(new DigitalProduct(name, description, quantityAvailable, price, taxType));
-            }
-        } else if (type == 2) {
-            if (isGift) {
-                ProductManager.addProduct(new PhysicalProductCanBeGifted(name, description, quantityAvailable, price, taxType, weight));
-            } else {
-                ProductManager.addProduct(new PhysicalProduct(name, description, quantityAvailable, price, taxType, weight));
-            }
-        }
+//        if (type == 1) {
+//            if (isGift) {
+//                ProductManager.addProduct(new DigitalProductCanBeGifted(name, description, quantityAvailable, price, taxType));
+//            } else {
+//                ProductManager.addProduct(new DigitalProduct(name, description, quantityAvailable, price, taxType));
+//            }
+//        } else if (type == 2) {
+//            if (isGift) {
+//                ProductManager.addProduct(new PhysicalProductCanBeGifted(name, description, quantityAvailable, price, taxType, weight));
+//            } else {
+//                ProductManager.addProduct(new PhysicalProduct(name, description, quantityAvailable, price, taxType, weight));
+//            }
+//        }
 
         System.out.println("#======================================#");
         System.out.println("# New Product is created successfully! #");
