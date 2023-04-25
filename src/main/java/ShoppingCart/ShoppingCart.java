@@ -99,7 +99,7 @@ public class ShoppingCart {
 
         for (String product : this.PRODUCTS.keySet()) {
             if (database.get(product) instanceof PhysicalProduct) {
-                weight += ((PhysicalProduct) database.get(product)).getWeight();
+                weight += ((PhysicalProduct) database.get(product)).getWeight()*this.PRODUCTS.get(product);
             }
         }
         return weight;
