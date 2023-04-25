@@ -29,6 +29,7 @@ public class DigitalProductCanBeGifted extends DigitalProduct implements CanBeGi
         super(name, description, quantityAvailable, price, taxType);
 
     }
+
     /**
      * String representation of this product
      * <p>

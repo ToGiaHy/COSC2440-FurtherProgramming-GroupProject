@@ -29,7 +29,6 @@ public class PhysicalProductCanBeGifted extends PhysicalProduct implements CanBe
     public PhysicalProductCanBeGifted(String name, String description, int quantityAvailable, double price, TaxType taxType, double weight) {
         super(name, description, quantityAvailable, price, taxType, weight);
     }
-
     /**
      * String representation of this product
      * <p>
