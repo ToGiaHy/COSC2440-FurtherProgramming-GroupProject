@@ -3,14 +3,10 @@
  */
 
 package org.example;
-
-import Product.Coupon;
-import Product.DigitalProduct;
-import Product.ProductManager;
-import Product.TaxType;
 import SystemUI.UserUI;
-import io.ReadProductsFile;
-import io.WriteProductsFile;
+import io.FileActions;
+import io.ProductFileActions;
+
 
 
 public class Main {
