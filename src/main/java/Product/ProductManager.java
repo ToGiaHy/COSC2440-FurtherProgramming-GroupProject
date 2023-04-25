@@ -43,6 +43,10 @@ public class ProductManager {
         return PRODUCTS;
     }
 
+    public static Map<String, Product> getPRODUCTS() {
+        return PRODUCTS;
+    }
+
     /**
      * Add a product to PRODUCTS data
      * <p>
