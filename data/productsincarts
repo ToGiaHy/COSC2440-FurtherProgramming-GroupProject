@@ -1,5 +1,0 @@
-1,PhysicalProduct,"T-Shirt","a shirt or sth",5,10,0.1,0.2
-1,GiftPhysicalProduct,"Stuffed Animal","a nice stuffed toy",1,10,0,2,"Happy Birthday!",FREE
-3,GiftDigitalProduct,"Spotify","one-month free music on Spotify",1,10,0,"Best Wishes to you"
-4,DigitalProduct,"Ebook - Python","Python for Beginners",0,70,0.2
-2,PhysicalProduct,"Jeans","a pair of pants",10,7,0.1,0.5

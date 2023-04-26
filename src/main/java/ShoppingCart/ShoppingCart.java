@@ -21,10 +21,13 @@ public class ShoppingCart {
     // Use Set interface
     private final HashMap<String, Integer> PRODUCTS = new HashMap<>();
     private final double BASE = 0.1;
+    private static int NEXT_ID = 1;
     private String name;
     private double amount = 0;
 //    public double totalWeight;
     private double shippingFee = 0;
+    public double totalWeight;
+    private final int cartId;
     private final static Map<String, Product> database = ProductManager.PRODUCTS;
     private String coupon = "";
     private Double couponDiscount = (double) 0;
@@ -33,7 +36,13 @@ public class ShoppingCart {
      * Constructor
      */
     public ShoppingCart() {
+        this.cartId = NEXT_ID++;
     }
+    public ShoppingCart(int cartId) {
+        this.cartId = cartId;
+    }
+
+    public static void resetId() { NEXT_ID = 1; }
 
     /**
      * Add the product with the given name to the shopping cart
@@ -198,6 +207,9 @@ public class ShoppingCart {
     public HashMap<String, Integer> getPRODUCTS() {
         return PRODUCTS;
     }
+    public int getId() {
+        return cartId;
+    }
 
     public String getCoupon() {
         return coupon;
@@ -224,5 +236,15 @@ public class ShoppingCart {
                 ", base: " + BASE +
                 ", shipping fee: " + shippingFee +
                 ", coupon discount" + couponDiscount;
+    }
+
+    public String toFile() {
+        return String.format(
+                "%d,%.2f,%.2f,%.2f",
+                cartId,
+                amount,
+                totalWeight,
+                shippingFee
+        );
     }
 }

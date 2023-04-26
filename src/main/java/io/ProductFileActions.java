@@ -1,32 +1,48 @@
 package io;
 
-import Product.PhysicalProductCanBeGifted;
-import Product.PhysicalProduct;
-import Product.DigitalProduct;
-import Product.DigitalProductCanBeGifted;
-import Product.Product;
-import Product.TaxType;
+import Product.*;
+
 import java.io.BufferedReader;
 import java.io.FileReader;
+import java.io.FileWriter;
 import java.io.IOException;
 import java.util.HashMap;
 import java.util.Map;
 import java.util.StringTokenizer;
 
-public class ReadProductsFile {
-    public static final String filename = "./src/main/java/io/products.txt";
+public class ProductFileActions{
 
-    public static Map<String, Product> readProductsToDatabase(String filename) {
+    /**
+     * Write products from PRODUCTS to the file
+     *
+     */
+    public static void writeToFile(Map<String, Product> products, String filePath) {
+        try {
+            FileWriter writer = new FileWriter(filePath);
+
+            for (Product product : products.values()) {
+                writer.write(product.toFile() + '\n');
+            }
+            writer.close();
+        } catch (IOException e) {
+            System.out.println("Error writing to database file: " + e.getMessage());
+        }
+    }
+
+    /**
+     * Read data from the file to PRODUCTS
+     */
+    public static Map<String, Product> readFromFile(String filePath) {
         // Read from file
         try {
             Map<String, Product> products = new HashMap<>();
-            BufferedReader reader = new BufferedReader(new FileReader(filename));
+            BufferedReader reader = new BufferedReader(new FileReader(filePath));
             String line;
 
             while ((line = reader.readLine()) != null) {
                 StringTokenizer tokenizer = new StringTokenizer(line, ",");
                 while (tokenizer.hasMoreTokens()) {
-                    String type = tokenizer.nextToken();
+                    String type = tokenizer.nextToken().toUpperCase();
                     String name = tokenizer.nextToken();
                     String description = tokenizer.nextToken();
                     int quantityAvailable = Integer.parseInt(tokenizer.nextToken());
@@ -35,18 +51,17 @@ public class ReadProductsFile {
                     TaxType taxType = TaxType.getType(taxTypeStr);
 
                     switch (type) {
-                        case "DigitalProduct" ->
-                            products.put(
-                                    name,
-                                    new DigitalProduct(
-                                            name,
-                                            description,
-                                            quantityAvailable,
-                                            price,
-                                            taxType
-                                    )
-                            );
-                        case "PhysicalProduct" -> {
+                        case "DIGITALPRODUCT" -> products.put(
+                                name,
+                                new DigitalProduct(
+                                        name,
+                                        description,
+                                        quantityAvailable,
+                                        price,
+                                        taxType
+                                )
+                        );
+                        case "PHYSICALPRODUCT" -> {
                             double weight = Double.parseDouble(tokenizer.nextToken());
                             products.put(
                                     name,
@@ -60,7 +75,7 @@ public class ReadProductsFile {
                                     )
                             );
                         }
-                        case "GiftDigitalProduct" -> {
+                        case "GIFTDIGITALPRODUCT" -> {
                             String message = tokenizer.nextToken();
                             products.put(
                                     name,
@@ -74,7 +89,7 @@ public class ReadProductsFile {
                                     )
                             );
                         }
-                        case "GiftPhysicalProduct" -> {
+                        case "GIFTPHYSICALPRODUCT" -> {
                             double weight = Double.parseDouble(tokenizer.nextToken());
                             String message = tokenizer.nextToken();
                             products.put(
@@ -99,7 +114,7 @@ public class ReadProductsFile {
         } catch (IOException e) {
             System.out.println("Error reading database file: " + e.getMessage());
         }
-
         return null;
     }
+
 }

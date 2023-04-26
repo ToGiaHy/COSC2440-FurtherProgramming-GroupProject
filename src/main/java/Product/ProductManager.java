@@ -11,7 +11,8 @@ public class ProductManager {
     /**
      * Product manager attributes
      */
-    public static Map<String, Product> PRODUCTS = new HashMap<String, Product>();
+    public static Map<String, Product> PRODUCTS = new HashMap<>();
+
 
     /**
      * Initial sample product data
@@ -39,6 +40,10 @@ public class ProductManager {
         PRODUCTS.put("Desk", new PhysicalProductCanBeGifted("Desk", "this is a desk", 59, 149.0, TaxType.FREE, 1000.0,"This is a gift message"));
         PRODUCTS.put("Chair", new PhysicalProductCanBeGifted("Chair", "this is a chair", 70, 59.0, TaxType.FREE, 400.0, "This is a gift message"));
 
+        return PRODUCTS;
+    }
+
+    public static Map<String, Product> getPRODUCTS() {
         return PRODUCTS;
     }
 
@@ -73,4 +78,7 @@ public class ProductManager {
             System.out.println(value);
         }
     }
+
+
+
 }
