@@ -12,7 +12,7 @@ import java.util.Map;
 
 
 public class WriteReceiptsFile {
-    public void displayReceipt(ArrayList<ShoppingCart> carts) throws IOException {
+    public void displayReceipt() throws IOException {
 
         FileWriter writer = new FileWriter("src/main/java/data/receipts.txt");
         writer.write("----------------RECEIPT----------------");
