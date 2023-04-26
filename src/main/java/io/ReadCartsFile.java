@@ -26,7 +26,7 @@ public class ReadCartsFile {
                     // Extract cart id
                     int id = Integer.parseInt(tokenizer.nextToken());
                     cart = new ShoppingCart(id);
-                    ShoppingCartManager.getShoppingCarts().add(cart);
+//                    ShoppingCartManager.getShoppingCarts().add(cart);
                 }
             }
         } catch (IOException e) {

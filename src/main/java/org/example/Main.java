@@ -18,11 +18,12 @@ public class Main {
     static ShoppingCartUI cartUI = new ShoppingCartUI();
 
     public static void main(String[] args) {
-        ProductManager.PRODUCTS = ProductFileActions.readFromFile("./src/main/java/data/products.txt");
+//        ProductManager.PRODUCTS = ProductFileActions.readFromFile("./src/main/java/data/products.txt");
         ProductManager.initialProducts();
-//        UserUI.userUI();
+        UserUI.userUI();
 //        productUI.productUI();
-        cartUI.CartUI();
+//        ProductFileActions.writeToFile(ProductManager.PRODUCTS, "./src/main/java/data/products.txt");
+//        cartUI.CartUI();
 
         UserUI.userUI();
     }

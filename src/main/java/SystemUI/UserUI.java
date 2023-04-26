@@ -6,8 +6,6 @@ package SystemUI;
 
 import java.util.*;
 
-import ShoppingCart.ShoppingCartManager;
-
 public class UserUI {
     /**
      * UserUI attributes
@@ -25,21 +23,18 @@ public class UserUI {
 
         String userInput = "";
 
-        while (!userInput.matches(Regex.NUM_1_TO_6)) {
+        while (!userInput.matches(Regex.NUM_1_TO_3)) {
             System.out.println("#=======================================#");
             System.out.println("#===== WELCOME TO SHOPPING SERVICE =====#");
             System.out.println("#=======================================#");
             System.out.println("1. Product manager");
             System.out.println("2. Shopping cart manager");
-            System.out.println("3. Select a cart to view details");
-            System.out.println("4. Sorting carts");
-            System.out.println("5. Print purchase receipts to the screen or a text file");
-            System.out.println("6. Exit program");
-            System.out.println("Please choose interaction by enter a from 1 to 6:");
+            System.out.println("3. Exit program");
+            System.out.println("Please choose interaction by enter a from 1 to 3:");
             userInput = scanner.nextLine();
-            if (!userInput.matches(Regex.NUM_1_TO_6)) {
+            if (!userInput.matches(Regex.NUM_1_TO_3)) {
                 System.out.println();
-                System.out.println("Error: You entered a string or a number out of range from 1 to 6!");
+                System.out.println("Error: You entered a string or a number out of range from 1 to 3!");
                 System.out.println();
             }
         }
@@ -54,7 +49,7 @@ public class UserUI {
     public static void userUI() {
         int userInput = 0;
 
-        while (userInput != 6) {
+        while (userInput != 3) {
 
             userInput = menu();
 
@@ -64,26 +59,13 @@ public class UserUI {
                     System.out.println();
                 }
                 case 2 -> {
-                    cartUI.CartUI();
+                    cartUI.CartManagerUI();
                     System.out.println();
                 }
                 case 3 -> {
-//                    todo display all cart UI and allow user select to view detail
-                    System.out.println("View cart detail");
-                    System.out.println();
-                }
-                case 4 -> {
-//                    todo sort all cart in cart list
-                    System.out.println("Sorting Cart");
-                    ShoppingCartManager.displayAllCarts();
-                }
-                case 5 -> {
-//                   todo display all cart and allow user select cart to print receipt
-                    ShoppingCartManager.displayAllCarts();
-                    System.out.println("Please enter the cart to print receipt");
-                }
-                case 6 -> {
+                    System.out.println("#===============================#");
                     System.out.println("Thank you for using our services!");
+                    System.out.println("#===============================#");
                 }
             }
 

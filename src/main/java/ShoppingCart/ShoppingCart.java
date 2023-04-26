@@ -9,9 +9,8 @@ import Product.ProductManager;
 import Product.PriceCoupon;
 import Product.PercentCoupon;
 
-import java.util.HashMap;
-import java.util.Map;
-import java.util.Objects;
+import java.time.LocalDate;
+import java.util.*;
 
 
 public class ShoppingCart {
@@ -24,13 +23,13 @@ public class ShoppingCart {
     private static int NEXT_ID = 1;
     private String name;
     private double amount = 0;
-//    public double totalWeight;
     private double shippingFee = 0;
-    public double totalWeight;
+    private double totalWeight;
     private final int cartId;
+    private double totalTax;
     private final static Map<String, Product> database = ProductManager.PRODUCTS;
     private String coupon = "";
-    private Double couponDiscount = (double) 0;
+    private double couponDiscount = 0;
 
     /**
      * Constructor
@@ -38,11 +37,14 @@ public class ShoppingCart {
     public ShoppingCart() {
         this.cartId = NEXT_ID++;
     }
+
     public ShoppingCart(int cartId) {
         this.cartId = cartId;
     }
 
-    public static void resetId() { NEXT_ID = 1; }
+    public static void resetId() {
+        NEXT_ID = 1;
+    }
 
     /**
      * Add the product with the given name to the shopping cart
@@ -91,20 +93,18 @@ public class ShoppingCart {
     public boolean removeItem(String productName, int quantity) {
         if (!database.containsKey(productName)) {
             return false;
-        } else{
+        } else {
             int currentQuantity = database.get(productName).getQuantityAvailable();
             int currentCartQuantity = PRODUCTS.get(productName);
-            if(quantity == currentCartQuantity){
+            if (quantity == currentCartQuantity) {
                 database.get(productName).setQuantityAvailable(currentQuantity + PRODUCTS.get(productName));
                 PRODUCTS.remove(productName);
                 return true;
-            }
-            else if(quantity < currentCartQuantity){
+            } else if (quantity < currentCartQuantity) {
                 database.get(productName).setQuantityAvailable(currentQuantity + PRODUCTS.get(productName));
-                PRODUCTS.put(productName,currentCartQuantity - quantity);
+                PRODUCTS.put(productName, currentCartQuantity - quantity);
                 return true;
-            }
-            else {
+            } else {
                 return false;
             }
         }
@@ -119,15 +119,16 @@ public class ShoppingCart {
 
         for (String product : this.PRODUCTS.keySet()) {
             if (database.get(product) instanceof PhysicalProduct) {
-                weight += ((PhysicalProduct) database.get(product)).getWeight()*this.PRODUCTS.get(product);
+                weight += ((PhysicalProduct) database.get(product)).getWeight() * this.PRODUCTS.get(product);
             }
         }
+
+        setTotalWeight(weight);
         return weight;
     }
 
     /**
      * Calculate total coupon discount
-     *
      */
     private double calculateCouponDiscount() {
         double total = 0;
@@ -142,6 +143,7 @@ public class ShoppingCart {
             }
         }
 
+        setCouponDiscount(total);
         return total;
     }
 
@@ -155,6 +157,7 @@ public class ShoppingCart {
     public double cartAmount() {
 //        Tax
         double priceWithTax = 0;
+        double tax = 0;
 
 
 //        Total amount
@@ -163,35 +166,88 @@ public class ShoppingCart {
 //        Calculate total amount with tax
         for (String product : this.PRODUCTS.keySet()) {
             priceWithTax = database.get(product).getPrice() +
-                    (database.get(product).getPrice()* database.get(product).getTaxType().getPercentage());
+                    (database.get(product).getPrice() * database.get(product).getTaxType().getPercentage());
             this.amount += priceWithTax * this.PRODUCTS.get(product);
+            tax += database.get(product).getPrice()* database.get(product).getTaxType().getPercentage();
         }
+        setTotalTax(tax);
 
 //        Calculate the total shipping fee
-        this.shippingFee = calculateWeight() * 0.1;
+//        this.shippingFee = calculateWeight() * 0.1;
+        setShippingFee(calculateWeight() * 0.1);
 
 //        Calculate the total coupon discount
         if (!Objects.equals(getCoupon(), "")) {
-            this.couponDiscount = calculateCouponDiscount();
+            setCouponDiscount(calculateCouponDiscount());
         }
 
+        setAmount(this.amount + this.shippingFee - this.couponDiscount);
         return this.amount + this.shippingFee - this.couponDiscount;
     }
 
     /**
      * Display all product in cart
-     *
      */
     public void displayAllProducts() {
         for (String product : PRODUCTS.keySet()) {
-            System.out.println(product+": " +PRODUCTS.get(product));
+            System.out.println(product + ": " + PRODUCTS.get(product));
         }
+    }
+
+    /**
+     * View detail of cart include total price, tax, shipping fee, coupon discount
+     */
+    public void viewDetails() {
+        System.out.printf("Cart %d, Total Price: %.2f, Total Tax: %.2f, Shipping fee: %.2f, Coupon discount: %.2f \n",
+                cartId, amount, totalTax, shippingFee, couponDiscount);
     }
 
 
     /**
      * Getter and Setter methods
      */
+
+    public double getTotalTax() {
+        return totalTax;
+    }
+
+    public void setTotalTax(double totalTax) {
+        this.totalTax = totalTax;
+    }
+
+
+    public static int getNextId() {
+        return NEXT_ID;
+    }
+
+    public static void setNextId(int nextId) {
+        NEXT_ID = nextId;
+    }
+
+    public double getAmount() {
+        return amount;
+    }
+
+    public void setAmount(double amount) {
+        this.amount = amount;
+    }
+
+    public double getShippingFee() {
+        return shippingFee;
+    }
+
+    public void setShippingFee(double shippingFee) {
+        this.shippingFee = shippingFee;
+    }
+
+    public void setTotalWeight(double totalWeight) {
+        this.totalWeight = totalWeight;
+    }
+
+    public void setCouponDiscount(double couponDiscount) {
+        this.couponDiscount = couponDiscount;
+    }
+
     public String getName() {
         return name;
     }
@@ -207,6 +263,7 @@ public class ShoppingCart {
     public HashMap<String, Integer> getPRODUCTS() {
         return PRODUCTS;
     }
+
     public int getId() {
         return cartId;
     }
@@ -229,13 +286,9 @@ public class ShoppingCart {
 
     @Override
     public String toString() {
-        return getName() + ":" +
-                "Products: " + PRODUCTS +
-                ", totalWeight: " + getTotalWeight() +
-                ", amount: " + cartAmount() +
-                ", base: " + BASE +
-                ", shipping fee: " + shippingFee +
-                ", coupon discount" + couponDiscount;
+        return "Cart ID : "+ cartId +
+                ", Products: " + PRODUCTS +
+                ", totalWeight: " + getTotalWeight();
     }
 
     public String toFile() {
@@ -247,4 +300,23 @@ public class ShoppingCart {
                 shippingFee
         );
     }
+
+    /**
+     * Display the purchase receipt
+     */
+
+    public void displayReceipt() {
+        System.out.println("----------------RECEIPT----------------");
+        System.out.println("Cart: " + this.cartId);
+        System.out.println("Date of purchase: " + LocalDate.now());
+        System.out.println("Items:");
+        for (Map.Entry<String, Integer> items : this.getPRODUCTS().entrySet()) {
+            Product product = database.get(items.getKey());
+            System.out.println("Name: " + items.getKey() + "\t" + "Price: " + product.getPrice() + "\t" + "Tax: " + product.getTaxType() + "Quantity: " + items.getValue());
+        }
+        System.out.println("Shipping fee: " + this.shippingFee);
+        System.out.println("Total amount: " + this.cartAmount());
+    }
+
+
 }
