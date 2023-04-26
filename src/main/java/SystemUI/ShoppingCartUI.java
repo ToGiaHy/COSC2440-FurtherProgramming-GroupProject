@@ -42,7 +42,7 @@ public class ShoppingCartUI {
         int userInput = 0;
         ShoppingCart cart = new ShoppingCart();
         // Set name for cart
-        cart.setName("Cart " + ShoppingCartManager.getShoppingCarts().size());
+        cart.setName("Cart " + ShoppingCartManager.sortCartList().size());
 
         String productName;
         boolean flag = true;
@@ -56,11 +56,12 @@ public class ShoppingCartUI {
                     System.out.println("All products in our shop:");
                     ProductManager.displayAllProduct();
                     System.out.println("Added a product to current shopping cart");
-//                    Get name of product from user
+
+                    // Get name of product from user
                     System.out.println("Enter name of product:");
                     productName = scanner.nextLine();
 
-//                    Get quantity of product user want to add to cart
+                    // Get quantity of product user want to add to cart
                     System.out.println("Enter quantity: ");
                     int quantity = Integer.parseInt(scanner.nextLine());
 
@@ -74,15 +75,15 @@ public class ShoppingCartUI {
                 }
                 case 2 -> {
                     System.out.println("Removed product from current shopping cart");
-//                    Display all product in shopping cart for user read to remove
+                    // Display all product in shopping cart for user read to remove
                     System.out.println("All current products in cart:");
                     cart.displayAllProducts();
 
-//                    Get name of product from user
+                    // Get name of product from user
                     System.out.println("Enter name of product:");
                     productName = scanner.nextLine();
 
-//                    Get quantity of product user want to add to cart
+                    // Get quantity of product user want to add to cart
                     System.out.println("Enter quantity: ");
                     int quantity = Integer.parseInt(scanner.nextLine());
 
@@ -122,7 +123,18 @@ public class ShoppingCartUI {
     }
 
     /**
-     * Create new shopping cart
+     * Display all cart and allow user choose cart to view details
+     */
+//    todo Find cart in cart list and display information of the cart.
+    public void viewCartDetails() {
+        ShoppingCartManager.displayAllCarts();
+        System.out.println("Enter the name of cart");
+
+    }
+
+//  TODO   (OLD VERSION NOT USE ANYMORE, WILL BE DELETED)
+    /**
+     * Create new shopping cart (OLD VERSION NOT USE ANYMORE, WILL BE DELETED)
      * <p>
      * This will create new shopping cart and let user add products to cart.
      * After complete all this method will add new cart to cart list of the system.
@@ -130,7 +142,7 @@ public class ShoppingCartUI {
     public static void createNewShoppingCart() {
         ShoppingCart cart = new ShoppingCart();
         // Set name for cart
-        cart.setName("Cart " + ShoppingCartManager.getShoppingCarts().size());
+        cart.setName("Cart " + ShoppingCartManager.sortCartList().size());
 
         int userInput;
         String productName;
