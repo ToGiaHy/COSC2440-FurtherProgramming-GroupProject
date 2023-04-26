@@ -24,13 +24,13 @@ public class ShoppingCart {
     private static int NEXT_ID = 1;
     private String name;
     private double amount = 0;
-//    public double totalWeight;
     private double shippingFee = 0;
-    public double totalWeight;
+    private double totalWeight;
     private final int cartId;
+    private double totalTax;
     private final static Map<String, Product> database = ProductManager.PRODUCTS;
     private String coupon = "";
-    private Double couponDiscount = (double) 0;
+    private double couponDiscount = 0;
 
     /**
      * Constructor
@@ -122,6 +122,8 @@ public class ShoppingCart {
                 weight += ((PhysicalProduct) database.get(product)).getWeight()*this.PRODUCTS.get(product);
             }
         }
+
+        setTotalWeight(weight);
         return weight;
     }
 
@@ -142,6 +144,7 @@ public class ShoppingCart {
             }
         }
 
+        setCouponDiscount(total);
         return total;
     }
 
@@ -155,6 +158,7 @@ public class ShoppingCart {
     public double cartAmount() {
 //        Tax
         double priceWithTax = 0;
+        double tax = 0;
 
 
 //        Total amount
@@ -165,16 +169,20 @@ public class ShoppingCart {
             priceWithTax = database.get(product).getPrice() +
                     (database.get(product).getPrice()* database.get(product).getTaxType().getPercentage());
             this.amount += priceWithTax * this.PRODUCTS.get(product);
+            tax += database.get(product).getPrice()* database.get(product).getTaxType().getPercentage();
         }
+        setTotalTax(tax);
 
 //        Calculate the total shipping fee
-        this.shippingFee = calculateWeight() * 0.1;
+//        this.shippingFee = calculateWeight() * 0.1;
+        setShippingFee(calculateWeight() * 0.1);
 
 //        Calculate the total coupon discount
         if (!Objects.equals(getCoupon(), "")) {
-            this.couponDiscount = calculateCouponDiscount();
+            setCouponDiscount(calculateCouponDiscount());
         }
 
+        setAmount(this.amount + this.shippingFee - this.couponDiscount);
         return this.amount + this.shippingFee - this.couponDiscount;
     }
 
@@ -188,10 +196,60 @@ public class ShoppingCart {
         }
     }
 
+    /**
+     * View detail of cart include total price, tax, shipping fee, coupon discount
+     */
+    public void viewDetails() {
+        System.out.printf("Cart %d, Total Price: %.2f, Total Tax: %.2f, Shipping fee: %.2f, Coupon discount: %.2f \n",
+                cartId, amount, totalTax, shippingFee, couponDiscount);
+    }
+
 
     /**
      * Getter and Setter methods
      */
+
+    public double getTotalTax() {
+        return totalTax;
+    }
+
+    public void setTotalTax(double totalTax) {
+        this.totalTax = totalTax;
+    }
+
+
+    public static int getNextId() {
+        return NEXT_ID;
+    }
+
+    public static void setNextId(int nextId) {
+        NEXT_ID = nextId;
+    }
+
+    public double getAmount() {
+        return amount;
+    }
+
+    public void setAmount(double amount) {
+        this.amount = amount;
+    }
+
+    public double getShippingFee() {
+        return shippingFee;
+    }
+
+    public void setShippingFee(double shippingFee) {
+        this.shippingFee = shippingFee;
+    }
+
+    public void setTotalWeight(double totalWeight) {
+        this.totalWeight = totalWeight;
+    }
+
+    public void setCouponDiscount(double couponDiscount) {
+        this.couponDiscount = couponDiscount;
+    }
+
     public String getName() {
         return name;
     }
@@ -229,13 +287,9 @@ public class ShoppingCart {
 
     @Override
     public String toString() {
-        return getName() + ":" +
-                "Products: " + PRODUCTS +
-                ", totalWeight: " + getTotalWeight() +
-                ", amount: " + cartAmount() +
-                ", base: " + BASE +
-                ", shipping fee: " + shippingFee +
-                ", coupon discount" + couponDiscount;
+        return "Cart ID : "+ cartId +
+                ", Products: " + PRODUCTS +
+                ", totalWeight: " + getTotalWeight();
     }
 
     public String toFile() {

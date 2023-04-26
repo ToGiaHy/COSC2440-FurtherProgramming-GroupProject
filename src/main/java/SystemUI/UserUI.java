@@ -68,13 +68,11 @@ public class UserUI {
                     System.out.println();
                 }
                 case 3 -> {
-//                    todo display all cart UI and allow user select to view detail
                     System.out.println("View cart detail");
-                    System.out.println();
+                    cartUI.viewCartDetails();
                 }
                 case 4 -> {
-//                    todo sort all cart in cart list
-                    System.out.println("Sorting Cart");
+                    System.out.println("Sorted Cart List");
                     ShoppingCartManager.displayAllCarts();
                 }
                 case 5 -> {

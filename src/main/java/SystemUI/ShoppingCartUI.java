@@ -8,6 +8,7 @@ import Product.ProductManager;
 import ShoppingCart.ShoppingCart;
 import ShoppingCart.ShoppingCartManager;
 
+import java.util.Objects;
 import java.util.Scanner;
 
 public class ShoppingCartUI {
@@ -21,17 +22,30 @@ public class ShoppingCartUI {
      * enter a number. Then it will return user input.
      * </p>*/
     private static int menu() {
-        System.out.println("#==============================#");
-        System.out.println("#===== SHOPPING CART MENU =====#");
-        System.out.println("#==============================#");
-        System.out.println("1. Add product to current shopping cart");
-        System.out.println("2. Remove product from current shopping cart");
-        System.out.println("3. Apply coupon to current shopping cart");
-        System.out.println("4. Remove coupon from current shopping cart");
-        System.out.println("5. Display all products in cart");
-        System.out.println("6. Complete cart");
-        System.out.println("Please enter a number in the menu to interact with system:");
-        return Integer.parseInt(scanner.nextLine());
+        String userInput = "";
+
+        while (!userInput.matches(Regex.NUM_1_TO_6)) {
+            System.out.println("#==============================#");
+            System.out.println("#===== SHOPPING CART MENU =====#");
+            System.out.println("#==============================#");
+            System.out.println("1. Add product to current shopping cart");
+            System.out.println("2. Remove product from current shopping cart");
+            System.out.println("3. Apply coupon to current shopping cart");
+            System.out.println("4. Remove coupon from current shopping cart");
+            System.out.println("5. Display all products in cart");
+            System.out.println("6. Complete cart");
+            System.out.println("Please enter a number in the menu to interact with system:");
+
+            userInput = scanner.nextLine();
+
+            if (!userInput.matches(Regex.NUM_1_TO_6)) {
+                System.out.println();
+                System.out.println("Error: You entered a string or a number out of range from 1 to 6!");
+                System.out.println();
+            }
+        }
+
+        return Integer.parseInt(userInput);
     }
 
     /**
@@ -40,12 +54,8 @@ public class ShoppingCartUI {
 
     public void CartUI() {
         int userInput = 0;
-        ShoppingCart cart = new ShoppingCart();
-        // Set name for cart
-        cart.setName("Cart " + ShoppingCartManager.sortCartList().size());
-
         String productName;
-        boolean flag = true;
+        ShoppingCart cart = new ShoppingCart();
 
         while (userInput != 6) {
 
@@ -114,7 +124,8 @@ public class ShoppingCartUI {
                 }
                 case 6 -> {
                     System.out.println("Completed cart");
-                    System.out.println(cart.cartAmount());
+                    System.out.println("Total amount of this cart: " + cart.cartAmount());
+                    ShoppingCartManager.SHOPPING_CARTS.add(cart);
                     UserUI.userUI();
                 }
             }
@@ -128,8 +139,9 @@ public class ShoppingCartUI {
 //    todo Find cart in cart list and display information of the cart.
     public void viewCartDetails() {
         ShoppingCartManager.displayAllCarts();
-        System.out.println("Enter the name of cart");
-
+        System.out.println("Enter the id of cart to view detail: ");
+        int id = Integer.parseInt(scanner.nextLine());
+        Objects.requireNonNull(ShoppingCartManager.findCartByID(id)).viewDetails();
     }
 
 //  TODO   (OLD VERSION NOT USE ANYMORE, WILL BE DELETED)
