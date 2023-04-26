@@ -8,8 +8,6 @@ import Product.*;
 import SystemUI.ProductUI;
 import SystemUI.ShoppingCartUI;
 import SystemUI.UserUI;
-import java.util.HashMap;
-import io.FileActions;
 import io.ProductFileActions;
 
 
@@ -24,7 +22,6 @@ public class Main {
         ProductManager.initialProducts();
 //        UserUI.userUI();
 //        productUI.productUI();
-        ProductFileActions.writeToFile(ProductManager.PRODUCTS, "./src/main/java/data/products.txt");
         cartUI.CartUI();
 
         UserUI.userUI();
