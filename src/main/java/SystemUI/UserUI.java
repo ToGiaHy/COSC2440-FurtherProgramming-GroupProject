@@ -6,8 +6,6 @@ package SystemUI;
 
 import java.util.*;
 
-import Product.*;
-import ShoppingCart.ShoppingCart;
 import ShoppingCart.ShoppingCartManager;
 
 public class UserUI {
@@ -77,12 +75,12 @@ public class UserUI {
                 case 4 -> {
 //                    todo sort all cart in cart list
                     System.out.println("Sorting Cart");
-                    System.out.println();
+                    ShoppingCartManager.displayAllCarts();
                 }
                 case 5 -> {
 //                   todo display all cart and allow user select cart to print receipt
-                    System.out.println("Print receipt.");
-                    System.out.println();
+                    ShoppingCartManager.displayAllCarts();
+                    System.out.println("Please enter the cart to print receipt");
                 }
                 case 6 -> {
                     System.out.println("Thank you for using our services!");

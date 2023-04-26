@@ -245,21 +245,21 @@ public class ProductUI {
             switch (userInput) {
                 case 1 -> {
 //              todo Change description of the Product
-                    System.out.println("Enter product description:");
-//                String description = scanner.nextLine();
-//                product.setDescription(description);
+                System.out.println("Enter product description:");
+                String description = scanner.nextLine();
+                product.setDescription(description);
                 }
                 case 2 -> {
 //              todo Change the quantity of the Product
                     System.out.println("Enter the number of products:");
-//                int quantityAvailable = Integer.parseInt(scanner.nextLine());
-//                product.setQuantityAvailable(quantityAvailable);
+                int quantityAvailable = Integer.parseInt(scanner.nextLine());
+                product.setQuantityAvailable(quantityAvailable);
                 }
                 case 3 -> {
 //              todo Change the price of the Product
                     System.out.println("Enter product price:");
-//                double price = Double.parseDouble(scanner.nextLine());
-//                product.setPrice(price);
+                double price = Double.parseDouble(scanner.nextLine());
+                product.setPrice(price);
                 }
                 case 4 -> {
 //              todo Change weight of Physical Product
