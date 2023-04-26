@@ -4,7 +4,7 @@ import java.util.HashSet;
 
 public class CouponDatabase {
     //attribute
-    private static final HashSet<String> COUPONLIST = new HashSet<>();
+    public static final HashSet<String> COUPONLIST = new HashSet<>();
 
     //method
 

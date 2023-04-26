@@ -9,6 +9,8 @@ import Product.*;
 import java.util.HashMap;
 import java.util.Scanner;
 
+import static Product.CouponDatabase.COUPONLIST;
+
 
 public class ProductUI {
     /**
@@ -65,6 +67,7 @@ public class ProductUI {
                 }
                 case 2 -> {
                     System.out.println("Create a new product!");
+                    createNewProduct();
                     System.out.println();
                 }
                 case 3 -> {
@@ -201,7 +204,7 @@ public class ProductUI {
      * Edit Menu
      */
     public int editMenu() {
-        String regex = "[0-4]";
+        String regex = "[0-7]";
         String userInput = "";
 
         while (!userInput.matches(regex)) {
@@ -212,14 +215,16 @@ public class ProductUI {
             System.out.println("2. Change available quantity of product");
             System.out.println("3. Change price of current product");
             System.out.println("4. Change weight of current product");
-            System.out.println("5. Back to product manager");
-            System.out.println("Please choose interaction by enter a from 1 to 4:");
+            System.out.println("5. Change tax type of current product");
+            System.out.println("6. Change the coupons that the current product have");
+            System.out.println("7. Back to product manager");
+            System.out.println("Please choose interaction by enter a from 1 to 7:");
 
             userInput = scanner.nextLine();
 
             if (!userInput.matches(regex)) {
                 System.out.println();
-                System.out.println("Error: You entered a string or a number out of range from 1 to 4!");
+                System.out.println("Error: You entered a string or a number out of range from 1 to 7!");
                 System.out.println();
             }
         }
@@ -270,6 +275,22 @@ public class ProductUI {
                         double weight = Double.parseDouble(scanner.nextLine());
                         currentProduct.setWeight(weight);
                     }
+                }
+                case 5 -> {
+//              todo Change tax type of product
+                    System.out.printf(product.getName() + " current tax type is " + product.getTaxType() + "\n");
+                    System.out.println("Please choose type tax type (FREE, NORMAL or LUXURY): ");
+                    String taxInput = scanner.nextLine();
+                    while(!taxInput.matches(Regex.TAX_TYPE)){
+                        taxInput = scanner.nextLine();
+                    }
+                    String tax = taxInput;
+                    TaxType taxType = TaxType.getType(tax);
+                    product.setTaxType(taxType);
+                }
+                case 6 -> {
+//              todo Change Coupons of product
+                    CouponUI.editCouponList(product);
                 }
                 default -> {
                     System.out.println();
