@@ -8,17 +8,25 @@ import java.util.ArrayList;
 import java.util.Comparator;
 
 public class ShoppingCartManager {
+    private final static ArrayList<ShoppingCart> SHOPPING_CARTS = new ArrayList<ShoppingCart>();
 
     public static ArrayList<ShoppingCart> sort(ArrayList<ShoppingCart> list) {
 
         list.sort(Comparator.comparingDouble((ShoppingCart o) -> o.getTotalWeight()));
         return list;
     }
-    private final static ArrayList<ShoppingCart> SHOPPING_CARTS = new ArrayList<ShoppingCart>();
 
-    public static ArrayList<ShoppingCart> getShoppingCarts() {
+    public static ArrayList<ShoppingCart> sortCartList() {
 
         return sort(SHOPPING_CARTS);
+    }
+
+
+    public static void displayAllCarts() {
+        sortCartList();
+        for (ShoppingCart cart: SHOPPING_CARTS) {
+            System.out.println(cart);
+        }
     }
 
 }
