@@ -1,6 +1,10 @@
-PhysicalProduct,"T-Shirt","a shirt or sth",5,10,0.1,0.2
-PhysicalProduct,"Jeans","a pair of pants",10,7,0.1,0.5
-DigitalProduct,"Ebook - Java", "Java for Dummies",2,70,0.2
-DigitalProduct,"Ebook - Python","Python for Beginners",0,70,0.2
-GiftPhysicalProduct,"Stuffed Animal","a nice stuffed toy",1,10,0,2,"Happy Birthday!",FREE
-GiftDigitalProduct,"Spotify","one-month free music on Spotify",1,10,0,"Best Wishes to you"
+DigitalProduct,Art work,this is an art work,12,13.00,Luxury,{}
+DigitalProduct,Song,this is a song,10,15.00,Free,{price1=price1, price2=price2}
+GiftPhysicalProduct,Chair,this is a chair,70,59.00,Free,400.00,This is a gift message
+DigitalProduct,Picture,this is a picture,5,20.00,Normal,{}
+PhysicalProduct,Iphone,this is an iphone,11,500.00,Luxury,190.00
+GiftDigitalProduct,GenShin Impact,this is a game,50,250.00,Normal,
+GiftPhysicalProduct,Desk,this is a desk,59,149.00,Free,1000.00,This is a gift message
+PhysicalProduct,Bicycle,this is a bicycle,11,400.00,Normal,2000.00
+GiftDigitalProduct,NFT,this is a NFT,8,300.00,Luxury,
+PhysicalProduct,Macbook,this is a macbook,99,2000.00,Luxury,490.00
