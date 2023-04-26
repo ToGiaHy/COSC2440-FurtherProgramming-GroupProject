@@ -21,7 +21,7 @@ public class ShoppingCartManager {
         return sort(SHOPPING_CARTS);
     }
     public static ShoppingCart findCartByID(int id) {
-        for (ShoppingCart cart: SHOPPING_CARTS) {
+        for (ShoppingCart cart : SHOPPING_CARTS) {
             if (cart.getId() == id) {
                 return cart;
             }
@@ -29,11 +29,13 @@ public class ShoppingCartManager {
         return null;
     }
 
-
+    public static ArrayList<ShoppingCart> getShoppingCarts() {
+        return SHOPPING_CARTS;
+    }
 
     public static void displayAllCarts() {
         sortCartList();
-        for (ShoppingCart cart: SHOPPING_CARTS) {
+        for (ShoppingCart cart : SHOPPING_CARTS) {
             System.out.println(cart);
         }
     }
