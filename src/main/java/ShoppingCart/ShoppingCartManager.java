@@ -40,11 +40,4 @@ public class ShoppingCartManager {
     }
 
 
-    public static void displayAllCarts() {
-        sortCartList();
-        for (ShoppingCart cart: SHOPPING_CARTS) {
-            System.out.println(cart);
-        }
-    }
-
 }

@@ -4,7 +4,7 @@
 package Product;
 
 
-import java.util.HashMap;
+import java.util.Map;
 
 public class DigitalProduct extends Product {
 
@@ -20,7 +20,7 @@ public class DigitalProduct extends Product {
         super(name, description, quantityAvailable, price, taxType);
     }
 
-    public DigitalProduct(String name, String description, int quantityAvailable, double price, TaxType taxType, HashMap<String,Coupon> couponList) {
+    public DigitalProduct(String name, String description, int quantityAvailable, double price, TaxType taxType, Map<String,Coupon> couponList) {
         super(name, description, quantityAvailable, price, taxType, couponList);
     }
 
@@ -45,15 +45,4 @@ public class DigitalProduct extends Product {
                 );
     }
 
-    @Override
-    public String toFile() {
-        return String.format("DigitalProduct,%s,%s,%d,%.2f,%s,%s",
-                this.getName(),
-                this.getDescription(),
-                this.getQuantityAvailable(),
-                this.getPrice(),
-                this.getTaxType().toString(),
-                this.getCouponList().toString()
-        );
-    }
 }

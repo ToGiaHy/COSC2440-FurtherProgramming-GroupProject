@@ -3,114 +3,59 @@ package io;
 import Product.CanBeGifted;
 import Product.ProductManager;
 import Product.Product;
-import ShoppingCart.ShoppingCart;
-import ShoppingCart.ShoppingCartManager;
+import ShoppingCart.*;
 
 import java.io.BufferedReader;
 import java.io.FileReader;
 import java.io.IOException;
+import java.util.Arrays;
+import java.util.Map;
 import java.util.StringTokenizer;
+import java.util.stream.Collectors;
 
-public class ReadCartsFile {
-
-
-    public static void readCartsToDatabase(String cartsFilePath) {
-        ShoppingCart cart;
+public class ReadCartsFile implements FileActions {
+    /**
+     * Read the carts from a file and add the carts to the list
+     *
+     * @param filePath a file
+     */
+    public void action(String filePath) {
         try {
-            BufferedReader cartReader = new BufferedReader(new FileReader(cartsFilePath));
+            BufferedReader cartReader = new BufferedReader(new FileReader(filePath));
             String line;
-
+            ShoppingCart cart;
+            int id;
+            String items, giftMessages;
             while ((line = cartReader.readLine()) != null) {
                 StringTokenizer tokenizer = new StringTokenizer(line, ",");
                 while (tokenizer.hasMoreTokens()) {
-                    // Extract cart id
-                    int id = Integer.parseInt(tokenizer.nextToken());
-                    cart = new ShoppingCart(id);
-//                    ShoppingCartManager.getShoppingCarts().add(cart);
-                }
-            }
-        } catch (IOException e) {
-            System.out.println("Error reading database file: " + e.getMessage());
-        }
-    }
-
-
-    public static void readCartItemsFile(String productsFilePath) {
-        try {
-            // Read products and add to cart's PRODUCTS hashmap
-            BufferedReader cartProductReader = new BufferedReader(new FileReader(productsFilePath));
-            String productLine;
-            String productName;
-            int cartId;
-            int quantity;
-            String message = "";
-            while ((productLine = cartProductReader.readLine()) != null) {
-                StringTokenizer productTokenizer = new StringTokenizer(productLine, ",");
-                while (productTokenizer.hasMoreTokens()) {
-                    cartId = Integer.parseInt(productTokenizer.nextToken());
-                    productName = productTokenizer.nextToken().trim();
-                    quantity = Integer.parseInt(productTokenizer.nextToken());
-                    if (productTokenizer.hasMoreTokens()) {
-                        message = productTokenizer.toString();
-                    }
-                    ShoppingCart shoppingCart = ShoppingCartManager.findCartByID(cartId);
-                    if (shoppingCart != null) {
-                        shoppingCart.addItem(productName, quantity);
-                        Product product = ProductManager.PRODUCTS.get(productName);
-                        if (product instanceof CanBeGifted) {
-                            ((CanBeGifted) product).setMessage(message);
+                    // Extract cart's information
+                    id = Integer.parseInt(tokenizer.nextToken());
+                    items = tokenizer.nextToken();
+                    giftMessages = tokenizer.nextToken();
+                    // Convert String to Map
+                    Map<String, Integer> itemsMap = Arrays.stream(items.split(","))
+                            .map(entry -> entry.split("="))
+                            .collect(Collectors.toMap(entry -> entry[0], entry -> Integer.valueOf(entry[1])));
+                    Map<String, String> giftMessagesMap = Arrays.stream(giftMessages.split(","))
+                            .map(entry -> entry.split("="))
+                            .collect(Collectors.toMap(entry -> entry[0], entry -> entry[1]));
+                    //Create a new cart
+                    cart = new ShoppingCart(id, itemsMap);
+                    for (String itemName : giftMessagesMap.keySet()) {
+                        Product item = ProductManager.getPRODUCTS().get(itemName);
+                        if (item instanceof CanBeGifted) {
+                            ((CanBeGifted) item).setMessage(giftMessagesMap.get(itemName));
                         }
-
                     }
+                    // Add a new cart to the shopping cart
+                    ShoppingCartManager.getShoppingCarts().add(cart);
                 }
             }
+            // Exception handling
         } catch (IOException e) {
             System.out.println("Error reading database file: " + e.getMessage());
         }
-
     }
-//    public static ArrayList<ShoppingCart> readCartsToDatabase(String cartsFilePath, String productsFilePath) {
-//        ShoppingCart.resetId();
-//        ArrayList<ShoppingCart> carts = new ArrayList<>();
-//
-//        try {
-//            BufferedReader cartReader = new BufferedReader(new FileReader(cartsFilePath));
-//            String line;
-//
-//            while ((line = cartReader.readLine()) != null) {
-//                ShoppingCart cart = new ShoppingCart();
-//                StringTokenizer tokenizer = new StringTokenizer(line, ",");
-//                while (tokenizer.hasMoreTokens()) {
-//                    // Extract cart details
-//                    int id = Integer.parseInt(tokenizer.nextToken());
-//                    String name = tokenizer.nextToken();
-//                    double cartAmount = Double.parseDouble(tokenizer.nextToken().trim());
-//                    double totalWeight = Double.parseDouble(tokenizer.nextToken().trim());
-//                    double shippingFee = Double.parseDouble(tokenizer.nextToken().trim());
-//
-//                }
-//
-//
-//                // Read products and add to cart's PRODUCTS hashmap
-//                BufferedReader cartProductReader = new BufferedReader(new FileReader(productsFilePath));
-//                String productLine;
-//                while ((productLine = cartProductReader.readLine()) != null) {
-//                    StringTokenizer productTokenizer = new StringTokenizer(productLine, ",");
-//                    String productName = productTokenizer.nextToken().trim();
-//                    if (cart.getPRODUCTS().containsKey(productName)) {
-//                        continue; // Product already added to cart
-//                    }
-//                    int productQuantity = Integer.parseInt(productTokenizer.nextToken().trim());
-////                    cart.addProduct(productName, productQuantity);
-//                }
-//                carts.add(cart);
-//                cartProductReader.close();
-//            }
-//            cartReader.close();
-//        } catch (IOException e){
-//            System.out.println("Error reading database file: " + e.getMessage());
-//        }
-//
-//        return null;
-//    }
 }
+

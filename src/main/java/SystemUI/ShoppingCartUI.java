@@ -277,7 +277,7 @@ public class ShoppingCartUI {
                     }
                 }
                 case 3 -> {
-                    for (String product : cart.getPRODUCTS().keySet()) {
+                    for (String product : cart.getItems().keySet()) {
                         System.out.println(ProductManager.PRODUCTS.get(product));
                     }
                 }
