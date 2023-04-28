@@ -18,6 +18,6 @@ public class PriceCoupon extends Coupon{
 
     @Override
     public String toString() {
-        return super.getCouponCode();
+        return super.getCouponCode() + " " + getValue();
     }
 }

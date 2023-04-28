@@ -35,7 +35,7 @@ public class CouponUI {
         System.out.println("The current product include these coupons");
         HashMap<String,Coupon> tempCoupon = product.getCouponList();
         for(String keys : tempCoupon.keySet()){
-            System.out.printf(keys + " = " + tempCoupon.get(keys));
+            System.out.println(tempCoupon.get(keys));
         }
         System.out.println("Enter the coupon code that you want to edit: ");
         String keyInput = scn.nextLine();
@@ -44,10 +44,17 @@ public class CouponUI {
             System.out.println("What type do you want the coupon to be? (Percent or Price)");
             String couponOption = scn.nextLine();
             if(couponOption.equalsIgnoreCase("Percent")){
-                System.out.println("Please enter the value for the coupon: ");
-                coupon = (PercentCoupon;
+                System.out.println("Please enter the value for the coupon: (Integer)");
+                int value = Integer.parseInt(scn.nextLine());
+                PercentCoupon newPercentCoupon = new PercentCoupon(keyInput,value);
+                tempCoupon.put(keyInput,newPercentCoupon);
             }
-            tempCoupon.put(keyInput,coupon);
+            else{
+                System.out.println("Please enter the value for the coupon: (Double)");
+                double value = Double.parseDouble(scn.nextLine());
+                PriceCoupon newPriceCoupon = new PriceCoupon(keyInput,value);
+                tempCoupon.put(keyInput,newPriceCoupon);
+            }
             product.setCouponList(tempCoupon);
         }
 
@@ -57,7 +64,7 @@ public class CouponUI {
         System.out.println("The current product include these coupons");
         HashMap<String,Coupon> tempCoupon = product.getCouponList();
         for(String keys : tempCoupon.keySet()){
-            System.out.printf(keys + " = " + tempCoupon.get(keys));
+            System.out.println(tempCoupon.get(keys));
         }
         System.out.println("Enter the coupon code that you want to remove: ");
         String couponCode = scn.nextLine();
@@ -95,7 +102,7 @@ public class CouponUI {
                 switch (userInput) {
                     case 1 -> {
                         for(String keys : product.getCouponList().keySet()){
-                            System.out.println(keys + " = " + product.getCouponList().get(keys));
+                            System.out.println(product.getCouponList().get(keys));
                         }
                     }
                     case 2 -> {
