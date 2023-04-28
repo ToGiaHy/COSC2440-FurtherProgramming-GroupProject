@@ -38,6 +38,4 @@ public class ShoppingCartManager {
             System.out.println(cart);
         }
     }
-
-
 }

@@ -18,7 +18,7 @@ public class Main {
     public static void main(String[] args) {
 //        ProductManager.PRODUCTS = ProductFileActions.readFromFile("./src/main/java/data/products.txt");
         ProductManager.initialProducts();
-        UserUI.userUI();
+//        UserUI.userUI();
 //        productUI.productUI();
 //        ProductFileActions.writeToFile(ProductManager.PRODUCTS, "./src/main/java/data/products.txt");
 //        cartUI.CartUI();
