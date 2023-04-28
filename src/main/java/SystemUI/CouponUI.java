@@ -39,9 +39,18 @@ public class CouponUI {
         }
         System.out.println("Enter the coupon code that you want to edit: ");
         String keyInput = scn.nextLine();
-        Coupon coupon = createCoupon();
-        tempCoupon.put(keyInput,coupon);
-        product.setCouponList(tempCoupon);
+        if(tempCoupon.containsKey(keyInput)){
+            Coupon coupon = product.getCouponList().get(keyInput);
+            System.out.println("What type do you want the coupon to be? (Percent or Price)");
+            String couponOption = scn.nextLine();
+            if(couponOption.equalsIgnoreCase("Percent")){
+                System.out.println("Please enter the value for the coupon: ");
+                coupon = (PercentCoupon;
+            }
+            tempCoupon.put(keyInput,coupon);
+            product.setCouponList(tempCoupon);
+        }
+
     }
     public static void removeCoupon(Product product){
         Scanner scn = new Scanner(System.in);

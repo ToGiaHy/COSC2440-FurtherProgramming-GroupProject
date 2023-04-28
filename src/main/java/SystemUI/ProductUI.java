@@ -72,6 +72,8 @@ public class ProductUI {
                 }
                 case 3 -> {
                     System.out.println("Edit an exist product!");
+                    String productName = scanner.nextLine();
+                    editProduct(productName);
                     System.out.println();
                 }
                 case 4 -> {
@@ -101,7 +103,7 @@ public class ProductUI {
             System.out.println("Please choose type by enter 1 or 2: ");
             typeInput = scanner.nextLine();
         }
-        int type = Integer.parseInt(scanner.nextLine());
+        int type = Integer.parseInt(typeInput);
 
         System.out.println("Enter a name of product:");
         String name = scanner.nextLine();
@@ -110,8 +112,9 @@ public class ProductUI {
 
         System.out.println("Enter the number of product:");
         String quantityInput = scanner.nextLine();
+        System.out.println(quantityInput.getClass().getName());
         while (!quantityInput.matches(Regex.INTEGER_NUMBER)) {
-            System.out.println("Please choose type by enter a integer number: ");
+            System.out.println("Please enter an integer number: ");
             quantityInput = scanner.nextLine();
         }
         int quantityAvailable = Integer.parseInt(quantityInput);
@@ -164,7 +167,7 @@ public class ProductUI {
         if (hasCoupon) {
             System.out.println("How many coupon do you want to add ? Enter an integer number please: ");
             int numCoupon;
-            int count = 0;
+            int count = 1;
             numCoupon = Integer.parseInt(scanner.nextLine());
 
             while (count <= numCoupon) {
@@ -239,66 +242,70 @@ public class ProductUI {
      * </p>
      */
     public void editProduct(String productName) {
+        if(ProductManager.PRODUCTS.containsKey(productName)){
+            Product product = ProductManager.PRODUCTS.get(productName);
 
-        Product product = ProductManager.PRODUCTS.get(productName);
+            int userInput = 0;
 
-        int userInput = 0;
+            while (userInput != 5) {
+                userInput = editMenu();
 
-        while (userInput != 5) {
-            userInput = editMenu();
-
-            switch (userInput) {
-                case 1 -> {
+                switch (userInput) {
+                    case 1 -> {
 //              todo Change description of the Product
-                System.out.println("Enter product description:");
-                String description = scanner.nextLine();
-                product.setDescription(description);
-                }
-                case 2 -> {
+                        System.out.println("Enter product description:");
+                        String description = scanner.nextLine();
+                        product.setDescription(description);
+                    }
+                    case 2 -> {
 //              todo Change the quantity of the Product
-                    System.out.println("Enter the number of products:");
-                int quantityAvailable = Integer.parseInt(scanner.nextLine());
-                product.setQuantityAvailable(quantityAvailable);
-                }
-                case 3 -> {
+                        System.out.println("Enter the number of products:");
+                        int quantityAvailable = Integer.parseInt(scanner.nextLine());
+                        product.setQuantityAvailable(quantityAvailable);
+                    }
+                    case 3 -> {
 //              todo Change the price of the Product
-                    System.out.println("Enter product price:");
-                double price = Double.parseDouble(scanner.nextLine());
-                product.setPrice(price);
-                }
-                case 4 -> {
+                        System.out.println("Enter product price:");
+                        double price = Double.parseDouble(scanner.nextLine());
+                        product.setPrice(price);
+                    }
+                    case 4 -> {
 //              todo Change weight of Physical Product
-                    if (product instanceof DigitalProduct) {
-                        System.out.println("This is a digital product, so it does not have weight!");
-                    } else if (product instanceof PhysicalProduct currentProduct) {
-                        System.out.println("Enter product weight:");
-                        double weight = Double.parseDouble(scanner.nextLine());
-                        currentProduct.setWeight(weight);
+                        if (product instanceof DigitalProduct) {
+                            System.out.println("This is a digital product, so it does not have weight!");
+                        } else if (product instanceof PhysicalProduct currentProduct) {
+                            System.out.println("Enter product weight:");
+                            double weight = Double.parseDouble(scanner.nextLine());
+                            currentProduct.setWeight(weight);
+                        }
                     }
-                }
-                case 5 -> {
+                    case 5 -> {
 //              todo Change tax type of product
-                    System.out.printf(product.getName() + " current tax type is " + product.getTaxType() + "\n");
-                    System.out.println("Please choose type tax type (FREE, NORMAL or LUXURY): ");
-                    String taxInput = scanner.nextLine();
-                    while(!taxInput.matches(Regex.TAX_TYPE)){
-                        taxInput = scanner.nextLine();
+                        System.out.printf(product.getName() + " current tax type is " + product.getTaxType() + "\n");
+                        System.out.println("Please choose type tax type (FREE, NORMAL or LUXURY): ");
+                        String taxInput = scanner.nextLine();
+                        while(!taxInput.matches(Regex.TAX_TYPE)){
+                            taxInput = scanner.nextLine();
+                        }
+                        String tax = taxInput;
+                        TaxType taxType = TaxType.getType(tax);
+                        product.setTaxType(taxType);
                     }
-                    String tax = taxInput;
-                    TaxType taxType = TaxType.getType(tax);
-                    product.setTaxType(taxType);
-                }
-                case 6 -> {
+                    case 6 -> {
 //              todo Change Coupons of product
-                    CouponUI.editCouponList(product);
-                }
-                default -> {
-                    System.out.println();
-                    System.out.println("Update product detail successfully!");
-                    System.out.println();
+                        CouponUI.editCouponList(product);
+                    }
+                    default -> {
+                        System.out.println();
+                        System.out.println("Update product detail successfully!");
+                        System.out.println();
 //                todo Call edit product again
+                    }
                 }
             }
+        }
+        else{
+            System.out.println("Product doesn't exist");
         }
 
 
