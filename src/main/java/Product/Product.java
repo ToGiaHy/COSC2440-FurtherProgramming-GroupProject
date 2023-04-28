@@ -4,6 +4,7 @@
 package Product;
 
 import java.util.HashMap;
+import java.util.Map;
 
 public abstract class Product {
     /**
@@ -15,7 +16,7 @@ public abstract class Product {
     private double price;
     private TaxType taxType;
 
-    private HashMap<String,Coupon> couponList;
+    private Map<String,Coupon> couponList;
     /**
      * Constructor
      */
@@ -25,10 +26,10 @@ public abstract class Product {
         this.quantityAvailable = quantityAvailable;
         this.price = price;
         this.taxType = taxType;
-        this.couponList = new HashMap<String, Coupon>();
+        this.couponList = new HashMap<>();
     }
 
-    public Product(String name, String description, int quantityAvailable, double price, TaxType taxType, HashMap<String,Coupon> couponList) {
+    public Product(String name, String description, int quantityAvailable, double price, TaxType taxType, Map<String,Coupon> couponList) {
         this.name = name;
         this.description = description;
         this.quantityAvailable = quantityAvailable;
@@ -61,7 +62,7 @@ public abstract class Product {
     }
 
     // Get the product's tax
-    public HashMap<String,Coupon> getCouponList() {
+    public Map<String,Coupon> getCouponList() {
         return couponList;
     }
 
@@ -86,20 +87,11 @@ public abstract class Product {
     public void setTaxType(TaxType taxType) {
         this.taxType = taxType;
     }
-    public void setCouponList(HashMap<String,Coupon> couponList) {
+    public void setCouponList(Map<String,Coupon> couponList) {
         this.couponList = couponList;
     }
 
     @Override
     public abstract String toString();
 
-    public String toFile() {
-        return String.format(
-                "%s,%s,%d,%.2f",
-                this.getName(),
-                this.getDescription(),
-                this.getQuantityAvailable(),
-                this.getPrice()
-        );
-    }
 }

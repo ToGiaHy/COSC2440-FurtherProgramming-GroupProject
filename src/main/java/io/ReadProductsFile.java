@@ -5,22 +5,25 @@ import Product.*;
 import java.io.BufferedReader;
 import java.io.FileReader;
 import java.io.IOException;
+import java.util.Arrays;
 import java.util.HashMap;
 import java.util.Map;
 import java.util.StringTokenizer;
+import java.util.regex.Pattern;
+import java.util.stream.Collectors;
 
-public class ProductFileActions{
+
+public class ReadProductsFile implements FileActions {
 
     /**
      * Read data from the file to PRODUCTS
      */
-    public static Map<String, Product> readFromFile(String filePath) {
+    public void action(String filePath) {
         // Read from file
         try {
-            Map<String, Product> products = new HashMap<>();
             BufferedReader reader = new BufferedReader(new FileReader(filePath));
+            Product product;
             String line;
-
             while ((line = reader.readLine()) != null) {
                 StringTokenizer tokenizer = new StringTokenizer(line, ",");
                 while (tokenizer.hasMoreTokens()) {
@@ -30,37 +33,48 @@ public class ProductFileActions{
                     int quantityAvailable = Integer.parseInt(tokenizer.nextToken());
                     double price = Double.parseDouble(tokenizer.nextToken());
                     String taxTypeStr = tokenizer.nextToken();
+                    String coupons = tokenizer.nextToken().trim();
+                    // Convert the strings to related types
                     TaxType taxType = TaxType.getType(taxTypeStr);
+                    // Map from the file store the coupon's name and its value
+                    Map<String, String> couponValues = Arrays.stream(coupons.split(","))
+                            .map(entry -> entry.split("="))
+                            .collect(Collectors.toMap(entry -> entry[0], entry -> entry[1]));
 
+                    // Create CouponList for Products
+                    Map<String, Coupon> couponsMap = new HashMap<>();
+                    Coupon coupon;
+                    for (Map.Entry<String, String> entry : couponValues.entrySet()) {
+                        if (Pattern.matches("\\.", entry.getValue())) {
+                            coupon = new PriceCoupon(entry.getKey(), Double.parseDouble(entry.getValue()));
+                        } else
+                            coupon = new PercentCoupon(entry.getKey(), Integer.parseInt(entry.getValue()));
+                        couponsMap.put(coupon.getCouponCode(), coupon);
+                    }
                     switch (type) {
-                        case "DIGITALPRODUCT" -> products.put(
-                                name,
+                        case "DIGITALPRODUCT" -> product =
                                 new DigitalProduct(
                                         name,
                                         description,
                                         quantityAvailable,
                                         price,
-                                        taxType
-                                )
-                        );
+                                        taxType,
+                                        couponsMap
+                                );
                         case "PHYSICALPRODUCT" -> {
                             double weight = Double.parseDouble(tokenizer.nextToken());
-                            products.put(
+                            product = new PhysicalProduct(
                                     name,
-                                    new PhysicalProduct(
-                                            name,
-                                            description,
-                                            quantityAvailable,
-                                            price,
-                                            taxType,
-                                            weight
-                                    )
+                                    description,
+                                    quantityAvailable,
+                                    price,
+                                    taxType,
+                                    weight
                             );
                         }
                         case "GIFTDIGITALPRODUCT" -> {
                             String message = tokenizer.nextToken();
-                            products.put(
-                                    name,
+                            product =
                                     new DigitalProductCanBeGifted(
                                             name,
                                             description,
@@ -68,14 +82,12 @@ public class ProductFileActions{
                                             price,
                                             taxType,
                                             message
-                                    )
-                            );
+                                    );
                         }
                         case "GIFTPHYSICALPRODUCT" -> {
                             double weight = Double.parseDouble(tokenizer.nextToken());
                             String message = tokenizer.nextToken();
-                            products.put(
-                                    name,
+                            product =
                                     new PhysicalProductCanBeGifted(
                                             name,
                                             description,
@@ -83,20 +95,20 @@ public class ProductFileActions{
                                             price,
                                             taxType,
                                             weight,
+                                            couponsMap,
                                             message
-                                    )
-                            );
+                                    );
                         }
                         default -> throw new IOException("Invalid product type: " + type);
                     }
+                    ProductManager.getPRODUCTS().put(product.getName(), product);
                 }
             }
             reader.close();
-            return products;
+
         } catch (IOException e) {
             System.out.println("Error reading database file: " + e.getMessage());
         }
-        return null;
     }
 
 }

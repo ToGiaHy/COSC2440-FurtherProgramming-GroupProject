@@ -4,7 +4,7 @@
 
 package Product;
 
-import java.util.HashMap;
+import java.util.Map;
 
 public class PhysicalProduct extends Product{
     /**
@@ -26,7 +26,7 @@ public class PhysicalProduct extends Product{
         this.weight = weight;
     }
 
-    public PhysicalProduct(String name, String description, int quantityAvailable, double price, TaxType taxType, HashMap<String,Coupon> couponList,double weight) {
+    public PhysicalProduct(String name, String description, int quantityAvailable, double price, TaxType taxType, Map<String,Coupon> couponList, double weight) {
         super(name, description, quantityAvailable, price, taxType, couponList);
         this.weight = weight;
     }
@@ -64,16 +64,4 @@ public class PhysicalProduct extends Product{
         );
     }
 
-    @Override
-    public String toFile() {
-        return String.format(
-                "PhysicalProduct,%s,%s,%d,%.2f,%s,%.2f",
-                this.getName(),
-                this.getDescription(),
-                this.getQuantityAvailable(),
-                this.getPrice(),
-                this.getTaxType().toString(),
-                this.getWeight()
-        );
-    }
 }

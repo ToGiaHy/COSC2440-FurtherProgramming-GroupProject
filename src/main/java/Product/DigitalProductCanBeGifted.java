@@ -4,7 +4,7 @@
 
 package Product;
 
-import java.util.HashMap;
+import java.util.Map;
 
 public class DigitalProductCanBeGifted extends DigitalProduct implements CanBeGifted {
     /**
@@ -25,7 +25,7 @@ public class DigitalProductCanBeGifted extends DigitalProduct implements CanBeGi
         this.message = message;
     }
 
-    public DigitalProductCanBeGifted(String name, String description, int quantityAvailable, double price, TaxType taxType, HashMap<String,Coupon> couponList, String message) {
+    public DigitalProductCanBeGifted(String name, String description, int quantityAvailable, double price, TaxType taxType, Map<String,Coupon> couponList, String message) {
         super(name, description, quantityAvailable, price, taxType, couponList);
         this.message = message;
     }
@@ -63,16 +63,4 @@ public class DigitalProductCanBeGifted extends DigitalProduct implements CanBeGi
         return this.message;
     }
 
-    @Override
-    public String toFile() {
-        return String.format(
-                "GiftDigitalProduct,%s,%s,%d,%.2f,%s,%s",
-                this.getName(),
-                this.getDescription(),
-                this.getQuantityAvailable(),
-                this.getPrice(),
-                this.getTaxType().toString(),
-                this.message
-        );
-    }
 }
