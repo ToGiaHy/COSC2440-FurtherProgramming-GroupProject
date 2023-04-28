@@ -112,7 +112,6 @@ public class ProductUI {
 
         System.out.println("Enter the number of product:");
         String quantityInput = scanner.nextLine();
-        System.out.println(quantityInput.getClass().getName());
         while (!quantityInput.matches(Regex.INTEGER_NUMBER)) {
             System.out.println("Please enter an integer number: ");
             quantityInput = scanner.nextLine();
@@ -137,7 +136,7 @@ public class ProductUI {
                 System.out.println("Please choose type by enter a double number: ");
                 weightInput = scanner.nextLine();
             }
-            weight = Double.parseDouble(scanner.nextLine());
+            weight = Double.parseDouble(weightInput);
             while (weight <= 0) {
                 System.out.println("Weight cannot be 0 or negative number");
                 weight = Double.parseDouble(scanner.nextLine());
@@ -285,6 +284,7 @@ public class ProductUI {
                         System.out.println("Please choose type tax type (FREE, NORMAL or LUXURY): ");
                         String taxInput = scanner.nextLine();
                         while(!taxInput.matches(Regex.TAX_TYPE)){
+                            System.out.println("Please choose type tax type (FREE, NORMAL or LUXURY): ");
                             taxInput = scanner.nextLine();
                         }
                         String tax = taxInput;
@@ -294,6 +294,9 @@ public class ProductUI {
                     case 6 -> {
 //              todo Change Coupons of product
                         CouponUI.editCouponList(product);
+                    }
+                    case 7 -> {
+                        productUI();
                     }
                     default -> {
                         System.out.println();
