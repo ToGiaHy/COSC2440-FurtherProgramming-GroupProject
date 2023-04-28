@@ -4,30 +4,12 @@ import Product.*;
 
 import java.io.BufferedReader;
 import java.io.FileReader;
-import java.io.FileWriter;
 import java.io.IOException;
 import java.util.HashMap;
 import java.util.Map;
 import java.util.StringTokenizer;
 
 public class ProductFileActions{
-
-    /**
-     * Write products from PRODUCTS to the file
-     *
-     */
-    public static void writeToFile(Map<String, Product> products, String filePath) {
-        try {
-            FileWriter writer = new FileWriter(filePath);
-
-            for (Product product : products.values()) {
-                writer.write(product.toFile() + '\n');
-            }
-            writer.close();
-        } catch (IOException e) {
-            System.out.println("Error writing to database file: " + e.getMessage());
-        }
-    }
 
     /**
      * Read data from the file to PRODUCTS

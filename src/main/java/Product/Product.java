@@ -25,6 +25,7 @@ public abstract class Product {
         this.quantityAvailable = quantityAvailable;
         this.price = price;
         this.taxType = taxType;
+        this.couponList = new HashMap<String, Coupon>();
     }
 
     public Product(String name, String description, int quantityAvailable, double price, TaxType taxType, HashMap<String,Coupon> couponList) {
