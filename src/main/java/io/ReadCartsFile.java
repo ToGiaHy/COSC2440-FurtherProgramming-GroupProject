@@ -17,11 +17,10 @@ public class ReadCartsFile implements FileActions {
     /**
      * Read the carts from a file and add the carts to the list
      *
-     * @param filePath a file
      */
-    public void action(String filePath) {
+    public void action() {
         try {
-            BufferedReader cartReader = new BufferedReader(new FileReader(filePath));
+            BufferedReader cartReader = new BufferedReader(new FileReader("src/main/java/data/carts.txt"));
             String line;
             ShoppingCart cart;
             int id;
