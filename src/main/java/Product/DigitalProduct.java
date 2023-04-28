@@ -35,7 +35,6 @@ public class DigitalProduct extends Product {
      */
     @Override
     public String toString() {
-        String name = getName();
         return String.format("Digital Product Name: %s, Description: %s, Quantity Available: %d, Price: %.2f, Tax Type: %s",
                 this.getName(),
                 this.getDescription(),

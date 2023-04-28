@@ -18,10 +18,10 @@ public class ReadProductsFile implements FileActions {
     /**
      * Read data from the file to PRODUCTS
      */
-    public void action(String filePath) {
+    public void action() {
         // Read from file
         try {
-            BufferedReader reader = new BufferedReader(new FileReader(filePath));
+            BufferedReader reader = new BufferedReader(new FileReader("src/main/java/data/products.txt"));
             Product product;
             String line;
             while ((line = reader.readLine()) != null) {

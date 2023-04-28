@@ -7,6 +7,7 @@ package SystemUI;
 import Product.*;
 
 import java.util.HashMap;
+import java.util.Map;
 import java.util.Scanner;
 
 import static Product.CouponDatabase.COUPONLIST;
@@ -162,7 +163,7 @@ public class ProductUI {
         System.out.println("Do you want to add coupon for this product ? Type 'true' or 'false'");
         boolean hasCoupon;
         hasCoupon = Boolean.parseBoolean(scanner.nextLine());
-        HashMap<String, Coupon> couponList = new HashMap<>();
+        Map<String, Coupon> couponList = new HashMap<>();
 //
         if (hasCoupon) {
             System.out.println("How many coupon do you want to add ? Enter an integer number please: ");
@@ -244,33 +245,27 @@ public class ProductUI {
     public void editProduct(String productName) {
         if(ProductManager.PRODUCTS.containsKey(productName)){
             Product product = ProductManager.PRODUCTS.get(productName);
-
             int userInput = 0;
-
             while (userInput != 5) {
                 userInput = editMenu();
 
                 switch (userInput) {
                     case 1 -> {
-//              todo Change description of the Product
                         System.out.println("Enter product description:");
                         String description = scanner.nextLine();
                         product.setDescription(description);
                     }
                     case 2 -> {
-//              todo Change the quantity of the Product
                         System.out.println("Enter the number of products:");
                         int quantityAvailable = Integer.parseInt(scanner.nextLine());
                         product.setQuantityAvailable(quantityAvailable);
                     }
                     case 3 -> {
-//              todo Change the price of the Product
                         System.out.println("Enter product price:");
                         double price = Double.parseDouble(scanner.nextLine());
                         product.setPrice(price);
                     }
                     case 4 -> {
-//              todo Change weight of Physical Product
                         if (product instanceof DigitalProduct) {
                             System.out.println("This is a digital product, so it does not have weight!");
                         } else if (product instanceof PhysicalProduct currentProduct) {
@@ -280,7 +275,6 @@ public class ProductUI {
                         }
                     }
                     case 5 -> {
-//              todo Change tax type of product
                         System.out.printf(product.getName() + " current tax type is " + product.getTaxType() + "\n");
                         System.out.println("Please choose type tax type (FREE, NORMAL or LUXURY): ");
                         String taxInput = scanner.nextLine();
@@ -292,14 +286,12 @@ public class ProductUI {
                         product.setTaxType(taxType);
                     }
                     case 6 -> {
-//              todo Change Coupons of product
                         CouponUI.editCouponList(product);
                     }
                     default -> {
                         System.out.println();
                         System.out.println("Update product detail successfully!");
                         System.out.println();
-//                todo Call edit product again
                     }
                 }
             }

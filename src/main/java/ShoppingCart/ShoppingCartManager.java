@@ -6,17 +6,18 @@ package ShoppingCart;
 
 import java.util.ArrayList;
 import java.util.Comparator;
+import java.util.List;
 
 public class ShoppingCartManager {
-    public final static ArrayList<ShoppingCart> SHOPPING_CARTS = new ArrayList<ShoppingCart>();
+    public final static List<ShoppingCart> SHOPPING_CARTS = new ArrayList<ShoppingCart>();
 
-    public static ArrayList<ShoppingCart> sort(ArrayList<ShoppingCart> list) {
+    public static List<ShoppingCart> sort(List<ShoppingCart> list) {
 
         list.sort(Comparator.comparingDouble((ShoppingCart o) -> o.getTotalWeight()));
         return list;
     }
 
-    public static ArrayList<ShoppingCart> sortCartList() {
+    public static List<ShoppingCart> sortCartList() {
         return sort(SHOPPING_CARTS);
     }
     public static ShoppingCart findCartByID(int id) {
@@ -28,7 +29,7 @@ public class ShoppingCartManager {
         return null;
     }
 
-    public static ArrayList<ShoppingCart> getShoppingCarts() {
+    public static List<ShoppingCart> getShoppingCarts() {
         return SHOPPING_CARTS;
     }
 

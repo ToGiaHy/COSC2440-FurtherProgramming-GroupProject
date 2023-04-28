@@ -1,6 +1,7 @@
 package SystemUI;
 
 import java.util.HashMap;
+import java.util.Map;
 import java.util.Scanner;
 import Product.*;
 
@@ -33,7 +34,7 @@ public class CouponUI {
     public static void editCoupon(Product product){
         Scanner scn = new Scanner(System.in);
         System.out.println("The current product include these coupons");
-        HashMap<String,Coupon> tempCoupon = product.getCouponList();
+        Map<String,Coupon> tempCoupon = product.getCouponList();
         for(String keys : tempCoupon.keySet()){
             System.out.println(tempCoupon.get(keys));
         }
@@ -62,7 +63,7 @@ public class CouponUI {
     public static void removeCoupon(Product product){
         Scanner scn = new Scanner(System.in);
         System.out.println("The current product include these coupons");
-        HashMap<String,Coupon> tempCoupon = product.getCouponList();
+        Map<String,Coupon> tempCoupon = product.getCouponList();
         for(String keys : tempCoupon.keySet()){
             System.out.println(tempCoupon.get(keys));
         }
@@ -96,7 +97,7 @@ public class CouponUI {
         }
         public static void editCouponList(Product product) {
             int userInput = 0;
-            HashMap<String,Coupon> tempCoupon = product.getCouponList();
+            Map<String,Coupon> tempCoupon = product.getCouponList();
             while (userInput != 4) {
                 userInput = editCouponMenu();
                 switch (userInput) {

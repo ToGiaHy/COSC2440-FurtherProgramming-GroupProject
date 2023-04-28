@@ -23,25 +23,6 @@ public class ProductManager {
      * gifted.
      * </p>
      */
-    public static Map<String, Product> initialProducts() {
-        Coupon c1 = new PercentCoupon("price1",20);
-        Coupon c2 = new PriceCoupon("price2",4);
-        HashMap<String,Coupon> tempCouponList = new HashMap<>();
-        tempCouponList.put("price1",c1);
-        tempCouponList.put("price2",c2);
-        PRODUCTS.put("Song", new DigitalProduct("Song", "this is a song", 10, 15.0, TaxType.LUXURY,tempCouponList));
-        PRODUCTS.put("Picture", new DigitalProduct("Picture", "this is a picture", 5, 20.0, TaxType.NORMAL));
-        PRODUCTS.put("Art work", new DigitalProduct("Art work", "this is an art work", 12, 13.0, TaxType.LUXURY));
-        PRODUCTS.put("NFT", new DigitalProductCanBeGifted("NFT", "this is a NFT", 8, 300.0, TaxType.LUXURY, ""));
-        PRODUCTS.put("GenShin Impact", new DigitalProductCanBeGifted("GenShin Impact", "this is a game", 50, 250.0, TaxType.NORMAL,""));
-        PRODUCTS.put("Iphone", new PhysicalProduct("Iphone", "this is an iphone", 11, 500.0, TaxType.LUXURY, 190.0));
-        PRODUCTS.put("Macbook", new PhysicalProduct("Macbook", "this is a macbook", 99, 2000.0, TaxType.LUXURY,490.0));
-        PRODUCTS.put("Bicycle", new PhysicalProduct("Bicycle", "this is a bicycle", 11, 400.0, TaxType.NORMAL,2000.0));
-        PRODUCTS.put("Desk", new PhysicalProductCanBeGifted("Desk", "this is a desk", 59, 149.0, TaxType.FREE, 1000.0,"This is a gift message"));
-        PRODUCTS.put("Chair", new PhysicalProductCanBeGifted("Chair", "this is a chair", 70, 59.0, TaxType.FREE, 400.0, "This is a gift message"));
-
-        return PRODUCTS;
-    }
 
     public static Map<String, Product> getPRODUCTS() {
         return PRODUCTS;
