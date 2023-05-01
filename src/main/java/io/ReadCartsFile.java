@@ -24,7 +24,7 @@ public class ReadCartsFile implements FileActions {
             String line;
             ShoppingCart cart;
             int id;
-            String items, giftMessages;
+            String items, giftMessages,coupon;
             while ((line = cartReader.readLine()) != null) {
                 StringTokenizer tokenizer = new StringTokenizer(line, ",");
                 while (tokenizer.hasMoreTokens()) {
@@ -32,6 +32,7 @@ public class ReadCartsFile implements FileActions {
                     id = Integer.parseInt(tokenizer.nextToken());
                     items = tokenizer.nextToken();
                     giftMessages = tokenizer.nextToken();
+                    coupon = tokenizer.nextToken();
                     // Convert String to Map
                     Map<String, Integer> itemsMap = Arrays.stream(items.split(","))
                             .map(entry -> entry.split("="))
@@ -40,7 +41,7 @@ public class ReadCartsFile implements FileActions {
                             .map(entry -> entry.split("="))
                             .collect(Collectors.toMap(entry -> entry[0], entry -> entry[1]));
                     //Create a new cart
-                    cart = new ShoppingCart(id, itemsMap);
+                    cart = new ShoppingCart(id, itemsMap,coupon);
                     for (String itemName : giftMessagesMap.keySet()) {
                         Product item = ProductManager.getPRODUCTS().get(itemName);
                         if (item instanceof CanBeGifted) {

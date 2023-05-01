@@ -1,10 +1,40 @@
-DigitalProduct,Art work,this is an art work,12,13.00,Luxury,{}
-DigitalProduct,Song,this is a song,10,15.00,Free,{price1=price1, price2=price2}
-GiftPhysicalProduct,Chair,this is a chair,70,59.00,Free,400.00,This is a gift message
-DigitalProduct,Picture,this is a picture,5,20.00,Normal,{}
-PhysicalProduct,Iphone,this is an iphone,11,500.00,Luxury,190.00
-GiftDigitalProduct,GenShin Impact,this is a game,50,250.00,Normal,
-GiftPhysicalProduct,Desk,this is a desk,59,149.00,Free,1000.00,This is a gift message
-PhysicalProduct,Bicycle,this is a bicycle,11,400.00,Normal,2000.00
-GiftDigitalProduct,NFT,this is a NFT,8,300.00,Luxury,
-PhysicalProduct,Macbook,this is a macbook,99,2000.00,Luxury,490.00
+DigitalProduct,Iphone 12,Size: 6.1 inches,100,16.5,Luxury,{Bonjour=10}
+DigitalProduct,Dell G15,Size: 15.6 inches,10,40.00,Normal,{Birthday=5.0,Festival=20}
+GiftPhysicalProduct,Macbook Air M1,Size: 13.3 inches,70,59.00,Free,{MacDay=2.5,MacAir=1.2},1.2,""
+DigitalProduct,Airpods 2,Connection range: 10m,23,3.7,Normal,{}
+PhysicalProduct,Iphone 13,Size: 6.7 inches,11,20.00,Luxury,{13Friday=1.3},0.5
+GiftDigitalProduct,iPad Air 5,Size: 10.2 inches,50,15.8,Normal,{},""
+GiftPhysicalProduct,Dell G5,Size: 15.6 inches,3,27.5,Free,{Deli=10},3.2,""
+PhysicalProduct,iPad Pro 11,Size: 11 inches,11,52.5,Luxury,{},1.5
+GiftDigitalProduct,iPhone 13 Pro,Size: 6.7 inches,8,23.3,Luxury,{},""
+PhysicalProduct,Macbook Pro M1,Size: 13.3 inches,99,45.4,Luxury,{MacProDay=10,Maclentine=1.5,MacQueen=15},1.8
+DigitalProduct,Dell XPS 11,Size: 13.3 inches,20,36.5,Luxury,{}
+DigitalProduct,Airpods 1,Connection range: 10m,45,2.7,Free,{}
+DigitalProduct,Apple Pencil 1,Size: 50cm,8,3.4,Free,{}
+DigitalProduct,Asus Vivobook 15,Size: 15.6 inches,6,15.0,Normal,{VivoCity=5}
+DigitalProduct,Apple Watch,Size: 1.8 inches,20,6.9,Free,{}
+DigitalProduct,Xiaomi Watch,Size: 1.5 inches,12,2.9,Free,{}
+DigitalProduct,iPhone X,Size: 6.7 inches,2,10.2,Normal,{}
+PhysicalProduct,Dell G7,Size: 15.6 inches,15,36.7,Luxury,{GO7=10},3.2
+PhysicalProduct,Asus Vivobook 14,Size:14 inches,19,23.4,Luxury,{},2.1
+PhysicalProduct,Iphone 12 Pro,Size: 6.7 inches,4,20.1,Normal,{},0.6
+PhysicalProduct,Macbook i7,Size: 13.3 inches,9,24.5,Normal,{},1.2
+PhysicalProduct,Oppo M3,Size: 6.7 inches,12,6.8,Free,{},0.4
+PhysicalProduct,Apple Pencil 2,Size: 50cm,17,5.0,Free,{},0.2
+PhysicalProduct,Xiaomi Pad 5,Size: 10.2 inches,45,9.9,Normal,{Xiaoban=1.0},1.1
+GiftDigitalProduct,Samsung Buds,Connection range: 10m,10,2.9,Free,{},""
+GiftDigitalProduct,JBL Live,Connection range: 8m,56,3.1,Free,{JBLight=50,JB7=1.0},""
+GiftDigitalProduct,Sony 500,Connection range: 10m,8,2.2,Free,{},""
+GiftDigitalProduct,Sony X1000,Duration: 5 hours,17,7.9,Normal,{},""
+GiftDigitalProduct,JBL 660,Duration: 6 hours,45,4.8,Free,{},""
+GiftDigitalProduct,JBL Tune,Duration: 2 hours,20,1.9,Free,{},""
+GiftDigitalProduct,Marshall ANC,Connection range: 5m,6,10.2,Normal,{},""
+GiftDigitalProduct,Sony Pro,Duration: 8 hours,14,4.5,Free,{},""
+GiftPhysicalProduct,MSI 14,Size: 14 inches,32,14.5,Normal,{MS50=50},1.5,""
+GiftPhysicalProduct,Asus Zenbook 14,Size: 14 inches,21,19.0,Luxury,{},1.8,""
+GiftPhysicalProduct,MSI 15,Size: 15.6 inches,12,15.2,Normal,{},1.7,""
+GiftPhysicalProduct,LG Surface 9,Size: 13 inches,4,29.9,Luxury,{},1.3,""
+GiftPhysicalProduct,Macbook Pro 14,Size: 14 inches,8,50.3,Luxury,{},1.4,""
+GiftPhysicalProduct,Macbook Air 14,Size: 14 inches,7,46.3,Luxury,{},1.4,""
+GiftPhysicalProduct,Lenovo Slim,Size: 14 inches,10,36.9,Luxury,{},1.3,""
+GiftPhysicalProduct,HP 13,Size: 13 inches,5,11.9,Normal,{},1.1,""
