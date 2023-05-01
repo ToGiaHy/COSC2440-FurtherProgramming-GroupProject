@@ -38,9 +38,10 @@ public class ShoppingCart {
         this.cartId = NEXT_ID++;
     }
 
-    public ShoppingCart(int cartId, Map<String, Integer> items) {
+    public ShoppingCart(int cartId, Map<String, Integer> items, String coupon) {
         this.cartId = cartId;
         this.items = items;
+        this.coupon = coupon;
     }
 
     public static void resetId() {
@@ -290,16 +291,6 @@ public class ShoppingCart {
         return "Cart ID : "+ cartId +
                 ", Products: " + items +
                 ", totalWeight: " + getTotalWeight();
-    }
-
-    public String toFile() {
-        return String.format(
-                "%d,%.2f,%.2f,%.2f",
-                cartId,
-                amount,
-                totalWeight,
-                shippingFee
-        );
     }
 
     /**
