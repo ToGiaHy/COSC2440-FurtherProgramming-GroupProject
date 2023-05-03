@@ -16,7 +16,8 @@ public abstract class Product {
     private double price;
     private TaxType taxType;
 
-    private Map<String,Coupon> couponList;
+    private Map<String, Coupon> couponList;
+
     /**
      * Constructor
      */
@@ -29,7 +30,7 @@ public abstract class Product {
         this.couponList = new HashMap<>();
     }
 
-    public Product(String name, String description, int quantityAvailable, double price, TaxType taxType, Map<String,Coupon> couponList) {
+    public Product(String name, String description, int quantityAvailable, double price, TaxType taxType, Map<String, Coupon> couponList) {
         this.name = name;
         this.description = description;
         this.quantityAvailable = quantityAvailable;
@@ -57,12 +58,13 @@ public abstract class Product {
     public double getPrice() {
         return price;
     }
+
     public TaxType getTaxType() {
         return taxType;
     }
 
     // Get the product's tax
-    public Map<String,Coupon> getCouponList() {
+    public Map<String, Coupon> getCouponList() {
         return couponList;
     }
 
@@ -84,14 +86,23 @@ public abstract class Product {
     public void setPrice(Double price) {
         this.price = price;
     }
+
     public void setTaxType(TaxType taxType) {
         this.taxType = taxType;
     }
-    public void setCouponList(Map<String,Coupon> couponList) {
+
+    public void setCouponList(Map<String, Coupon> couponList) {
         this.couponList = couponList;
     }
 
     @Override
     public abstract String toString();
+
+    // Display a product's coupon list
+    public void displayCoupons() {
+        for (String keys : this.couponList.keySet()) {
+            System.out.println(this.couponList.get(keys));
+        }
+    }
 
 }

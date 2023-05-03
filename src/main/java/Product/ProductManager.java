@@ -11,7 +11,7 @@ public class ProductManager {
     /**
      * Product manager attributes
      */
-    public static Map<String, Product> PRODUCTS = new HashMap<>();
+    private final Map<String, Product> PRODUCTS;
 
 
     /**
@@ -23,8 +23,11 @@ public class ProductManager {
      * gifted.
      * </p>
      */
+    public ProductManager() {
+        this.PRODUCTS = new HashMap<>();
+    }
 
-    public static Map<String, Product> getPRODUCTS() {
+    public Map<String, Product> getPRODUCTS() {
         return PRODUCTS;
     }
 
@@ -34,10 +37,11 @@ public class ProductManager {
      * This method is used to help user can create new product and add to the
      * product data of the system.
      * </p>
+     *
      * @param product An instance store information of the product
      */
-    public static void addProduct(Product product) {
-        PRODUCTS.put(product.getName(), product);
+    public void addProduct(Product product) {
+        this.PRODUCTS.put(product.getName(), product);
     }
 
     /**
@@ -46,20 +50,20 @@ public class ProductManager {
      * This method is used to help user can delete a product and remove from the
      * product data of the system.
      * </p>
+     *
      * @param product An instance store information of the product
      */
-    public static void removeProduct(Product product) {
+    public void removeProduct(Product product) {
         PRODUCTS.remove(product);
     }
 
-    public static void displayAllProduct() {
-        for (String name: PRODUCTS.keySet()) {
-            Product value = PRODUCTS.get(name);
+    public void displayAllProduct() {
+        for (String name : this.PRODUCTS.keySet()) {
+            Product value = this.PRODUCTS.get(name);
             System.out.println("#=====#");
             System.out.println(value);
         }
     }
-
 
 
 }

@@ -1,15 +1,24 @@
 package Product;
 
 import java.util.HashSet;
+import java.util.Set;
 
 public class CouponDatabase {
     //attribute
-    public static final HashSet<String> COUPONLIST = new HashSet<>();
+    private final Set<String> COUPONS = new HashSet<>();
 
     //method
+    public Set<String> getCOUPONS() {
+        return COUPONS;
+    }
 
-    public void addCode(String code){
-        COUPONLIST.add(code);
+
+    public boolean addCode(String code){
+        return this.COUPONS.add(code);
+    }
+
+    public void removeCode(String code) {
+        this.COUPONS.remove(code);
     }
 
 

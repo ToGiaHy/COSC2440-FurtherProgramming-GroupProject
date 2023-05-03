@@ -4,6 +4,11 @@
 
 package SystemUI;
 
+import Product.CouponDatabase;
+import Product.ProductManager;
+import ShoppingCart.ShoppingCartManager;
+import io.CartRelatedActions;
+
 import java.util.*;
 
 public class UserUI {
@@ -11,18 +16,22 @@ public class UserUI {
      * UserUI attributes
      */
     static Scanner scanner = new Scanner(System.in);
-    static ProductUI productUI = new ProductUI();
-    static ShoppingCartUI cartUI = new ShoppingCartUI();
 
+    private ProductUI productUI;
+    private ShoppingCartUI cartUI;
+    private CouponUI couponUI;
 
+    public UserUI(ProductManager productManager, ShoppingCartManager cartManager, CartRelatedActions cartRelatedActions , CouponDatabase couponDatabase) {
+        productUI = new ProductUI(productManager);
+        cartUI = new ShoppingCartUI(cartManager, cartRelatedActions,productManager);
+        couponUI = new CouponUI(couponDatabase);
+    }
     /**
      * Menu
      * Display all option for user can interact with the system
      */
     private static int menu() {
-
         String userInput = "";
-
         while (!userInput.matches(Regex.NUM_1_TO_3)) {
             System.out.println("#=======================================#");
             System.out.println("#===== WELCOME TO SHOPPING SERVICE =====#");
@@ -46,20 +55,18 @@ public class UserUI {
      * userUI
      * Process the requirement of user input from the menu
      */
-    public static void userUI() {
+    public void userUI() {
         int userInput = 0;
-
         while (userInput != 3) {
-
             userInput = menu();
 
             switch (userInput) {
                 case 1 -> {
-                    productUI.productUI();
+                    productUI.productUI(couponUI, this);
                     System.out.println();
                 }
                 case 2 -> {
-                    cartUI.CartManagerUI();
+                    cartUI.CartManagerUI(this);
                     System.out.println();
                 }
                 case 3 -> {

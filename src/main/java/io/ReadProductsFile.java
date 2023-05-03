@@ -14,11 +14,16 @@ import java.util.stream.Collectors;
 
 
 public class ReadProductsFile implements FileActions {
+    ProductManager productManager;
 
     /**
      * Read data from the file to PRODUCTS
      */
-    public void action() {
+    public ReadProductsFile(ProductManager productManager) {
+        this.productManager = productManager;
+    }
+
+    public void read() {
         // Read from file
         try {
             BufferedReader reader = new BufferedReader(new FileReader("src/main/java/data/products.txt"));
@@ -101,7 +106,7 @@ public class ReadProductsFile implements FileActions {
                         }
                         default -> throw new IOException("Invalid product type: " + type);
                     }
-                    ProductManager.getPRODUCTS().put(product.getName(), product);
+                    productManager.getPRODUCTS().put(product.getName(), product);
                 }
             }
             reader.close();
@@ -110,5 +115,4 @@ public class ReadProductsFile implements FileActions {
             System.out.println("Error reading database file: " + e.getMessage());
         }
     }
-
 }
