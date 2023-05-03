@@ -4,9 +4,9 @@
 
 package SystemUI;
 
-import Product.ProductManager;
+import Product.ProductController;
 import ShoppingCart.ShoppingCart;
-import ShoppingCart.ShoppingCartManager;
+import ShoppingCart.ShoppingCartController;
 import io.CartRelatedActions;
 
 
@@ -16,15 +16,15 @@ import java.util.Scanner;
 public class ShoppingCartUI {
     // todo add Regex
     static Scanner scanner = new Scanner(System.in);
-    private ShoppingCartManager cartManager;
+    private ShoppingCartController cartController;
     private CartRelatedActions cartRelatedActions;
-    ProductManager productManager;
+    ProductController productController;
 
     // Constructor
-    public ShoppingCartUI(ShoppingCartManager cartManager, CartRelatedActions cartRelatedActions, ProductManager productManager) {
-        this.cartManager = cartManager;
+    public ShoppingCartUI(ShoppingCartController cartController, CartRelatedActions cartRelatedActions, ProductController productController) {
+        this.cartController = cartController;
         this.cartRelatedActions = cartRelatedActions;
-        this.productManager = productManager;
+        this.productController = productController;
     }
 
     /**
@@ -36,7 +36,7 @@ public class ShoppingCartUI {
             System.out.println("#===============================#");
             System.out.println("Enter a cart Id (Example: C0");
             String cartID = scanner.nextLine();
-            ShoppingCart cart = cartManager.findCartByID(cartID);
+            ShoppingCart cart = cartController.findCartByID(cartID);
             // todo Coi lai phan validation nay dum em
             if (cart == null || cartRelatedActions.exists(cartID)) {
                 System.out.println("Cart id does not exist or this cart's receipt has been printed out!");
@@ -67,13 +67,13 @@ public class ShoppingCartUI {
         int userInput = 0;
         String productName;
         // Get cart from cart list to modify
-        ShoppingCart cart = cartManager.findCartByID(cartID);
+        ShoppingCart cart = cartController.findCartByID(cartID);
         while (userInput != 6) {
             userInput = cartEditMenu();
             switch (userInput) {
                 case 1 -> {
                     System.out.println("All products in our shop:");
-                    productManager.displayAllProduct();
+                    productController.viewProduct();
                     System.out.println("Added a product to current shopping cart");
 
                     // Get name of product from user
@@ -85,7 +85,7 @@ public class ShoppingCartUI {
                     int quantity = Integer.parseInt(scanner.nextLine());
 
                     // Check product exist in product list and can add to the cart
-                    if (this.productManager.getPRODUCTS().containsKey(productName) && Objects.requireNonNull(cart).addItem(productName, quantity)) {
+                    if (this.productController.productList().containsKey(productName) && Objects.requireNonNull(cart).addItem(productName, quantity)) {
                         System.out.println("#--- Added product ---#");
                     } else {
                         System.out.println("#--- This product is not exist, run out of or already in cart ---#");
@@ -108,10 +108,10 @@ public class ShoppingCartUI {
                     int quantity = Integer.parseInt(scanner.nextLine());
 
                     // Check product exist in product list and can remove from the cart
-                    if (productManager.getPRODUCTS().containsKey(productName) && cart.removeItem(productName, quantity)) {
+                    if (productController.productList().containsKey(productName) && cart.removeItem(productName, quantity)) {
                         System.out.println("#--- Removed product ---#");
                     } else {
-                        System.out.println(this.productManager.getPRODUCTS().containsKey(productName));
+                        System.out.println(this.productController.productList().containsKey(productName));
                         System.out.println(cart.removeItem(productName, quantity));
                         System.out.println("#--- This product is not exist or not in current cart ---#");
                     }
@@ -192,22 +192,22 @@ public class ShoppingCartUI {
             userInput = menu();
             switch (userInput) {
                 case 1 -> {
-                    ShoppingCart cart = new ShoppingCart(productManager);
-                    cartManager.getShoppingCarts().add(cart);
-                    String cartId = "C" + (cartManager.getShoppingCarts().size() - 1);
+                    ShoppingCart cart = new ShoppingCart(productController);
+                    cartController.shoppingCartList().add(cart);
+                    String cartId = "C" + (cartController.shoppingCartList().size() - 1);
                     cartEditUI(cartId, userUI);
                 }
                 case 2 -> {
-                    cartManager.displayAllCarts();
+                    cartController.viewCarts();
                     System.out.println("Enter an id of cart which you want to remove: ");
-                    ShoppingCart cart = cartManager.findCartByID(scanner.nextLine());
-                    if (cartManager.remove(cart)) {
+                    ShoppingCart cart = cartController.findCartByID(scanner.nextLine());
+                    if (cartController.remove(cart)) {
                         System.out.println("Remove the cart successfully");
                     } else
                         System.out.println("Cart does not exist");
                 }
                 case 3 -> {
-                    cartManager.displayAllCarts();
+                    cartController.viewCarts();
                     System.out.println("Enter an id of cart which you want to edit: ");
                     String cartId = scanner.nextLine();
                     cartEditUI(cartId, userUI);
@@ -215,10 +215,10 @@ public class ShoppingCartUI {
                 case 4 -> viewCartDetails();
 
                 case 5 -> {
-                    cartManager.displayAllCarts();
+                    cartController.viewCarts();
                     System.out.println("Enter a cart id to print the receipt: ");
                     String cartId = scanner.nextLine();
-                    ShoppingCart cart = cartManager.findCartByID(cartId);
+                    ShoppingCart cart = cartController.findCartByID(cartId);
                     cart.displayReceipt();
                     cartRelatedActions.writeReceipt(cartId);
                 }
@@ -232,10 +232,10 @@ public class ShoppingCartUI {
      * Display all cart and allow user choose cart to view details
      */
     public void viewCartDetails() {
-        cartManager.displayAllCarts();
+        cartController.viewCarts();
         System.out.println("Enter the id of cart to view detail: ");
         String id = scanner.nextLine();
-        Objects.requireNonNull(cartManager.findCartByID(id)).viewDetails();
+        Objects.requireNonNull(cartController.findCartByID(id)).viewDetails();
     }
 
 

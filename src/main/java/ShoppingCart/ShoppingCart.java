@@ -5,13 +5,15 @@ package ShoppingCart;
 
 import Product.PhysicalProduct;
 import Product.Product;
-import Product.ProductManager;
+
 import Product.PriceCoupon;
 import Product.PercentCoupon;
-
+import Product.CanBeGifted;
+import Product.PhysicalProductCanBeGifted;
+import Product.DigitalProductCanBeGifted;
 import java.time.LocalDate;
 import java.util.*;
-
+import Product.ProductController;
 
 public class ShoppingCart {
     /**
@@ -29,23 +31,26 @@ public class ShoppingCart {
     private final String cartId;
     private double totalTax;
 
-    private ProductManager productManager;
+    private Map<String,String> giftProductList;
+
+    private ProductController productController;
     private String coupon = "";
     private double couponDiscount = 0;
 
     /**
      * Constructor
      */
-    public ShoppingCart(ProductManager productManager) {
+    public ShoppingCart(ProductController productController) {
         this.cartId = "C" + NEXT_ID++;
-        this.productManager = productManager;
+        this.productController = productController;
     }
 
-    public ShoppingCart(String cartId, Map<String, Integer> items, String coupon, ProductManager productManager) {
+    public ShoppingCart(String cartId, Map<String, Integer> items, String coupon,Map<String,String> giftProductList, ProductController productController) {
         this.cartId = cartId;
         this.items = items;
         this.coupon = coupon;
-        this.productManager = productManager;
+        this.giftProductList = giftProductList;
+        this.productController = productController;
         this.purchaseDate = LocalDate.now();
     }
 
@@ -66,22 +71,28 @@ public class ShoppingCart {
      * </p>
      */
     public boolean addItem(String productName, int quantity) {
-        if (productManager.getPRODUCTS().get(productName).getQuantityAvailable() == 0) {
+        if (productController.productList().get(productName).getQuantityAvailable() == 0) {
             return false;
-        } else if (quantity > productManager.getPRODUCTS().get(productName).getQuantityAvailable()) {
+        }
+        else if (quantity > productController.productList().get(productName).getQuantityAvailable()) {
             return false;
-        } else if (this.items.containsKey(productName) & quantity <= productManager.getPRODUCTS().get(productName).getQuantityAvailable()) {
+        } else if (this.items.containsKey(productName) & quantity <= productController.productList().get(productName).getQuantityAvailable()) {
 
-            int currentQuantity = productManager.getPRODUCTS().get(productName).getQuantityAvailable();
-            productManager.getPRODUCTS().get(productName).setQuantityAvailable(currentQuantity - quantity);
+            int currentQuantity = productController.productList().get(productName).getQuantityAvailable();
+            productController.productList().get(productName).setQuantityAvailable(currentQuantity - quantity);
 
             this.items.put(productName, this.items.get(productName) + quantity);
-
+            if(productController.productList().get(productName) instanceof PhysicalProductCanBeGifted || productController.productList().get(productName) instanceof DigitalProductCanBeGifted){
+                giftProductList.put(productName,"");
+            }
             return true;
-        } else if (quantity <= productManager.getPRODUCTS().get(productName).getQuantityAvailable()) {
-            int currentQuantity = productManager.getPRODUCTS().get(productName).getQuantityAvailable();
-            productManager.getPRODUCTS().get(productName).setQuantityAvailable(currentQuantity - quantity);
+        } else if (quantity <= productController.productList().get(productName).getQuantityAvailable()) {
+            int currentQuantity = productController.productList().get(productName).getQuantityAvailable();
+            productController.productList().get(productName).setQuantityAvailable(currentQuantity - quantity);
             items.put(productName, quantity);
+            if(productController.productList().get(productName) instanceof PhysicalProductCanBeGifted || productController.productList().get(productName) instanceof DigitalProductCanBeGifted){
+                giftProductList.put(productName,"");
+            }
             return true;
         }
         return false;
@@ -98,17 +109,17 @@ public class ShoppingCart {
      * </p>
      */
     public boolean removeItem(String productName, int quantity) {
-        if (!productManager.getPRODUCTS().containsKey(productName)) {
+        if (!productController.productList().containsKey(productName)) {
             return false;
         } else {
-            int currentQuantity = productManager.getPRODUCTS().get(productName).getQuantityAvailable();
+            int currentQuantity = productController.productList().get(productName).getQuantityAvailable();
             int currentCartQuantity = items.get(productName);
             if (quantity == currentCartQuantity) {
-                productManager.getPRODUCTS().get(productName).setQuantityAvailable(currentQuantity + items.get(productName));
+                productController.productList().get(productName).setQuantityAvailable(currentQuantity + items.get(productName));
                 items.remove(productName);
                 return true;
             } else if (quantity < currentCartQuantity) {
-                productManager.getPRODUCTS().get(productName).setQuantityAvailable(currentQuantity + items.get(productName));
+                productController.productList().get(productName).setQuantityAvailable(currentQuantity + items.get(productName));
                 items.put(productName, currentCartQuantity - quantity);
                 return true;
             } else {
@@ -125,8 +136,8 @@ public class ShoppingCart {
         double weight = 0;
 
         for (String product : this.items.keySet()) {
-            if (productManager.getPRODUCTS().get(product) instanceof PhysicalProduct) {
-                weight += ((PhysicalProduct) productManager.getPRODUCTS().get(product)).getWeight() * this.items.get(product);
+            if (productController.productList().get(product) instanceof PhysicalProduct) {
+                weight += ((PhysicalProduct) productController.productList().get(product)).getWeight() * this.items.get(product);
             }
         }
         return weight;
@@ -139,11 +150,11 @@ public class ShoppingCart {
         double total = 0;
 
         for (String product : this.items.keySet()) {
-            if (productManager.getPRODUCTS().get(product).getCouponList().containsKey(this.coupon)) {
-                if (productManager.getPRODUCTS().get(product).getCouponList().get(this.coupon) instanceof PriceCoupon priceCoupon) {
+            if (productController.productList().get(product).getCouponList().containsKey(this.coupon)) {
+                if (productController.productList().get(product).getCouponList().get(this.coupon) instanceof PriceCoupon priceCoupon) {
                     return priceCoupon.getValue() * this.items.get(product);
-                } else if (productManager.getPRODUCTS().get(product).getCouponList().get(this.coupon) instanceof PercentCoupon percentCoupon) {
-                    return (percentCoupon.getValue() * productManager.getPRODUCTS().get(product).getPrice()) / 100 * this.items.get(product);
+                } else if (productController.productList().get(product).getCouponList().get(this.coupon) instanceof PercentCoupon percentCoupon) {
+                    return (percentCoupon.getValue() * productController.productList().get(product).getPrice()) / 100 * this.items.get(product);
                 }
             }
         }
@@ -170,10 +181,10 @@ public class ShoppingCart {
 
 //        Calculate total amount with tax
         for (String product : this.items.keySet()) {
-            priceWithTax = productManager.getPRODUCTS().get(product).getPrice() +
-                    (productManager.getPRODUCTS().get(product).getPrice() * productManager.getPRODUCTS().get(product).getTaxType().getPercentage());
+            priceWithTax = productController.productList().get(product).getPrice() +
+                    (productController.productList().get(product).getPrice() * productController.productList().get(product).getTaxType().getPercentage());
             this.amount += priceWithTax * this.items.get(product);
-            tax += productManager.getPRODUCTS().get(product).getPrice()* productManager.getPRODUCTS().get(product).getTaxType().getPercentage();
+            tax += productController.productList().get(product).getPrice()* productController.productList().get(product).getTaxType().getPercentage();
         }
         setTotalTax(tax);
 
@@ -251,6 +262,14 @@ public class ShoppingCart {
         this.couponDiscount = couponDiscount;
     }
 
+    public Map<String, String> getGiftProductList() {
+        return giftProductList;
+    }
+
+    public void setGiftProductList(Map<String, String> giftProductList) {
+        this.giftProductList = giftProductList;
+    }
+
     public String getName() {
         return name;
     }
@@ -287,12 +306,12 @@ public class ShoppingCart {
         this.couponDiscount = couponDiscount;
     }
 
-    public ProductManager getProductManager() {
-        return productManager;
+    public ProductController getProductController() {
+        return productController;
     }
 
-    public void setProductManager(ProductManager productManager) {
-        this.productManager = productManager;
+    public void setProductController(ProductController productController) {
+        this.productController = productController;
     }
 
 
@@ -313,7 +332,7 @@ public class ShoppingCart {
         System.out.println("Date of purchase: " + this.purchaseDate);
         System.out.println("Items:");
         for (Map.Entry<String, Integer> items : this.getItems().entrySet()) {
-            Product product = productManager.getPRODUCTS().get(items.getKey());
+            Product product = productController.productList().get(items.getKey());
             System.out.println("Name: " + items.getKey() + "\t" + "Price: " + product.getPrice() + "\t" + "Tax: " + product.getTaxType() + "Quantity: " + items.getValue());
         }
         System.out.println("Shipping fee: " + this.shippingFee);

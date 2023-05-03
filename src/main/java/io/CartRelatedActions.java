@@ -1,7 +1,7 @@
 package io;
 
 import Product.CanBeGifted;
-import Product.ProductManager;
+import Product.ProductController;
 import Product.Product;
 import ShoppingCart.*;
 
@@ -17,18 +17,19 @@ import java.util.stream.Collectors;
 public class CartRelatedActions implements FileActions {
     private final String CARTS_FILEPATH = "src/main/java/data/carts.txt";
     private final String RECEIPTS_FILEPATH = "src/main/java/data/receipts.txt";
-    ProductManager productManager;
-    ShoppingCartManager shoppingCartManager;
+    ProductController productController;
+    ShoppingCartController shoppingCartController;
 
     /**
      * Read the carts from a file and add the carts to the list
      */
-    public CartRelatedActions(ProductManager productManager, ShoppingCartManager shoppingCartManager) {
-        this.productManager = productManager;
-        this.shoppingCartManager = shoppingCartManager;
+    public CartRelatedActions(ProductController productController, ShoppingCartController shoppingCartController) {
+        this.productController = productController;
+        this.shoppingCartController = shoppingCartController;
     }
 
     public void read() {
+        //todo Cho Map của gift vào nữa
         try {
             BufferedReader cartReader = new BufferedReader(new FileReader(CARTS_FILEPATH));
             String line;
@@ -50,15 +51,15 @@ public class CartRelatedActions implements FileActions {
                             .map(entry -> entry.split("="))
                             .collect(Collectors.toMap(entry -> entry[0], entry -> entry[1]));
                     //Create a new cart
-                    cart = new ShoppingCart(id, itemsMap, coupon, productManager);
+                    cart = new ShoppingCart(id, itemsMap, coupon, , shoppingCartController);
                     for (String itemName : giftMessagesMap.keySet()) {
-                        Product item = productManager.getPRODUCTS().get(itemName);
+                        Product item = shoppingCartController.shoppingCartList().get(itemName);
                         if (item instanceof CanBeGifted) {
                             ((CanBeGifted) item).setMessage(giftMessagesMap.get(itemName));
                         }
                     }
                     // Add a new cart to the shopping cart
-                    shoppingCartManager.add(cart);
+                    shoppingCartController.add(cart);
                 }
             }
             // Exception handling
@@ -70,7 +71,7 @@ public class CartRelatedActions implements FileActions {
     public void writeReceipt(String carTId) {
         try {
             FileWriter writer = new FileWriter(RECEIPTS_FILEPATH);
-            writer.write(shoppingCartManager.findCartByID(carTId).receiptToFile());
+            writer.write(shoppingCartController.findCartByID(carTId).receiptToFile());
         } catch (IOException e) {
             System.out.println("Error writing to database file: " + e.getMessage());
         }
