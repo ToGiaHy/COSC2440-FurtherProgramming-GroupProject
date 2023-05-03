@@ -1,7 +1,7 @@
 package Product;
 
 public class PercentCoupon extends Coupon{
-    int value;
+    private int value;
 
     public PercentCoupon(String couponCode, int value) {
         super(couponCode);

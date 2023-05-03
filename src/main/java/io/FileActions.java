@@ -1,6 +1,6 @@
 package io;
 
 public interface FileActions {
-
-    void action();
+    // Read the database
+    void read();
 }

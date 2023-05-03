@@ -19,29 +19,34 @@ public class ShoppingCart {
      */
     // Use Set interface
     private Map<String, Integer> items = new HashMap<>();
-    private final double BASE = 0.1;
+    private static final double BASE = 0.1;
     private static int NEXT_ID = 1;
     private String name;
     private double amount = 0;
+    private LocalDate purchaseDate;
     private double shippingFee = 0;
     private double totalWeight;
-    private final int cartId;
+    private final String cartId;
     private double totalTax;
-    private final static Map<String, Product> database = ProductManager.PRODUCTS;
+
+    private ProductManager productManager;
     private String coupon = "";
     private double couponDiscount = 0;
 
     /**
      * Constructor
      */
-    public ShoppingCart() {
-        this.cartId = NEXT_ID++;
+    public ShoppingCart(ProductManager productManager) {
+        this.cartId = "C" + NEXT_ID++;
+        this.productManager = productManager;
     }
 
-    public ShoppingCart(int cartId, Map<String, Integer> items, String coupon) {
+    public ShoppingCart(String cartId, Map<String, Integer> items, String coupon, ProductManager productManager) {
         this.cartId = cartId;
         this.items = items;
         this.coupon = coupon;
+        this.productManager = productManager;
+        this.purchaseDate = LocalDate.now();
     }
 
     public static void resetId() {
@@ -61,21 +66,21 @@ public class ShoppingCart {
      * </p>
      */
     public boolean addItem(String productName, int quantity) {
-        if (database.get(productName).getQuantityAvailable() == 0) {
+        if (productManager.getPRODUCTS().get(productName).getQuantityAvailable() == 0) {
             return false;
-        } else if (quantity > database.get(productName).getQuantityAvailable()) {
+        } else if (quantity > productManager.getPRODUCTS().get(productName).getQuantityAvailable()) {
             return false;
-        } else if (this.items.containsKey(productName) & quantity <= database.get(productName).getQuantityAvailable()) {
+        } else if (this.items.containsKey(productName) & quantity <= productManager.getPRODUCTS().get(productName).getQuantityAvailable()) {
 
-            int currentQuantity = database.get(productName).getQuantityAvailable();
-            database.get(productName).setQuantityAvailable(currentQuantity - quantity);
+            int currentQuantity = productManager.getPRODUCTS().get(productName).getQuantityAvailable();
+            productManager.getPRODUCTS().get(productName).setQuantityAvailable(currentQuantity - quantity);
 
             this.items.put(productName, this.items.get(productName) + quantity);
 
             return true;
-        } else if (quantity <= database.get(productName).getQuantityAvailable()) {
-            int currentQuantity = database.get(productName).getQuantityAvailable();
-            database.get(productName).setQuantityAvailable(currentQuantity - quantity);
+        } else if (quantity <= productManager.getPRODUCTS().get(productName).getQuantityAvailable()) {
+            int currentQuantity = productManager.getPRODUCTS().get(productName).getQuantityAvailable();
+            productManager.getPRODUCTS().get(productName).setQuantityAvailable(currentQuantity - quantity);
             items.put(productName, quantity);
             return true;
         }
@@ -93,17 +98,17 @@ public class ShoppingCart {
      * </p>
      */
     public boolean removeItem(String productName, int quantity) {
-        if (!database.containsKey(productName)) {
+        if (!productManager.getPRODUCTS().containsKey(productName)) {
             return false;
         } else {
-            int currentQuantity = database.get(productName).getQuantityAvailable();
+            int currentQuantity = productManager.getPRODUCTS().get(productName).getQuantityAvailable();
             int currentCartQuantity = items.get(productName);
             if (quantity == currentCartQuantity) {
-                database.get(productName).setQuantityAvailable(currentQuantity + items.get(productName));
+                productManager.getPRODUCTS().get(productName).setQuantityAvailable(currentQuantity + items.get(productName));
                 items.remove(productName);
                 return true;
             } else if (quantity < currentCartQuantity) {
-                database.get(productName).setQuantityAvailable(currentQuantity + items.get(productName));
+                productManager.getPRODUCTS().get(productName).setQuantityAvailable(currentQuantity + items.get(productName));
                 items.put(productName, currentCartQuantity - quantity);
                 return true;
             } else {
@@ -120,12 +125,10 @@ public class ShoppingCart {
         double weight = 0;
 
         for (String product : this.items.keySet()) {
-            if (database.get(product) instanceof PhysicalProduct) {
-                weight += ((PhysicalProduct) database.get(product)).getWeight() * this.items.get(product);
+            if (productManager.getPRODUCTS().get(product) instanceof PhysicalProduct) {
+                weight += ((PhysicalProduct) productManager.getPRODUCTS().get(product)).getWeight() * this.items.get(product);
             }
         }
-
-        setTotalWeight(weight);
         return weight;
     }
 
@@ -136,11 +139,11 @@ public class ShoppingCart {
         double total = 0;
 
         for (String product : this.items.keySet()) {
-            if (database.get(product).getCouponList().containsKey(this.coupon)) {
-                if (database.get(product).getCouponList().get(this.coupon) instanceof PriceCoupon priceCoupon) {
+            if (productManager.getPRODUCTS().get(product).getCouponList().containsKey(this.coupon)) {
+                if (productManager.getPRODUCTS().get(product).getCouponList().get(this.coupon) instanceof PriceCoupon priceCoupon) {
                     return priceCoupon.getValue() * this.items.get(product);
-                } else if (database.get(product).getCouponList().get(this.coupon) instanceof PercentCoupon percentCoupon) {
-                    return (percentCoupon.getValue() * database.get(product).getPrice()) / 100 * this.items.get(product);
+                } else if (productManager.getPRODUCTS().get(product).getCouponList().get(this.coupon) instanceof PercentCoupon percentCoupon) {
+                    return (percentCoupon.getValue() * productManager.getPRODUCTS().get(product).getPrice()) / 100 * this.items.get(product);
                 }
             }
         }
@@ -158,7 +161,7 @@ public class ShoppingCart {
      */
     public double cartAmount() {
 //        Tax
-        double priceWithTax = 0;
+        double priceWithTax;
         double tax = 0;
 
 
@@ -167,23 +170,21 @@ public class ShoppingCart {
 
 //        Calculate total amount with tax
         for (String product : this.items.keySet()) {
-            priceWithTax = database.get(product).getPrice() +
-                    (database.get(product).getPrice() * database.get(product).getTaxType().getPercentage());
+            priceWithTax = productManager.getPRODUCTS().get(product).getPrice() +
+                    (productManager.getPRODUCTS().get(product).getPrice() * productManager.getPRODUCTS().get(product).getTaxType().getPercentage());
             this.amount += priceWithTax * this.items.get(product);
-            tax += database.get(product).getPrice()* database.get(product).getTaxType().getPercentage();
+            tax += productManager.getPRODUCTS().get(product).getPrice()* productManager.getPRODUCTS().get(product).getTaxType().getPercentage();
         }
         setTotalTax(tax);
 
 //        Calculate the total shipping fee
 //        this.shippingFee = calculateWeight() * 0.1;
-        setShippingFee(calculateWeight() * 0.1);
+        setShippingFee(calculateWeight() * BASE);
 
 //        Calculate the total coupon discount
         if (!Objects.equals(getCoupon(), "")) {
             setCouponDiscount(calculateCouponDiscount());
         }
-
-        setAmount(this.amount + this.shippingFee - this.couponDiscount);
         return this.amount + this.shippingFee - this.couponDiscount;
     }
 
@@ -266,7 +267,7 @@ public class ShoppingCart {
         return items;
     }
 
-    public int getId() {
+    public String getId() {
         return cartId;
     }
 
@@ -286,6 +287,15 @@ public class ShoppingCart {
         this.couponDiscount = couponDiscount;
     }
 
+    public ProductManager getProductManager() {
+        return productManager;
+    }
+
+    public void setProductManager(ProductManager productManager) {
+        this.productManager = productManager;
+    }
+
+
     @Override
     public String toString() {
         return "Cart ID : "+ cartId +
@@ -300,14 +310,18 @@ public class ShoppingCart {
     public void displayReceipt() {
         System.out.println("----------------RECEIPT----------------");
         System.out.println("Cart: " + this.cartId);
-        System.out.println("Date of purchase: " + LocalDate.now());
+        System.out.println("Date of purchase: " + this.purchaseDate);
         System.out.println("Items:");
         for (Map.Entry<String, Integer> items : this.getItems().entrySet()) {
-            Product product = database.get(items.getKey());
+            Product product = productManager.getPRODUCTS().get(items.getKey());
             System.out.println("Name: " + items.getKey() + "\t" + "Price: " + product.getPrice() + "\t" + "Tax: " + product.getTaxType() + "Quantity: " + items.getValue());
         }
         System.out.println("Shipping fee: " + this.shippingFee);
         System.out.println("Total amount: " + this.cartAmount());
+    }
+
+    public String receiptToFile() {
+        return String.format("%s,%s,%s", this.cartId, this.purchaseDate, this.cartAmount());
     }
 
 
