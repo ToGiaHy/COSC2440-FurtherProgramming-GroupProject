@@ -8,7 +8,9 @@ import Product.Product;
 import Product.ProductManager;
 import Product.PriceCoupon;
 import Product.PercentCoupon;
-
+import Product.CanBeGifted;
+import Product.PhysicalProductCanBeGifted;
+import Product.DigitalProductCanBeGifted;
 import java.time.LocalDate;
 import java.util.*;
 
@@ -29,6 +31,8 @@ public class ShoppingCart {
     private final String cartId;
     private double totalTax;
 
+    private Map<String,String> giftProductList;
+
     private ProductManager productManager;
     private String coupon = "";
     private double couponDiscount = 0;
@@ -41,10 +45,11 @@ public class ShoppingCart {
         this.productManager = productManager;
     }
 
-    public ShoppingCart(String cartId, Map<String, Integer> items, String coupon, ProductManager productManager) {
+    public ShoppingCart(String cartId, Map<String, Integer> items, String coupon,Map<String,String> giftProductList, ProductManager productManager) {
         this.cartId = cartId;
         this.items = items;
         this.coupon = coupon;
+        this.giftProductList = giftProductList;
         this.productManager = productManager;
         this.purchaseDate = LocalDate.now();
     }
@@ -68,7 +73,8 @@ public class ShoppingCart {
     public boolean addItem(String productName, int quantity) {
         if (productManager.getPRODUCTS().get(productName).getQuantityAvailable() == 0) {
             return false;
-        } else if (quantity > productManager.getPRODUCTS().get(productName).getQuantityAvailable()) {
+        }
+        else if (quantity > productManager.getPRODUCTS().get(productName).getQuantityAvailable()) {
             return false;
         } else if (this.items.containsKey(productName) & quantity <= productManager.getPRODUCTS().get(productName).getQuantityAvailable()) {
 
@@ -76,12 +82,17 @@ public class ShoppingCart {
             productManager.getPRODUCTS().get(productName).setQuantityAvailable(currentQuantity - quantity);
 
             this.items.put(productName, this.items.get(productName) + quantity);
-
+            if(productManager.getPRODUCTS().get(productName) instanceof PhysicalProductCanBeGifted || productManager.getPRODUCTS().get(productName) instanceof DigitalProductCanBeGifted){
+                giftProductList.put(productName,"");
+            }
             return true;
         } else if (quantity <= productManager.getPRODUCTS().get(productName).getQuantityAvailable()) {
             int currentQuantity = productManager.getPRODUCTS().get(productName).getQuantityAvailable();
             productManager.getPRODUCTS().get(productName).setQuantityAvailable(currentQuantity - quantity);
             items.put(productName, quantity);
+            if(productManager.getPRODUCTS().get(productName) instanceof PhysicalProductCanBeGifted || productManager.getPRODUCTS().get(productName) instanceof DigitalProductCanBeGifted){
+                giftProductList.put(productName,"");
+            }
             return true;
         }
         return false;
@@ -249,6 +260,14 @@ public class ShoppingCart {
 
     public void setCouponDiscount(double couponDiscount) {
         this.couponDiscount = couponDiscount;
+    }
+
+    public Map<String, String> getGiftProductList() {
+        return giftProductList;
+    }
+
+    public void setGiftProductList(Map<String, String> giftProductList) {
+        this.giftProductList = giftProductList;
     }
 
     public String getName() {
