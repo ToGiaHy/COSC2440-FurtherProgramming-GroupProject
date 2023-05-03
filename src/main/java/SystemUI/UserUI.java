@@ -5,8 +5,10 @@
 package SystemUI;
 
 import Product.CouponDatabase;
-import Product.ProductManager;
-import ShoppingCart.ShoppingCartManager;
+import Product.ProductController;
+
+import ShoppingCart.ShoppingCartController;
+
 import io.CartRelatedActions;
 
 import java.util.*;
@@ -21,9 +23,9 @@ public class UserUI {
     private ShoppingCartUI cartUI;
     private CouponUI couponUI;
 
-    public UserUI(ProductManager productManager, ShoppingCartManager cartManager, CartRelatedActions cartRelatedActions , CouponDatabase couponDatabase) {
-        productUI = new ProductUI(productManager);
-        cartUI = new ShoppingCartUI(cartManager, cartRelatedActions,productManager);
+    public UserUI(ProductController productController, ShoppingCartController cartController, CartRelatedActions cartRelatedActions , CouponDatabase couponDatabase) {
+        productUI = new ProductUI(productController);
+        cartUI = new ShoppingCartUI(cartController, cartRelatedActions,productController);
         couponUI = new CouponUI(couponDatabase);
     }
     /**

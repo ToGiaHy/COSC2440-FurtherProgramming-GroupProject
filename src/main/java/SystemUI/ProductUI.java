@@ -15,11 +15,11 @@ public class ProductUI {
     /**
      * ProductUI attributes
      */
-    private ProductManager productManager;
+    private ProductController productController;
     static Scanner scanner = new Scanner(System.in);
 
-    public ProductUI(ProductManager productManager) {
-        this.productManager = productManager;
+    public ProductUI(ProductController productController) {
+        this.productController = productController;
     }
 
     /**
@@ -59,7 +59,7 @@ public class ProductUI {
             switch (userInput) {
                 case 1 -> {
                     System.out.println("Show all products!");
-                    productManager.displayAllProduct();
+                    productController.viewProduct();
                     System.out.println();
                 }
                 case 2 -> {
@@ -179,15 +179,15 @@ public class ProductUI {
         // Create a new product according to the user input and add it to the database
         if (type == 1) {
             if (isGift) {
-                productManager.addProduct(new DigitalProductCanBeGifted(name, description, quantityAvailable, price, taxType, couponList, ""));
+                productController.addProduct(new DigitalProductCanBeGifted(name, description, quantityAvailable, price, taxType, couponList, ""));
             } else {
-                productManager.addProduct(new DigitalProduct(name, description, quantityAvailable, price, taxType, couponList));
+                productController.addProduct(new DigitalProduct(name, description, quantityAvailable, price, taxType, couponList));
             }
         } else if (type == 2) {
             if (isGift) {
-                productManager.addProduct(new PhysicalProductCanBeGifted(name, description, quantityAvailable, price, taxType, weight, couponList, ""));
+                productController.addProduct(new PhysicalProductCanBeGifted(name, description, quantityAvailable, price, taxType, weight, couponList, ""));
             } else {
-                productManager.addProduct(new PhysicalProduct(name, description, quantityAvailable, price, taxType, couponList, weight));
+                productController.addProduct(new PhysicalProduct(name, description, quantityAvailable, price, taxType, couponList, weight));
             }
         }
         System.out.println("#======================================#");
@@ -233,8 +233,8 @@ public class ProductUI {
      * </p>
      */
     public void editProduct(String productName, CouponUI couponUI) {
-        if (productManager.getPRODUCTS().containsKey(productName)) {
-            Product product = productManager.getPRODUCTS().get(productName);
+        if (productController.productList().containsKey(productName)) {
+            Product product = productController.productList().get(productName);
             int userInput = 0;
             while (userInput != 5) {
                 userInput = editMenu();
