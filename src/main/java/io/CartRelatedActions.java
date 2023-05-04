@@ -1,8 +1,6 @@
 package io;
 
-import Product.CanBeGifted;
 import Product.ProductController;
-import Product.Product;
 import ShoppingCart.*;
 
 import java.io.BufferedReader;
@@ -51,13 +49,7 @@ public class CartRelatedActions implements FileActions {
                             .map(entry -> entry.split("="))
                             .collect(Collectors.toMap(entry -> entry[0], entry -> entry[1]));
                     //Create a new cart
-                    cart = new ShoppingCart(id, itemsMap, coupon, , shoppingCartController);
-                    for (String itemName : giftMessagesMap.keySet()) {
-                        Product item = shoppingCartController.shoppingCartList().get(itemName);
-                        if (item instanceof CanBeGifted) {
-                            ((CanBeGifted) item).setMessage(giftMessagesMap.get(itemName));
-                        }
-                    }
+                    cart = new ShoppingCart(id, itemsMap, coupon, giftMessagesMap, productController);
                     // Add a new cart to the shopping cart
                     shoppingCartController.add(cart);
                 }
