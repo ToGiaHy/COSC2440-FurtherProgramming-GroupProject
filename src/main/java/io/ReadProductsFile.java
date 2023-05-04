@@ -30,7 +30,6 @@ public class ReadProductsFile implements FileActions {
             Product product;
             String line;
             while ((line = reader.readLine()) != null) {
-                System.out.println(line);
                 StringTokenizer tokenizer = new StringTokenizer(line, ",");
                 while (tokenizer.hasMoreTokens()) {
                     String type = tokenizer.nextToken().toUpperCase();

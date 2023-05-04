@@ -4,8 +4,8 @@ import java.util.ArrayList;
 import java.util.List;
 
 public class ShoppingCartController {
-    ShoppingCartModel shoppingCartModel;
-    ShoppingCartView shoppingCartView;
+    ShoppingCartModel shoppingCartModel = new ShoppingCartModel();
+    ShoppingCartView shoppingCartView = new ShoppingCartView();
     public boolean add(ShoppingCart shoppingCart) {
         return this.shoppingCartModel.getShoppingCarts().add(shoppingCart);
     }

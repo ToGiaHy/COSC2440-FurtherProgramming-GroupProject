@@ -1,5 +1,5 @@
-DigitalProduct,Iphone 12,Size: 6.1 inches,100,16.5,Luxury,{Bonjour=10}
-DigitalProduct,Dell G15,Size: 15.6 inches,10,40.00,Normal,{Birthday=5.0;Festival=20}
+DigitalProduct,Iphone 12,Size: 6.1 inches,100,16.5,Free,{Bonjour=10}
+DigitalProduct,Dell G15,Size: 15.6 inches,10,40.00,Free,{Birthday=5.0;Festival=20}
 GiftPhysicalProduct,Macbook Air M1,Size: 13.3 inches,70,59.00,Free,{MacDay=2.5;MacAir=1.2},1.2,""
 DigitalProduct,Airpods 2,Connection range: 10m,23,3.7,Normal,{ }
 PhysicalProduct,Iphone 13,Size: 6.7 inches,11,20.00,Luxury,{13Friday=1.3},0.5

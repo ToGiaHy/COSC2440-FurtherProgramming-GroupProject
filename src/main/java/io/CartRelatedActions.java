@@ -8,6 +8,7 @@ import java.io.FileReader;
 import java.io.FileWriter;
 import java.io.IOException;
 import java.util.Arrays;
+import java.util.HashMap;
 import java.util.Map;
 import java.util.StringTokenizer;
 import java.util.stream.Collectors;
@@ -15,8 +16,8 @@ import java.util.stream.Collectors;
 public class CartRelatedActions implements FileActions {
     private final String CARTS_FILEPATH = "src/main/java/data/carts.txt";
     private final String RECEIPTS_FILEPATH = "src/main/java/data/receipts.txt";
-    ProductController productController;
-    ShoppingCartController shoppingCartController;
+    ProductController productController = new ProductController();
+    ShoppingCartController shoppingCartController = new ShoppingCartController();
 
     /**
      * Read the carts from a file and add the carts to the list
@@ -43,17 +44,27 @@ public class CartRelatedActions implements FileActions {
                     coupon = tokenizer.nextToken();
                     // Convert String to Map
                     items = items.substring(1, items.length() - 1);
-                    Map<String, Integer> itemsMap = Arrays.stream(items.split(","))
+                    Map<String, Integer> itemsMap = Arrays.stream(items.split(";"))
                             .map(entry -> entry.split("="))
                             .collect(Collectors.toMap(entry -> entry[0], entry -> Integer.valueOf(entry[1])));
                     giftMessages = giftMessages.substring(1, giftMessages.length() - 1);
-                    Map<String, String> giftMessagesMap = Arrays.stream(giftMessages.split(","))
-                            .map(entry -> entry.split("="))
-                            .collect(Collectors.toMap(entry -> entry[0], entry -> entry[1]));
-                    //Create a new cart
-                    cart = new ShoppingCart(id, itemsMap, coupon, giftMessagesMap, productController);
-                    // Add a new cart to the shopping cart
-                    shoppingCartController.add(cart);
+
+                    if(giftMessages.length() > 2){
+                        Map<String, String> giftMessagesMap = Arrays.stream(giftMessages.split(";"))
+                                .map(entry -> entry.split("="))
+                                .collect(Collectors.toMap(entry -> entry[0], entry -> entry[1]));
+
+                        //Create a new cart
+                        cart = new ShoppingCart(id, itemsMap, coupon, giftMessagesMap, productController);
+                        shoppingCartController.add(cart);
+
+                    }
+                   else{
+                       Map<String,String> emptyMap = new HashMap<>();
+                        cart = new ShoppingCart(id, itemsMap, coupon, emptyMap, productController);
+                        shoppingCartController.add(cart);
+                    }
+
                 }
             }
             // Exception handling
