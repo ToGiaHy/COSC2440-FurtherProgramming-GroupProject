@@ -42,6 +42,7 @@ public class ReadProductsFile implements FileActions {
                     // Convert the strings to related types
                     TaxType taxType = TaxType.getType(taxTypeStr);
                     // Map from the file store the coupon's name and its value
+                    coupons = coupons.substring(1, coupons.length() - 1);
                     Map<String, String> couponValues = Arrays.stream(coupons.split(","))
                             .map(entry -> entry.split("="))
                             .collect(Collectors.toMap(entry -> entry[0], entry -> entry[1]));
