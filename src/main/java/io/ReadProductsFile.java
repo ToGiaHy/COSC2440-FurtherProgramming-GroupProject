@@ -30,6 +30,7 @@ public class ReadProductsFile implements FileActions {
             Product product;
             String line;
             while ((line = reader.readLine()) != null) {
+                System.out.println(line);
                 StringTokenizer tokenizer = new StringTokenizer(line, ",");
                 while (tokenizer.hasMoreTokens()) {
                     String type = tokenizer.nextToken().toUpperCase();
@@ -43,21 +44,22 @@ public class ReadProductsFile implements FileActions {
                     TaxType taxType = TaxType.getType(taxTypeStr);
                     // Map from the file store the coupon's name and its value
                     coupons = coupons.substring(1, coupons.length() - 1);
-                    Map<String, String> couponValues = Arrays.stream(coupons.split(","))
-                            .map(entry -> entry.split("="))
-                            .collect(Collectors.toMap(entry -> entry[0], entry -> entry[1]));
-
-                    // Create CouponList for Products
-                    Map<String, Coupon> couponsMap = new HashMap<>();
                     Coupon coupon;
-                    for (Map.Entry<String, String> entry : couponValues.entrySet()) {
-                        try {
-                            double value = Double.parseDouble(entry.getValue());
-                            coupon = new PriceCoupon(entry.getKey(), value);
-                        } catch (Exception e) {
-                            coupon = new PercentCoupon(entry.getKey(), Integer.parseInt(entry.getValue()));
+                    Map<String, Coupon> couponsMap = new HashMap<>();
+                    if(coupons.length() > 2){
+                        Map<String, String> couponValues = Arrays.stream(coupons.split(";"))
+                                .map(entry -> entry.split("="))
+                                .collect(Collectors.toMap(entry -> entry[0], entry -> entry[1]));
+                        // Create CouponList for Products
+                        for (Map.Entry<String, String> entry : couponValues.entrySet()) {
+                            try {
+                                double value = Double.parseDouble(entry.getValue());
+                                coupon = new PriceCoupon(entry.getKey(), value);
+                            } catch (Exception e) {
+                                coupon = new PercentCoupon(entry.getKey(), Integer.parseInt(entry.getValue()));
+                            }
+                            couponsMap.put(coupon.getCouponCode(), coupon);
                         }
-                        couponsMap.put(coupon.getCouponCode(), coupon);
                     }
                     switch (type) {
                         case "DIGITALPRODUCT" -> product =

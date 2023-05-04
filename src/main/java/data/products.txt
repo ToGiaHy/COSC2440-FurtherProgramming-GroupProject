@@ -1,13 +1,13 @@
 DigitalProduct,Iphone 12,Size: 6.1 inches,100,16.5,Luxury,{Bonjour=10}
-DigitalProduct,Dell G15,Size: 15.6 inches,10,40.00,Normal,{Birthday=5.0,Festival=20}
-GiftPhysicalProduct,Macbook Air M1,Size: 13.3 inches,70,59.00,Free,{MacDay=2.5,MacAir=1.2},1.2,""
-DigitalProduct,Airpods 2,Connection range: 10m,23,3.7,Normal,{}
+DigitalProduct,Dell G15,Size: 15.6 inches,10,40.00,Normal,{Birthday=5.0;Festival=20}
+GiftPhysicalProduct,Macbook Air M1,Size: 13.3 inches,70,59.00,Free,{MacDay=2.5;MacAir=1.2},1.2,""
+DigitalProduct,Airpods 2,Connection range: 10m,23,3.7,Normal,{ }
 PhysicalProduct,Iphone 13,Size: 6.7 inches,11,20.00,Luxury,{13Friday=1.3},0.5
-GiftDigitalProduct,iPad Air 5,Size: 10.2 inches,50,15.8,Normal,{},""
+GiftDigitalProduct,iPad Air 5,Size: 10.2 inches,50,15.8,Normal,{ },""
 GiftPhysicalProduct,Dell G5,Size: 15.6 inches,3,27.5,Free,{Deli=10},3.2,""
 PhysicalProduct,iPad Pro 11,Size: 11 inches,11,52.5,Luxury,{},1.5
 GiftDigitalProduct,iPhone 13 Pro,Size: 6.7 inches,8,23.3,Luxury,{},""
-PhysicalProduct,Macbook Pro M1,Size: 13.3 inches,99,45.4,Luxury,{MacProDay=10,Maclentine=1.5,MacQueen=15},1.8
+PhysicalProduct,Macbook Pro M1,Size: 13.3 inches,99,45.4,Luxury,{MacProDay=10;Maclentine=1.5;MacQueen=15},1.8
 DigitalProduct,Dell XPS 11,Size: 13.3 inches,20,36.5,Luxury,{}
 DigitalProduct,Airpods 1,Connection range: 10m,45,2.7,Free,{}
 DigitalProduct,Apple Pencil 1,Size: 50cm,8,3.4,Free,{}
@@ -23,7 +23,7 @@ PhysicalProduct,Oppo M3,Size: 6.7 inches,12,6.8,Free,{},0.4
 PhysicalProduct,Apple Pencil 2,Size: 50cm,17,5.0,Free,{},0.2
 PhysicalProduct,Xiaomi Pad 5,Size: 10.2 inches,45,9.9,Normal,{Xiaoban=1.0},1.1
 GiftDigitalProduct,Samsung Buds,Connection range: 10m,10,2.9,Free,{},""
-GiftDigitalProduct,JBL Live,Connection range: 8m,56,3.1,Free,{JBLight=50,JB7=1.0},""
+GiftDigitalProduct,JBL Live,Connection range: 8m,56,3.1,Free,{JBLight=50;JB7=1.0},""
 GiftDigitalProduct,Sony 500,Connection range: 10m,8,2.2,Free,{},""
 GiftDigitalProduct,Sony X1000,Duration: 5 hours,17,7.9,Normal,{},""
 GiftDigitalProduct,JBL 660,Duration: 6 hours,45,4.8,Free,{},""
