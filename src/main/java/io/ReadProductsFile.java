@@ -51,10 +51,12 @@ public class ReadProductsFile implements FileActions {
                     Map<String, Coupon> couponsMap = new HashMap<>();
                     Coupon coupon;
                     for (Map.Entry<String, String> entry : couponValues.entrySet()) {
-                        if (Pattern.matches("\\.", entry.getValue())) {
-                            coupon = new PriceCoupon(entry.getKey(), Double.parseDouble(entry.getValue()));
-                        } else
+                        try {
+                            double value = Double.parseDouble(entry.getValue());
+                            coupon = new PriceCoupon(entry.getKey(), value);
+                        } catch (Exception e) {
                             coupon = new PercentCoupon(entry.getKey(), Integer.parseInt(entry.getValue()));
+                        }
                         couponsMap.put(coupon.getCouponCode(), coupon);
                     }
                     switch (type) {
