@@ -33,7 +33,7 @@ public class ShoppingCart {
 
     private Map<String,String> giftProductList;
 
-    private ProductController productController;
+    ProductController productController = new ProductController();
     private String coupon = "";
     private double couponDiscount = 0;
 

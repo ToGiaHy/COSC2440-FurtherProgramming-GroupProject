@@ -3,8 +3,8 @@ package Product;
 import java.util.Map;
 
 public class ProductController {
-    ProductModel productModel;
-    ProductView productView;
+    ProductModel productModel = new ProductModel();
+    ProductView productView = new ProductView();
     public void addProduct(Product product) {
         productModel.getPRODUCTS().put(product.getName(), product);
     }
