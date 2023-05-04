@@ -14,13 +14,13 @@ import java.util.stream.Collectors;
 
 
 public class ReadProductsFile implements FileActions {
-    ProductManager productManager;
+    ProductController productController;
 
     /**
      * Read data from the file to PRODUCTS
      */
-    public ReadProductsFile(ProductManager productManager) {
-        this.productManager = productManager;
+    public ReadProductsFile(ProductController productController) {
+        this.productController = productController;
     }
 
     public void read() {
@@ -106,7 +106,7 @@ public class ReadProductsFile implements FileActions {
                         }
                         default -> throw new IOException("Invalid product type: " + type);
                     }
-                    productManager.getPRODUCTS().put(product.getName(), product);
+                    productController.productList().put(product.getName(), product);
                 }
             }
             reader.close();

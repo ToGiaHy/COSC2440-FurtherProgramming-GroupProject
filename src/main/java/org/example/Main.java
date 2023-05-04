@@ -5,9 +5,7 @@
 package org.example;
 
 import Product.*;
-import ShoppingCart.ShoppingCartManager;
-import SystemUI.ProductUI;
-import SystemUI.ShoppingCartUI;
+import ShoppingCart.ShoppingCartController;
 import SystemUI.UserUI;
 import io.CartRelatedActions;
 
@@ -16,11 +14,11 @@ public class Main {
 
 
     public static void main(String[] args) {
-        ProductManager productManager = new ProductManager();
-        ShoppingCartManager shoppingCartManager = new ShoppingCartManager();
-        CartRelatedActions cartRelatedActions = new CartRelatedActions(productManager, shoppingCartManager);
+        ProductController productController = new ProductController();
+        ShoppingCartController shoppingCartController = new ShoppingCartController();
+        CartRelatedActions cartRelatedActions = new CartRelatedActions(productController, shoppingCartController);
         CouponDatabase couponDatabase = new CouponDatabase();
-        UserUI userUI = new UserUI(productManager, shoppingCartManager, cartRelatedActions, couponDatabase);
+        UserUI userUI = new UserUI(productController, shoppingCartController, cartRelatedActions, couponDatabase);
     }
 
 }
