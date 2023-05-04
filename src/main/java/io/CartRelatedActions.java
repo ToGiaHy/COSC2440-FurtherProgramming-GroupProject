@@ -42,9 +42,11 @@ public class CartRelatedActions implements FileActions {
                     giftMessages = tokenizer.nextToken();
                     coupon = tokenizer.nextToken();
                     // Convert String to Map
+                    items = items.substring(1, items.length() - 1);
                     Map<String, Integer> itemsMap = Arrays.stream(items.split(","))
                             .map(entry -> entry.split("="))
                             .collect(Collectors.toMap(entry -> entry[0], entry -> Integer.valueOf(entry[1])));
+                    giftMessages = giftMessages.substring(1, giftMessages.length() - 1);
                     Map<String, String> giftMessagesMap = Arrays.stream(giftMessages.split(","))
                             .map(entry -> entry.split("="))
                             .collect(Collectors.toMap(entry -> entry[0], entry -> entry[1]));
