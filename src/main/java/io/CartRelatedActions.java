@@ -25,7 +25,6 @@ public class CartRelatedActions implements FileActions {
     }
 
     public void read() {
-        //todo Cho Map của gift vào nữa
         try {
             BufferedReader cartReader = new BufferedReader(new FileReader(CARTS_FILEPATH));
             String line;
@@ -64,21 +63,22 @@ public class CartRelatedActions implements FileActions {
 
                 }
             }
+            cartReader.close();
             // Exception handling
         } catch (IOException e) {
             System.out.println("Error reading database file: " + e.getMessage());
         }
     }
 
-    public void writeReceipt(String carTId) {
+    public void writeReceipt(String cartId) {
         try {
             BufferedWriter  writer = new BufferedWriter(new FileWriter(RECEIPTS_FILEPATH));
-            writer.write(shoppingCartController.findCartByID(carTId).receiptToFile());
+            writer.write(shoppingCartController.findCartByID(cartId).receiptToFile());
+            writer.close();
         } catch (IOException e) {
             System.out.println("Error writing to database file: " + e.getMessage());
         }
     }
-
     // Check if a cart id exists in the file
     public boolean exists(String cartId) {
         // Read from file
