@@ -1,6 +1,7 @@
 package io;
 
 import Product.ProductController;
+import ShoppingCart.ShoppingCart;
 import ShoppingCart.ShoppingCartController;
 import org.junit.jupiter.api.BeforeAll;
 import org.junit.jupiter.api.BeforeEach;
@@ -21,8 +22,6 @@ public class WriteToReceipt {
      */
     @Test
     public void writeAReceipt(){
-        readProductsFile.read();
-        cartRelatedActions.read();
         cartRelatedActions.writeReceipt("C1");
     }
 }
