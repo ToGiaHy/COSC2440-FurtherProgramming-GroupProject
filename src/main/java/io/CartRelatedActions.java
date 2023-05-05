@@ -72,7 +72,7 @@ public class CartRelatedActions implements FileActions {
 
     public void writeReceipt(String cartId) {
         try {
-            BufferedWriter  writer = new BufferedWriter(new FileWriter(RECEIPTS_FILEPATH));
+            BufferedWriter  writer = new BufferedWriter(new FileWriter(RECEIPTS_FILEPATH, true));
             writer.write(shoppingCartController.findCartByID(cartId).receiptToFile());
             writer.close();
         } catch (IOException e) {
