@@ -12,7 +12,7 @@ public class ProductController {
         productModel.getPRODUCTS().remove(product);
     }
     public void viewProduct(){
-        productView.displayAllProduct();
+        productView.displayAllProduct(productModel);
     }
     public Map<String,Product> productList(){
         return productModel.getPRODUCTS();

@@ -3,10 +3,7 @@ package io;
 import Product.ProductController;
 import ShoppingCart.*;
 
-import java.io.BufferedReader;
-import java.io.FileReader;
-import java.io.FileWriter;
-import java.io.IOException;
+import java.io.*;
 import java.util.Arrays;
 import java.util.HashMap;
 import java.util.Map;
@@ -16,8 +13,8 @@ import java.util.stream.Collectors;
 public class CartRelatedActions implements FileActions {
     private final String CARTS_FILEPATH = "src/main/java/data/carts.txt";
     private final String RECEIPTS_FILEPATH = "src/main/java/data/receipts.txt";
-    ProductController productController = new ProductController();
-    ShoppingCartController shoppingCartController = new ShoppingCartController();
+    ProductController productController;
+    ShoppingCartController shoppingCartController;
 
     /**
      * Read the carts from a file and add the carts to the list
@@ -75,7 +72,7 @@ public class CartRelatedActions implements FileActions {
 
     public void writeReceipt(String carTId) {
         try {
-            FileWriter writer = new FileWriter(RECEIPTS_FILEPATH);
+            BufferedWriter  writer = new BufferedWriter(new FileWriter(RECEIPTS_FILEPATH));
             writer.write(shoppingCartController.findCartByID(carTId).receiptToFile());
         } catch (IOException e) {
             System.out.println("Error writing to database file: " + e.getMessage());

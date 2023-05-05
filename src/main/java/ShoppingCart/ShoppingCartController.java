@@ -13,7 +13,7 @@ public class ShoppingCartController {
         return this.shoppingCartModel.getShoppingCarts().remove(shoppingCart);
     }
     public void viewCarts(){
-        shoppingCartView.displayAllCarts();
+        shoppingCartView.displayAllCarts(shoppingCartModel);
     }
     public List<ShoppingCart> shoppingCartList() {
         return shoppingCartModel.getShoppingCarts();
