@@ -25,6 +25,7 @@ public class Main {
         readProductsFile.read();
         cartRelatedActions.writeReceipt("C1");
 
+        userUI.userUI();
     }
 
 }

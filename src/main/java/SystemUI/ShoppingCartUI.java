@@ -16,8 +16,8 @@ import java.util.Scanner;
 public class ShoppingCartUI {
     // todo add Regex
     static Scanner scanner = new Scanner(System.in);
-    private ShoppingCartController cartController;
-    private CartRelatedActions cartRelatedActions;
+    private final ShoppingCartController cartController;
+    private final CartRelatedActions cartRelatedActions;
     ProductController productController;
 
     // Constructor
@@ -34,14 +34,14 @@ public class ShoppingCartUI {
         String userInput = "";
         while (!userInput.matches(Regex.NUM_1_TO_6)) {
             System.out.println("#===============================#");
-            System.out.println("Enter a cart Id (Example: C0");
+            System.out.println("Enter a cart Id (Example: C0): ");
             String cartID = scanner.nextLine();
             ShoppingCart cart = cartController.findCartByID(cartID);
             // todo Coi lai phan validation nay dum em
             if (cart == null || cartRelatedActions.exists(cartID)) {
                 System.out.println("Cart id does not exist or this cart's receipt has been printed out!");
             }
-            System.out.printf("#===== EDITING CART ID: %d ======#\n");
+            System.out.printf("#===== EDITING CART ID: %s ======#\n", cartID);
             System.out.println("#===============================#");
             System.out.println("1. Add an item to the current cart");
             System.out.println("2. Remove an existing item from the current cart");

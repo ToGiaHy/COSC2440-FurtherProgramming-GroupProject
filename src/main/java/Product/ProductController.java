@@ -15,7 +15,7 @@ public class ProductController {
         }
     }
     public boolean removeProduct(String productName) {
-        if(productModel.getPRODUCTS().containsKey(productName)){
+        if(productModel.getPRODUCTS().containsKey(productName)) {
             productModel.getPRODUCTS().remove(productName);
             return true;
         }

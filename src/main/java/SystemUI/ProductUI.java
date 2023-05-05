@@ -15,7 +15,7 @@ public class ProductUI {
     /**
      * ProductUI attributes
      */
-    private ProductController productController;
+    private final ProductController productController;
     static Scanner scanner = new Scanner(System.in);
 
     public ProductUI(ProductController productController) {
@@ -28,19 +28,20 @@ public class ProductUI {
      */
     private int menu() {
         String userInput = "";
-        while (!userInput.matches(Regex.NUM_1_TO_4)) {
+        while (!userInput.matches(Regex.NUM_1_TO_5)) {
             System.out.println("#=======================================#");
             System.out.println("#===== PRODUCT MANAGER =====#");
             System.out.println("#=======================================#");
             System.out.println("1. View all products");
             System.out.println("2. Add a new product");
-            System.out.println("3. Edit an exist product");
-            System.out.println("4. Back to main menu");
-            System.out.println("Please choose interaction by enter a from 1 to 4:");
+            System.out.println("3. Remove a product");
+            System.out.println("4. Edit an exist product");
+            System.out.println("5. Back to main menu");
+            System.out.println("Please choose interaction by enter a from 1 to 5:");
             userInput = scanner.nextLine();
-            if (!userInput.matches(Regex.NUM_1_TO_4)) {
+            if (!userInput.matches(Regex.NUM_1_TO_5)) {
                 System.out.println();
-                System.out.println("Error: You entered a string or a number out of range from 1 to 4!");
+                System.out.println("Error: You entered a string or a number out of range from 1 to 5!");
                 System.out.println();
             }
         }
@@ -58,22 +59,35 @@ public class ProductUI {
             userInput = menu();
             switch (userInput) {
                 case 1 -> {
-                    System.out.println("Show all products!");
+                    System.out.println("== Show all products ==");
                     productController.viewProduct();
                     System.out.println();
                 }
                 case 2 -> {
-                    System.out.println("Create a new product!");
+                    System.out.println("== Create a new product ==");
                     createNewProduct(couponUI);
                     System.out.println();
                 }
                 case 3 -> {
-                    System.out.println("Edit an exist product!");
+                    System.out.println("== Delete an exist product ==");
+                    System.out.println("Enter name of the product to remove: ");
+                    String productName = scanner.nextLine();
+                    if (productController.removeProduct(productName)) {
+                        System.out.println("Remove the product successfully!");
+                    }
+                    else {
+                        System.out.println("Product does not exist in database!");
+                    }
+                    System.out.println();
+                }
+                case 4 -> {
+                    System.out.println("== Edit an exist product ==");
+                    System.out.println("Enter name of the product to edit: ");
                     String productName = scanner.nextLine();
                     editProduct(productName, couponUI);
                     System.out.println();
                 }
-                case 4 -> {
+                case 5 -> {
                     System.out.println("Back to main menu");
                     userUI.userUI();
                 }
