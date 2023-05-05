@@ -341,7 +341,7 @@ public class ShoppingCart {
     }
 
     public String receiptToFile() {
-        return String.format("%s,%s,%.2f", this.cartId, this.purchaseDate, this.cartAmount());
+        return String.format("%s,%s,%.2f\n", this.cartId, this.purchaseDate, this.cartAmount());
     }
 
 
