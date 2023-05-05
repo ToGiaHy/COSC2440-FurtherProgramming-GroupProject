@@ -5,11 +5,24 @@ import java.util.Map;
 public class ProductController {
     ProductModel productModel = new ProductModel();
     ProductView productView = new ProductView();
-    public void addProduct(Product product) {
-        productModel.getPRODUCTS().put(product.getName(), product);
+    public boolean addProduct(Product product) {
+        if(productModel.getPRODUCTS().containsKey(product.getName())){
+            return false;
+        }
+        else {
+            productModel.getPRODUCTS().put(product.getName(), product);
+            return true;
+        }
     }
-    public void removeProduct(Product product) {
-        productModel.getPRODUCTS().remove(product);
+    public boolean removeProduct(Product product) {
+        if(productModel.getPRODUCTS().containsKey(product.getName())){
+            productModel.getPRODUCTS().remove(product.getName());
+            return true;
+        }
+        else{
+            return false;
+        }
+
     }
     public void viewProduct(){
         productView.displayAllProduct(productModel);
