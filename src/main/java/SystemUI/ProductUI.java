@@ -74,8 +74,7 @@ public class ProductUI {
                     String productName = scanner.nextLine();
                     if (productController.removeProduct(productName)) {
                         System.out.println("Remove the product successfully!");
-                    }
-                    else {
+                    } else {
                         System.out.println("Product does not exist in database!");
                     }
                     System.out.println();

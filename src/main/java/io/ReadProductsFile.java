@@ -17,12 +17,16 @@ public class ReadProductsFile implements FileActions {
     ProductController productController;
 
     /**
-     * Read data from the file to PRODUCTS
+     * Read data from the product.txt file to PRODUCTS
      */
     public ReadProductsFile(ProductController productController) {
         this.productController = productController;
     }
 
+    /**
+     * Read each line as an instance of Product
+     * Create products based on types then added into the product controller hashmap
+     */
     public void read() {
         // Read from file
         try {
@@ -114,7 +118,6 @@ public class ReadProductsFile implements FileActions {
                 }
             }
             reader.close();
-
         } catch (IOException e) {
             System.out.println("Error reading database file: " + e.getMessage());
         }

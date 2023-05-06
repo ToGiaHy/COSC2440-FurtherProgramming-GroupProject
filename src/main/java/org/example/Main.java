@@ -12,8 +12,6 @@ import io.ReadProductsFile;
 
 
 public class Main {
-
-
     public static void main(String[] args) {
         ProductController productController = new ProductController();
         ShoppingCartController shoppingCartController = new ShoppingCartController();
@@ -25,5 +23,4 @@ public class Main {
         readProductsFile.read();
         userUI.userUI();
     }
-
 }

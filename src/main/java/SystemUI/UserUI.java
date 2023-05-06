@@ -23,11 +23,12 @@ public class UserUI {
     private ShoppingCartUI cartUI;
     private CouponUI couponUI;
 
-    public UserUI(ProductController productController, ShoppingCartController cartController, CartRelatedActions cartRelatedActions , CouponDatabase couponDatabase) {
+    public UserUI(ProductController productController, ShoppingCartController cartController, CartRelatedActions cartRelatedActions, CouponDatabase couponDatabase) {
         productUI = new ProductUI(productController);
-        cartUI = new ShoppingCartUI(cartController, cartRelatedActions,productController);
+        cartUI = new ShoppingCartUI(cartController, cartRelatedActions, productController);
         couponUI = new CouponUI(couponDatabase);
     }
+
     /**
      * Menu
      * Display all option for user can interact with the system
@@ -77,7 +78,7 @@ public class UserUI {
                     System.out.println("#===============================#");
                 }
             }
-            }
-        while (userInt != 3);
         }
+        while (userInt != 3);
     }
+}
