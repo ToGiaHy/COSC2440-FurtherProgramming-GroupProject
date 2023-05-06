@@ -17,7 +17,7 @@ public class UserUI {
     /**
      * UserUI attributes
      */
-    static Scanner scanner = new Scanner(System.in);
+    static Scanner scn = new Scanner(System.in);
 
     private ProductUI productUI;
     private ShoppingCartUI cartUI;
@@ -42,7 +42,7 @@ public class UserUI {
             System.out.println("2. Shopping cart manager");
             System.out.println("3. Exit program");
             System.out.println("Please choose interaction by enter a from 1 to 3:");
-            userInput = scanner.nextLine();
+            userInput = scn.nextLine();
             if (!userInput.matches(Regex.NUM_1_TO_3)) {
                 System.out.println();
                 System.out.println("Error: You entered a string or a number out of range from 1 to 3!");
@@ -58,11 +58,11 @@ public class UserUI {
      * Process the requirement of user input from the menu
      */
     public void userUI() {
-        int userInput = 0;
-        while (userInput != 3) {
-            userInput = menu();
+        int userInt = 0;
+        do {
+            userInt = menu();
 
-            switch (userInput) {
+            switch (userInt) {
                 case 1 -> {
                     productUI.productUI(couponUI, this);
                     System.out.println();
@@ -75,11 +75,9 @@ public class UserUI {
                     System.out.println("#===============================#");
                     System.out.println("Thank you for using our services!");
                     System.out.println("#===============================#");
-                    break;
                 }
             }
-
+            }
+        while (userInt != 3);
         }
     }
-
-}

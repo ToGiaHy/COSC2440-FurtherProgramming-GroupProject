@@ -155,6 +155,7 @@ public class ProductUI {
         }
         boolean isGift;
         isGift = Boolean.parseBoolean(giftInput.toLowerCase());
+
         System.out.println("What type of tax ?");
         String taxInput = scanner.nextLine();
         while (!taxInput.matches(Regex.TAX_TYPE)) {

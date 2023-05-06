@@ -321,7 +321,6 @@ public class ShoppingCart {
         this.productController = productController;
     }
 
-
     @Override
     public String toString() {
         return "Cart ID : " + cartId +
