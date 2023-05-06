@@ -225,15 +225,21 @@ public class ShoppingCartUI {
                 case 5 -> {
                     cartController.viewCarts();
                     System.out.println("Enter a cart id to print the receipt: ");
-                    String cartId = scanner.nextLine();
+                    String cartID = scanner.nextLine();
                     System.out.println("Enter the name to save file receipt: ");
                     String fileName = scanner.nextLine();
 
-                    ShoppingCart cart = cartController.findCartByID(cartId);
+                    while (cartRelatedActions.exists(cartID) || cartController.findCartByID(cartID) == null) {
+                        System.out.println("Error: Cart id does not exist or this cart's receipt has been printed out!");
+                        System.out.println("Enter an id of cart which you want to edit: ");
+                        cartID = scanner.nextLine();
+                    }
+
+                    ShoppingCart cart = cartController.findCartByID(cartID);
                     cart.displayReceipt();
 
-                    cartRelatedActions.writeReceipt(cartId);
-                    cartRelatedActions.writeReceiptWithCustomName(cartId,fileName);
+                    cartRelatedActions.writeReceipt(cartID);
+                    cartRelatedActions.writeReceiptWithCustomName(cartID,fileName);
                 }
                 case 6 -> {
                     userUI.userUI();
