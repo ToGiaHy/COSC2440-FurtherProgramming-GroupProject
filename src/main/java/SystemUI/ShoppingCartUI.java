@@ -210,13 +210,14 @@ public class ShoppingCartUI {
                 case 3 -> {
                     cartController.viewCarts();
                     System.out.println("Enter an id of cart which you want to edit: ");
-                    String cartId = scanner.nextLine();
-                    if (cartController.findCartByID(cartId) != null) {
-                        cartEditUI(cartId, userUI);
+                    String cartID = scanner.nextLine();
+
+                    while (cartRelatedActions.exists(cartID) || cartController.findCartByID(cartID) == null) {
+                        System.out.println("Error: Cart id does not exist or this cart's receipt has been printed out!");
+                        System.out.println("Enter an id of cart which you want to edit: ");
+                        cartID = scanner.nextLine();
                     }
-                    else {
-                        System.out.println("Cart id does not exist or this cart's receipt has been printed out!");
-                    }
+                    cartEditUI(cartID, userUI);
                 }
                 case 4 -> viewCartDetails();
 
