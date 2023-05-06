@@ -340,7 +340,7 @@ public class ShoppingCart {
         System.out.println("Items:");
         for (Map.Entry<String, Integer> items : this.getItems().entrySet()) {
             Product product = productController.productList().get(items.getKey());
-            System.out.println("Name: " + items.getKey() + "\t" + "Price: " + product.getPrice() + "\t" + "Tax: " + product.getTaxType() + "Quantity: " + items.getValue());
+            System.out.println("Name: " + items.getKey() + "\t" + "Price: " + product.getPrice() + "\t" + "Tax: " + product.getTaxType() + " Quantity: " + items.getValue());
         }
         System.out.println("Shipping fee: " + this.shippingFee);
         System.out.println("Total amount: " + this.cartAmount());
@@ -355,7 +355,7 @@ public class ShoppingCart {
         for (Map.Entry<String, Integer> items : this.getItems().entrySet()) {
             Product product = productController.productList().get(items.getKey());
             products.append("Name: ").append(items.getKey()).append("\t").append("Price: ").append(product.getPrice()).append("\t")
-                    .append("Tax: ").append(product.getTaxType()).append("Quantity: ").append(items.getValue()).append("\n");
+                    .append("Tax: ").append(product.getTaxType()).append(" Quantity: ").append(items.getValue()).append("\n");
         }
         return String.format("----------------RECEIPT----------------\nCart: %s\nDate of purchase: %s\nItems: " + products +
                 "Shipping fee: %.2f\nTotal amount: %.2f", this.cartId, this.purchaseDate, this.shippingFee, this.cartAmount());

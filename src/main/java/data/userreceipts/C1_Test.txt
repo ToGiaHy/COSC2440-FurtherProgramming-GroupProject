@@ -1,0 +1,8 @@
+----------------RECEIPT----------------
+Cart: C1
+Date of purchase: 2023-05-06
+Items: Name: Airpods 1	Price: 2.7	Tax: Free Quantity: 2
+Name: Dell G5	Price: 27.5	Tax: Free Quantity: 1
+Name: iPad Air 5	Price: 15.8	Tax: Normal Quantity: 1
+Shipping fee: 0.32
+Total amount: 50.60
