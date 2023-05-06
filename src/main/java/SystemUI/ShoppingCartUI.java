@@ -223,7 +223,7 @@ public class ShoppingCartUI {
 
                     while (cartRelatedActions.exists(cartID) || cartController.findCartByID(cartID) == null) {
                         System.out.println("Error: Cart id does not exist or this cart's receipt has been printed out!");
-                        System.out.println("Enter an id of cart which you want to edit: ");
+                        System.out.println("Enter an id of cart which you want to print receipt: ");
                         cartID = scanner.nextLine();
                     }
 

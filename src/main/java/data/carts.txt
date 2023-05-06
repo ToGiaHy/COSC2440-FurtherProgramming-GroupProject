@@ -1,7 +1,7 @@
 C1,{iPad Air 5=1;Dell G5=1;Airpods 1=2},{iPad Air 5 = Happy birthday},"Deli"
 C2,{Asus Vivobook 14=1;JBL 660=3},{},""
 C3,{Dell G7=1;JBL Live=1;Macbook Pro 14=1;Iphone 12 Pro=1},{JBL Live=Wish you the best;Macbook Pro 14=From Xian},GO7
-C4,{Airpods 2=2;Apple Pencil=2;iPad Air 5=2},{},""
+C4,{Airpods 2=2;Apple Pencil 1=2;iPad Air 5=2},{},""
 C5,{Apple Watch=1;Xiaomi Pad 5=1},{ },"Xiaoban"
 C6,{MSI 14=1;iPad Air 5=3;Dell G7=1;Xiaomi Watch=1},{MSI 14=Merry Christmas},""
 C7,{Iphone 12=3;Dell G15=1;Macbook Air M1=1},{},""
