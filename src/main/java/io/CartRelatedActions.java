@@ -13,6 +13,7 @@ import java.util.stream.Collectors;
 public class CartRelatedActions implements FileActions {
     private final String CARTS_FILEPATH = "src/main/java/data/carts.txt";
     private final String RECEIPTS_FILEPATH = "src/main/java/data/receipts.txt";
+    private final String USER_RECEIPTS_PATH = "src/main/java/data/userreceipts/";
     ProductController productController;
     ShoppingCartController shoppingCartController;
 
@@ -69,7 +70,7 @@ public class CartRelatedActions implements FileActions {
             System.out.println("Error reading database file: " + e.getMessage());
         }
     }
-
+//  Write receipt to file receipt.txt
     public void writeReceipt(String cartId) {
         try {
             BufferedWriter  writer = new BufferedWriter(new FileWriter(RECEIPTS_FILEPATH, true));
@@ -79,6 +80,22 @@ public class CartRelatedActions implements FileActions {
             System.out.println("Error writing to database file: " + e.getMessage());
         }
     }
+//  Save receipt file with custom name from user
+    public void writeReceiptWithCustomName(String cartId, String fileName) {
+        if (fileName.contains(" ")) {
+            fileName = fileName.replace(" ", "_");
+        }
+
+        String path = String.format(USER_RECEIPTS_PATH+ "/%s.txt", fileName);
+        try {
+            BufferedWriter  writer = new BufferedWriter(new FileWriter(path, true));
+            writer.write(shoppingCartController.findCartByID(cartId).receiptToFileCustomName());
+            writer.close();
+        } catch (IOException e) {
+            System.out.println("Error writing to database file: " + e.getMessage());
+        }
+    }
+
     // Check if a cart id exists in the file
     public boolean exists(String cartId) {
         // Read from file

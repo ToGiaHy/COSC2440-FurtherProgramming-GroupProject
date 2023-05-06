@@ -194,9 +194,10 @@ public class ShoppingCartUI {
             switch (userInput) {
                 case 1 -> {
                     ShoppingCart cart = new ShoppingCart(productController);
+                    cart.setCartId("C" + (cartController.shoppingCartList().size() + 1));
                     cartController.shoppingCartList().add(cart);
-                    String cartId = "C" + (cartController.shoppingCartList().size() - 1);
-                    cartEditUI(cartId, userUI);
+                    cartController.viewCarts();
+                    cartEditUI(cart.getId(), userUI);
                 }
                 case 2 -> {
                     cartController.viewCarts();
@@ -225,11 +226,18 @@ public class ShoppingCartUI {
                     cartController.viewCarts();
                     System.out.println("Enter a cart id to print the receipt: ");
                     String cartId = scanner.nextLine();
+                    System.out.println("Enter the name to save file receipt: ");
+                    String fileName = scanner.nextLine();
+
                     ShoppingCart cart = cartController.findCartByID(cartId);
                     cart.displayReceipt();
+
                     cartRelatedActions.writeReceipt(cartId);
+                    cartRelatedActions.writeReceiptWithCustomName(cartId,fileName);
                 }
-                case 6 -> userUI.userUI();
+                case 6 -> {
+                    userUI.userUI();
+                }
 
             }
         }

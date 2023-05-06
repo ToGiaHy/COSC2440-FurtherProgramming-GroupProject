@@ -23,7 +23,6 @@ public class Main {
         UserUI userUI = new UserUI(productController, shoppingCartController, cartRelatedActions, couponDatabase);
         cartRelatedActions.read();
         readProductsFile.read();
-        cartRelatedActions.writeReceipt("C1");
 
         userUI.userUI();
     }

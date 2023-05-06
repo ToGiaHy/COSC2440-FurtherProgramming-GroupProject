@@ -30,7 +30,7 @@ public class ShoppingCart {
     private LocalDate purchaseDate;
     private double shippingFee = 0;
     private double totalWeight;
-    private final String cartId;
+    private String cartId;
     private double totalTax;
 
     private Map<String, String> giftProductList;
@@ -219,9 +219,14 @@ public class ShoppingCart {
     }
 
 
+    public void setCartId(String cartId) {
+        this.cartId = cartId;
+    }
+
     /**
      * Getter and Setter methods
      */
+
 
     public double getTotalTax() {
         return totalTax;
@@ -345,5 +350,15 @@ public class ShoppingCart {
         return String.format("%s,%s,%.2f\n", this.cartId, this.purchaseDate, this.cartAmount());
     }
 
+    public String receiptToFileCustomName() {
+        StringBuilder products = new StringBuilder();
+        for (Map.Entry<String, Integer> items : this.getItems().entrySet()) {
+            Product product = productController.productList().get(items.getKey());
+            products.append("Name: ").append(items.getKey()).append("\t").append("Price: ").append(product.getPrice()).append("\t")
+                    .append("Tax: ").append(product.getTaxType()).append("Quantity: ").append(items.getValue()).append("\n");
+        }
+        return String.format("----------------RECEIPT----------------\nCart: %s\nDate of purchase: %s\nItems: " + products +
+                "Shipping fee: %.2f\nTotal amount: %.2f", this.cartId, this.purchaseDate, this.shippingFee, this.cartAmount());
+    }
 
 }
