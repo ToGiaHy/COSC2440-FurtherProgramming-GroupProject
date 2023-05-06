@@ -213,7 +213,8 @@ public class ShoppingCart {
      * View detail of cart include total price, tax, shipping fee, coupon discount
      */
     public void viewDetails() {
-        System.out.printf("Cart %d, Total Price: %.2f, Total Tax: %.2f, Shipping fee: %.2f, Coupon discount: %.2f \n",
+        cartAmount();
+        System.out.printf("Cart %s, Total Price: %.2f, Total Tax: %.2f, Shipping fee: %.2f, Coupon discount: %.2f \n",
                 cartId, amount, totalTax, shippingFee, couponDiscount);
     }
 

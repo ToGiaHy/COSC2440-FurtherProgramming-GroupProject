@@ -30,17 +30,17 @@ public class ShoppingCartUI {
     /**
      * Cart Edit Menu
      */
-    private int cartEditMenu() {
+    private int cartEditMenu(String cartID) {
         String userInput = "";
         while (!userInput.matches(Regex.NUM_1_TO_6)) {
-            System.out.println("#===============================#");
-            System.out.println("Enter a cart Id (Example: C0): ");
-            String cartID = scanner.nextLine();
-            ShoppingCart cart = cartController.findCartByID(cartID);
-            // todo Coi lai phan validation nay dum em
-            if (cart == null || cartRelatedActions.exists(cartID)) {
-                System.out.println("Cart id does not exist or this cart's receipt has been printed out!");
-            }
+//            System.out.println("#===============================#");
+//            System.out.println("Enter a cart Id (Example: C0): ");
+//            String cartID = scanner.nextLine();
+//            ShoppingCart cart = cartController.findCartByID(cartID);
+//            // todo Coi lai phan validation nay dum em
+//            if (cart == null || cartRelatedActions.exists(cartID)) {
+//                System.out.println("Cart id does not exist or this cart's receipt has been printed out!");
+//            }
             System.out.printf("#===== EDITING CART ID: %s ======#\n", cartID);
             System.out.println("#===============================#");
             System.out.println("1. Add an item to the current cart");
@@ -68,8 +68,9 @@ public class ShoppingCartUI {
         String productName;
         // Get cart from cart list to modify
         ShoppingCart cart = cartController.findCartByID(cartID);
+
         while (userInput != 6) {
-            userInput = cartEditMenu();
+            userInput = cartEditMenu(cartID);
             switch (userInput) {
                 case 1 -> {
                     System.out.println("All products in our shop:");
@@ -157,7 +158,7 @@ public class ShoppingCartUI {
     private int menu() {
         String userInput = "";
 
-        while (!userInput.matches(Regex.NUM_1_TO_5)) {
+        while (!userInput.matches(Regex.NUM_1_TO_6)) {
             System.out.println("#=================================#");
             System.out.println("#===== SHOPPING CART MANAGER =====#");
             System.out.println("#=================================#");
@@ -171,9 +172,9 @@ public class ShoppingCartUI {
 
             userInput = scanner.nextLine();
 
-            if (!userInput.matches(Regex.NUM_1_TO_5)) {
+            if (!userInput.matches(Regex.NUM_1_TO_6)) {
                 System.out.println();
-                System.out.println("Error: You entered a string or a number out of range from 1 to 4!");
+                System.out.println("Error: You entered a string or a number out of range from 1 to 6!");
                 System.out.println();
             }
         }
@@ -210,7 +211,12 @@ public class ShoppingCartUI {
                     cartController.viewCarts();
                     System.out.println("Enter an id of cart which you want to edit: ");
                     String cartId = scanner.nextLine();
-                    cartEditUI(cartId, userUI);
+                    if (cartController.findCartByID(cartId) != null) {
+                        cartEditUI(cartId, userUI);
+                    }
+                    else {
+                        System.out.println("Cart id does not exist or this cart's receipt has been printed out!");
+                    }
                 }
                 case 4 -> viewCartDetails();
 
