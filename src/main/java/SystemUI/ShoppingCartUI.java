@@ -14,7 +14,6 @@ import java.util.Objects;
 import java.util.Scanner;
 
 public class ShoppingCartUI {
-    // todo add Regex
     static Scanner scanner = new Scanner(System.in);
     private final ShoppingCartController cartController;
     private final CartRelatedActions cartRelatedActions;
@@ -32,15 +31,7 @@ public class ShoppingCartUI {
      */
     private int cartEditMenu(String cartID) {
         String userInput = "";
-        while (!userInput.matches(Regex.NUM_1_TO_6)) {
-//            System.out.println("#===============================#");
-//            System.out.println("Enter a cart Id (Example: C0): ");
-//            String cartID = scanner.nextLine();
-//            ShoppingCart cart = cartController.findCartByID(cartID);
-//            // todo Coi lai phan validation nay dum em
-//            if (cart == null || cartRelatedActions.exists(cartID)) {
-//                System.out.println("Cart id does not exist or this cart's receipt has been printed out!");
-//            }
+        while (!userInput.matches(Regex.NUM_1_TO_8)) {
             System.out.printf("#===== EDITING CART ID: %s ======#\n", cartID);
             System.out.println("#===============================#");
             System.out.println("1. Add an item to the current cart");
@@ -49,9 +40,11 @@ public class ShoppingCartUI {
             System.out.println("4. Remove coupon from the current cart");
             System.out.println("5. Display all products in the current cart");
             System.out.println("6. Complete cart and return shopping cart manager");
+            System.out.println("7. Write messages for gift products");
+            System.out.println("8. Print out the messages of the gift products");
             System.out.println("Please enter a number in the menu to interact with system:");
             userInput = scanner.nextLine();
-            if (!userInput.matches(Regex.NUM_1_TO_6)) {
+            if (!userInput.matches(Regex.NUM_1_TO_8)) {
                 System.out.println();
                 System.out.println("Error: You entered a string or a number out of range from 1 to 6!");
                 System.out.println();
@@ -69,7 +62,7 @@ public class ShoppingCartUI {
         // Get cart from cart list to modify
         ShoppingCart cart = cartController.findCartByID(cartID);
 
-        while (userInput != 6) {
+        while (userInput != 8) {
             userInput = cartEditMenu(cartID);
             switch (userInput) {
                 case 1 -> {
@@ -141,6 +134,32 @@ public class ShoppingCartUI {
                     assert cart != null;
                     System.out.println("Total amount of this cart: " + cart.cartAmount());
                     CartManagerUI(userUI);
+                }
+                case 7 -> {
+                    if(!cart.getGiftProductList().isEmpty()){
+                        System.out.println(cart.getGiftProductList());
+                        System.out.println("Please specify the gift product you want to edit: ");
+                        String giftProductInput = scanner.nextLine();
+                        if(cart.getGiftProductList().containsKey(giftProductInput)){
+                            System.out.println("Please write a message: ");
+                            String message = scanner.nextLine();
+                            cart.getGiftProductList().put(giftProductInput,message);
+                        }
+                        else {
+                            System.out.println("Gift product does not exist or wrong input");
+                        }
+                    }
+                    else{
+                        System.out.println("There is no gift product available in the cart");
+                    }
+                }
+                case 8 -> {
+                    if(!cart.getGiftProductList().isEmpty()){
+                        System.out.println(cart.getGiftProductList());
+                    }
+                    else {
+                        System.out.println("There is no gift product available in the cart");
+                    }
                 }
             }
 
@@ -220,7 +239,9 @@ public class ShoppingCartUI {
                     }
                     cartEditUI(cartID, userUI);
                 }
-                case 4 -> viewCartDetails();
+                case 4 -> {
+                    viewCartDetails();
+                }
 
                 case 5 -> {
                     cartController.viewCarts();
@@ -242,7 +263,7 @@ public class ShoppingCartUI {
                     cartRelatedActions.writeReceiptWithCustomName(cartID,fileName);
                 }
                 case 6 -> {
-                    userUI.userUI();
+                    System.out.println();
                 }
 
             }
