@@ -8,7 +8,6 @@ import Product.Product;
 
 import Product.PriceCoupon;
 import Product.PercentCoupon;
-import Product.CanBeGifted;
 import Product.PhysicalProductCanBeGifted;
 import Product.DigitalProductCanBeGifted;
 
@@ -25,17 +24,15 @@ public class ShoppingCart {
     private Map<String, Integer> items = new HashMap<>();
     private static final double BASE = 0.1;
     private static int NEXT_ID = 1;
-    private String name;
     private double amount = 0;
     private LocalDate purchaseDate;
     private double shippingFee = 0;
-    private double totalWeight;
     private String cartId;
     private double totalTax;
 
     private Map<String, String> giftProductList;
 
-    ProductController productController = new ProductController();
+    ProductController productController;
     private String coupon = "";
     private double couponDiscount = 0;
 
@@ -261,10 +258,6 @@ public class ShoppingCart {
         this.shippingFee = shippingFee;
     }
 
-    public void setTotalWeight(double totalWeight) {
-        this.totalWeight = totalWeight;
-    }
-
     public void setCouponDiscount(double couponDiscount) {
         this.couponDiscount = couponDiscount;
     }
@@ -277,13 +270,6 @@ public class ShoppingCart {
         this.giftProductList = giftProductList;
     }
 
-    public String getName() {
-        return name;
-    }
-
-    public void setName(String name) {
-        this.name = name;
-    }
 
     public double getTotalWeight() {
         return calculateWeight();

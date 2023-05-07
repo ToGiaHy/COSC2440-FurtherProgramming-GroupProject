@@ -136,28 +136,25 @@ public class ShoppingCartUI {
                     CartManagerUI(userUI);
                 }
                 case 7 -> {
-                    if(!cart.getGiftProductList().isEmpty()){
+                    if (!cart.getGiftProductList().isEmpty()) {
                         System.out.println(cart.getGiftProductList());
                         System.out.println("Please specify the gift product you want to edit: ");
                         String giftProductInput = scanner.nextLine();
-                        if(cart.getGiftProductList().containsKey(giftProductInput)){
+                        if (cart.getGiftProductList().containsKey(giftProductInput)) {
                             System.out.println("Please write a message: ");
                             String message = scanner.nextLine();
-                            cart.getGiftProductList().put(giftProductInput,message);
-                        }
-                        else {
+                            cart.getGiftProductList().put(giftProductInput, message);
+                        } else {
                             System.out.println("Gift product does not exist or wrong input");
                         }
-                    }
-                    else{
+                    } else {
                         System.out.println("There is no gift product available in the cart");
                     }
                 }
                 case 8 -> {
-                    if(!cart.getGiftProductList().isEmpty()){
+                    if (!cart.getGiftProductList().isEmpty()) {
                         System.out.println(cart.getGiftProductList());
-                    }
-                    else {
+                    } else {
                         System.out.println("There is no gift product available in the cart");
                     }
                 }
@@ -239,9 +236,8 @@ public class ShoppingCartUI {
                     }
                     cartEditUI(cartID, userUI);
                 }
-                case 4 -> {
-                    viewCartDetails();
-                }
+                case 4 -> viewCartDetails();
+
 
                 case 5 -> {
                     cartController.viewCarts();
@@ -260,11 +256,10 @@ public class ShoppingCartUI {
                     cart.displayReceipt();
 
                     cartRelatedActions.writeReceipt(cartID);
-                    cartRelatedActions.writeReceiptWithCustomName(cartID,fileName);
+                    cartRelatedActions.writeReceiptWithCustomName(cartID, fileName);
                 }
-                case 6 -> {
-                    System.out.println();
-                }
+                case 6 -> System.out.println();
+
 
             }
         }
