@@ -1,30 +1,31 @@
 package io;
-
 import org.junit.jupiter.api.Test;
-import product.*;
 import shoppingcart.*;
+import product.*;
+
+import static org.junit.jupiter.api.Assertions.assertNotNull;
+import static org.junit.jupiter.api.Assertions.assertTrue;
+
 public class ReadFromFile {
     ProductController productController = new ProductController();
     ShoppingCartController shoppingCartController = new ShoppingCartController();
     CartRelatedActions cartRelatedActions = new CartRelatedActions(productController,shoppingCartController);
-
     ReadProductsFile readProductsFile = new ReadProductsFile(productController);
 
     /**
-      It will display all the product test data
+     * Assert that the product controller product list has been read from the products.txt
      */
     @Test
-    public void setReadProductsFile(){
+    public void readProductsFileTest(){
         readProductsFile.read();
-        productController.viewProduct();
+        assertNotNull(productController.productList());
     }
     /**
-      It will display all the test cart data
+     * Assert that the shopping cart controller cart list has been read from the carts.txt
      */
     @Test
-    public void readFromCartTxt(){
-        readProductsFile.read();
+    public void readCartsFileTest(){
         cartRelatedActions.read();
-        shoppingCartController.viewCarts();
+        assertNotNull(shoppingCartController.shoppingCartList());
     }
 }
