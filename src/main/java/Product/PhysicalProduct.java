@@ -6,45 +6,41 @@ package Product;
 
 import java.util.Map;
 
-public class PhysicalProduct extends Product{
+public class PhysicalProduct extends Product {
     /**
      * Physical product attributes
      */
     private double weight;
-
     /**
      * The constructor is not inherited,
      * but we can access it with "super"
-     * @param name product name
-     * @param description product description
+     *
+     * @param name              product name
+     * @param description       product description
      * @param quantityAvailable the number of products are available to buy
-     * @param price product price
-     * @param weight product weight (Only physical product have weight attribute)
+     * @param price             product price
+     * @param weight            product weight (Only physical product have weight attribute)
      */
     public PhysicalProduct(String name, String description, int quantityAvailable, double price, TaxType taxType, double weight) {
         super(name, description, quantityAvailable, price, taxType);
         this.weight = weight;
     }
-
-    public PhysicalProduct(String name, String description, int quantityAvailable, double price, TaxType taxType, Map<String,Coupon> couponList, double weight) {
+    public PhysicalProduct(String name, String description, int quantityAvailable, double price, TaxType taxType, Map<String, Coupon> couponList, double weight) {
         super(name, description, quantityAvailable, price, taxType, couponList);
         this.weight = weight;
     }
-
     /**
      * Getter methods
      */
     public double getWeight() {
         return weight;
     }
-
     /**
      * Setter methods
      */
     public void setWeight(Double weight) {
         this.weight = weight;
     }
-
     /**
      * String representation of this product
      * <p>

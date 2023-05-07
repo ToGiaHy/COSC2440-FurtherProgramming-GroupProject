@@ -136,28 +136,25 @@ public class ShoppingCartUI {
                     CartManagerUI(userUI);
                 }
                 case 7 -> {
-                    if(!cart.getGiftProductList().isEmpty()){
+                    if (!cart.getGiftProductList().isEmpty()) {
                         System.out.println(cart.getGiftProductList());
                         System.out.println("Please specify the gift product you want to edit: ");
                         String giftProductInput = scanner.nextLine();
-                        if(cart.getGiftProductList().containsKey(giftProductInput)){
+                        if (cart.getGiftProductList().containsKey(giftProductInput)) {
                             System.out.println("Please write a message: ");
                             String message = scanner.nextLine();
-                            cart.getGiftProductList().put(giftProductInput,message);
-                        }
-                        else {
+                            cart.getGiftProductList().put(giftProductInput, message);
+                        } else {
                             System.out.println("Gift product does not exist or wrong input");
                         }
-                    }
-                    else{
+                    } else {
                         System.out.println("There is no gift product available in the cart");
                     }
                 }
                 case 8 -> {
-                    if(!cart.getGiftProductList().isEmpty()){
+                    if (!cart.getGiftProductList().isEmpty()) {
                         System.out.println(cart.getGiftProductList());
-                    }
-                    else {
+                    } else {
                         System.out.println("There is no gift product available in the cart");
                     }
                 }
@@ -213,10 +210,18 @@ public class ShoppingCartUI {
             switch (userInput) {
                 case 1 -> {
                     ShoppingCart cart = new ShoppingCart(productController);
-                    cart.setCartId("C" + (cartController.shoppingCartList().size() + 1));
-                    cartController.shoppingCartList().add(cart);
-                    cartController.viewCarts();
-                    cartEditUI(cart.getId(), userUI);
+                    System.out.println("Pick a cart ID number: ");
+                    int cartNumber = Integer.parseInt(scanner.nextLine());
+                    String cartID = "C" + cartNumber;
+                    if(cartController.findCartByID(cartID) != null){
+                        System.out.println("Cart ID already exists");
+                    }
+                    else{
+                        cart.setCartId(cartID);
+                        cartController.shoppingCartList().add(cart);
+                        cartController.viewCarts();
+                        cartEditUI(cart.getId(), userUI);
+                    }
                 }
                 case 2 -> {
                     cartController.viewCarts();
@@ -260,7 +265,7 @@ public class ShoppingCartUI {
                     cart.displayReceipt();
 
                     cartRelatedActions.writeReceipt(cartID);
-                    cartRelatedActions.writeReceiptWithCustomName(cartID,fileName);
+                    cartRelatedActions.writeReceiptWithCustomName(cartID, fileName);
                 }
                 case 6 -> {
                     System.out.println();

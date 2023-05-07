@@ -16,7 +16,6 @@ public class CartRelatedActions implements FileActions {
     private final String USER_RECEIPTS_PATH = "src/main/java/data/userreceipts/";
     ProductController productController;
     ShoppingCartController shoppingCartController;
-
     /**
      * Read the carts from a file and add the carts to the list
      */
@@ -25,6 +24,10 @@ public class CartRelatedActions implements FileActions {
         this.shoppingCartController = shoppingCartController;
     }
 
+    /**
+     * Read each cart based on a line
+     * Added into the shoppingCartController ArrayList
+     */
     public void read() {
         try {
             BufferedReader cartReader = new BufferedReader(new FileReader(CARTS_FILEPATH));
@@ -46,7 +49,7 @@ public class CartRelatedActions implements FileActions {
                             .collect(Collectors.toMap(entry -> entry[0], entry -> Integer.valueOf(entry[1])));
                     giftMessages = giftMessages.substring(1, giftMessages.length() - 1);
 
-                    if(giftMessages.length() > 2){
+                    if (giftMessages.length() > 2) {
                         Map<String, String> giftMessagesMap = Arrays.stream(giftMessages.split(";"))
                                 .map(entry -> entry.split("="))
                                 .collect(Collectors.toMap(entry -> entry[0], entry -> entry[1]));
@@ -55,9 +58,8 @@ public class CartRelatedActions implements FileActions {
                         cart = new ShoppingCart(id, itemsMap, coupon, giftMessagesMap, productController);
                         shoppingCartController.add(cart);
 
-                    }
-                   else{
-                       Map<String,String> emptyMap = new HashMap<>();
+                    } else {
+                        Map<String, String> emptyMap = new HashMap<>();
                         cart = new ShoppingCart(id, itemsMap, coupon, emptyMap, productController);
                         shoppingCartController.add(cart);
                     }
@@ -70,32 +72,31 @@ public class CartRelatedActions implements FileActions {
             System.out.println("Error reading database file: " + e.getMessage());
         }
     }
-//  Write receipt to file receipt.txt
+    //  Write receipt to file receipt.txt
     public void writeReceipt(String cartId) {
         try {
-            BufferedWriter  writer = new BufferedWriter(new FileWriter(RECEIPTS_FILEPATH, true));
+            BufferedWriter writer = new BufferedWriter(new FileWriter(RECEIPTS_FILEPATH, true));
             writer.write(shoppingCartController.findCartByID(cartId).receiptToFile());
             writer.close();
         } catch (IOException e) {
             System.out.println("Error writing to database file: " + e.getMessage());
         }
     }
-//  Save receipt file with custom name from user
+    //  Save receipt file with custom name from user
     public void writeReceiptWithCustomName(String cartId, String fileName) {
         if (fileName.contains(" ")) {
             fileName = fileName.replace(" ", "_");
         }
 
-        String path = String.format(USER_RECEIPTS_PATH+ "/%s.txt", fileName);
+        String path = String.format(USER_RECEIPTS_PATH + "/%s.txt", fileName);
         try {
-            BufferedWriter  writer = new BufferedWriter(new FileWriter(path, true));
+            BufferedWriter writer = new BufferedWriter(new FileWriter(path, true));
             writer.write(shoppingCartController.findCartByID(cartId).receiptToFileCustomName());
             writer.close();
         } catch (IOException e) {
             System.out.println("Error writing to database file: " + e.getMessage());
         }
     }
-
     // Check if a cart id exists in the file
     public boolean exists(String cartId) {
         // Read from file
@@ -111,8 +112,6 @@ public class CartRelatedActions implements FileActions {
             System.out.println("Error reading database file: " + e.getMessage());
         }
         return false;
-
     }
-
 }
 
