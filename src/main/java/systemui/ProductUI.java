@@ -138,10 +138,10 @@ public class ProductUI {
         if (type == 2) {
             System.out.println("Enter weight of product:");
             String weightInput = scanner.nextLine();
-//            while (!weightInput.matches(Regex.DOUBLE_NUMBER)) {
-//                System.out.println("Please choose type by enter a double number: ");
-//                weightInput = scanner.nextLine();
-//            }
+            while (!weightInput.matches(Regex.DOUBLE_NUMBER)) {
+                System.out.println("Please choose type by enter a double number: ");
+                weightInput = scanner.nextLine();
+            }
             weight = Double.parseDouble(weightInput);
             while (weight <= 0) {
                 System.out.println("Weight cannot be 0 or negative number");
@@ -160,7 +160,7 @@ public class ProductUI {
 
         System.out.println("What type of tax ?");
         String taxInput = scanner.nextLine();
-        while (!taxInput.matches(Regex.TAX_TYPE)) {
+        while (!taxInput.toUpperCase().matches(Regex.TAX_TYPE)) {
             System.out.println("Please choose type tax type (FREE, NORMAL or LUXURY): ");
             taxInput = scanner.nextLine();
         }
