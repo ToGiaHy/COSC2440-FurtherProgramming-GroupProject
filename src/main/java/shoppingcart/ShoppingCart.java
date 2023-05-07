@@ -24,17 +24,13 @@ public class ShoppingCart {
     private Map<String, Integer> items = new HashMap<>();
     private static final double BASE = 0.1;
     private static int NEXT_ID = 1;
-    private double amount = 0;
     private LocalDate purchaseDate;
-    private double shippingFee = 0;
     private String cartId;
-    private double totalTax;
 
     private Map<String, String> giftProductList;
 
     ProductController productController;
     private String coupon = "";
-    private double couponDiscount = 0;
 
     /**
      * Constructor
@@ -53,9 +49,6 @@ public class ShoppingCart {
         this.purchaseDate = LocalDate.now();
     }
 
-    public static void resetId() {
-        NEXT_ID = 1;
-    }
 
     /**
      * Add the product with the given name to the shopping cart
@@ -127,41 +120,6 @@ public class ShoppingCart {
     }
 
     /**
-     * Calculate totalWeight
-     * This method is used to calculate the total weight of the cart
-     */
-    private double calculateWeight() {
-        double weight = 0;
-
-        for (String product : this.items.keySet()) {
-            if (productController.productList().get(product) instanceof PhysicalProduct) {
-                weight += ((PhysicalProduct) productController.productList().get(product)).getWeight() * this.items.get(product);
-            }
-        }
-        return weight;
-    }
-
-    /**
-     * Calculate total coupon discount
-     */
-    private double calculateCouponDiscount() {
-        double total = 0;
-
-        for (String product : this.items.keySet()) {
-            if (productController.productList().get(product).getCouponList().containsKey(this.coupon)) {
-                if (productController.productList().get(product).getCouponList().get(this.coupon) instanceof PriceCoupon priceCoupon) {
-                    return priceCoupon.getValue() * this.items.get(product);
-                } else if (productController.productList().get(product).getCouponList().get(this.coupon) instanceof PercentCoupon percentCoupon) {
-                    return (percentCoupon.getValue() * productController.productList().get(product).getPrice()) / 100 * this.items.get(product);
-                }
-            }
-        }
-
-        setCouponDiscount(total);
-        return total;
-    }
-
-    /**
      * Calculate and @return total price amount of all products in the cart
      * Note: if the cart contains physical products, the shipping fee will be
      * calculated and added to the total price of the cart
@@ -169,32 +127,18 @@ public class ShoppingCart {
      * Base fee = 0.1
      */
     public double cartAmount() {
-//        Tax
-        double priceWithTax;
-        double tax = 0;
-
-
-//        Total amount
-        this.amount = 0;
-
+        double totalPrice = 0;
+        double amount = 0;
 //        Calculate total amount with tax
-        for (String product : this.items.keySet()) {
-            priceWithTax = productController.productList().get(product).getPrice() +
-                    (productController.productList().get(product).getPrice() * productController.productList().get(product).getTaxType().getPercentage());
-            this.amount += priceWithTax * this.items.get(product);
-            tax += productController.productList().get(product).getPrice() * productController.productList().get(product).getTaxType().getPercentage();
+        for (Map.Entry<String, Integer> set : this.items.entrySet()) {
+            totalPrice += productController.productList().get(set.getKey()).getPrice() * set.getValue();
         }
-        setTotalTax(tax);
-
-//        Calculate the total shipping fee
-//        this.shippingFee = calculateWeight() * 0.1;
-        setShippingFee(calculateWeight() * BASE);
-
 //        Calculate the total coupon discount
         if (!Objects.equals(getCoupon(), "")) {
-            setCouponDiscount(calculateCouponDiscount());
+            getCouponDiscount();
         }
-        return this.amount + this.shippingFee - this.couponDiscount;
+        amount += totalPrice + getTotalTax() + getShippingFee() - getCouponDiscount();
+        return amount;
     }
 
     /**
@@ -212,7 +156,7 @@ public class ShoppingCart {
     public void viewDetails() {
         cartAmount();
         System.out.printf("Cart %s, Total Price: %.2f, Total Tax: %.2f, Shipping fee: %.2f, Coupon discount: %.2f \n",
-                cartId, amount, totalTax, shippingFee, couponDiscount);
+                cartId, cartAmount(), getTotalTax(), getShippingFee(), getCouponDiscount());
     }
 
 
@@ -226,40 +170,16 @@ public class ShoppingCart {
 
 
     public double getTotalTax() {
-        return totalTax;
-    }
-
-    public void setTotalTax(double totalTax) {
-        this.totalTax = totalTax;
-    }
-
-
-    public static int getNextId() {
-        return NEXT_ID;
-    }
-
-    public static void setNextId(int nextId) {
-        NEXT_ID = nextId;
-    }
-
-    public double getAmount() {
-        return amount;
-    }
-
-    public void setAmount(double amount) {
-        this.amount = amount;
+        double tax = 0;
+        for (Map.Entry<String, Integer> set : this.items.entrySet()) {
+            tax += productController.productList().get(set.getKey()).getPrice() * productController.productList().get(set.getKey()).getTaxType().getPercentage()
+                    * set.getValue();
+        }
+        return tax;
     }
 
     public double getShippingFee() {
-        return shippingFee;
-    }
-
-    public void setShippingFee(double shippingFee) {
-        this.shippingFee = shippingFee;
-    }
-
-    public void setCouponDiscount(double couponDiscount) {
-        this.couponDiscount = couponDiscount;
+        return BASE * getTotalWeight();
     }
 
     public Map<String, String> getGiftProductList() {
@@ -270,9 +190,19 @@ public class ShoppingCart {
         this.giftProductList = giftProductList;
     }
 
-
+    /**
+     * Calculate total weight of the cart
+     *
+     * @return the total weight
+     */
     public double getTotalWeight() {
-        return calculateWeight();
+        double weight = 0;
+        for (String product : this.items.keySet()) {
+            if (productController.productList().get(product) instanceof PhysicalProduct) {
+                weight += ((PhysicalProduct) productController.productList().get(product)).getWeight() * this.items.get(product);
+            }
+        }
+        return weight;
     }
 
     public Map<String, Integer> getItems() {
@@ -291,13 +221,25 @@ public class ShoppingCart {
         this.coupon = coupon;
     }
 
+    /**
+     * Calculate the coupon discount for a cart
+     *
+     * @return the coupon discount
+     */
     public Double getCouponDiscount() {
-        return couponDiscount;
+        double total = 0;
+        for (String product : this.items.keySet()) {
+            if (productController.productList().get(product).getCouponList().containsKey(this.coupon)) {
+                if (productController.productList().get(product).getCouponList().get(this.coupon) instanceof PriceCoupon priceCoupon) {
+                    return priceCoupon.getValue() * this.items.get(product);
+                } else if (productController.productList().get(product).getCouponList().get(this.coupon) instanceof PercentCoupon percentCoupon) {
+                    return (percentCoupon.getValue() * productController.productList().get(product).getPrice()) / 100 * this.items.get(product);
+                }
+            }
+        }
+        return total;
     }
 
-    public void setCouponDiscount(Double couponDiscount) {
-        this.couponDiscount = couponDiscount;
-    }
 
     public ProductController getProductController() {
         return productController;
@@ -327,7 +269,7 @@ public class ShoppingCart {
             Product product = productController.productList().get(items.getKey());
             System.out.println("Name: " + items.getKey() + "\t" + "Price: " + product.getPrice() + "\t" + "Tax: " + product.getTaxType() + " Quantity: " + items.getValue());
         }
-        System.out.println("Shipping fee: " + this.shippingFee);
+        System.out.println("Shipping fee: " + getShippingFee());
         System.out.println("Total amount: " + this.cartAmount());
     }
 
@@ -337,6 +279,7 @@ public class ShoppingCart {
 
     /**
      * Format the product to print the receipt and display to the console log
+     *
      * @return String
      */
     public String receiptToFileCustomName() {
@@ -347,7 +290,7 @@ public class ShoppingCart {
                     .append("Tax: ").append(product.getTaxType()).append(" Quantity: ").append(items.getValue()).append("\n");
         }
         return String.format("----------------RECEIPT----------------\nCart: %s\nDate of purchase: %s\nItems: " + products +
-                "Shipping fee: %.2f\nTotal amount: %.2f", this.cartId, this.purchaseDate, this.shippingFee, this.cartAmount());
+                "Shipping fee: %.2f\nTotal amount: %.2f", this.cartId, this.purchaseDate, getShippingFee(), this.cartAmount());
     }
 
 }
