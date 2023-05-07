@@ -1,3 +1,6 @@
+/**
+ * @author Group 11
+ */
 package SystemUI;
 
 public class Regex {

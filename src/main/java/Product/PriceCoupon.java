@@ -1,3 +1,6 @@
+/**
+ * @author Group 11
+ */
 package Product;
 
 public class PriceCoupon extends Coupon {

@@ -1,7 +1,6 @@
 /**
- * @author <Vo Thanh Thong - s3878071>
+ * @author Group 11
  */
-
 package SystemUI;
 
 import Product.*;
@@ -83,7 +82,7 @@ public class ProductUI {
                     System.out.println("== Edit an exist product ==");
                     System.out.println("Enter name of the product to edit: ");
                     String productName = scanner.nextLine();
-                    editProduct(productName, couponUI);
+                    editProduct(productName, couponUI,userUI);
                     System.out.println();
                 }
                 case 5 -> {
@@ -135,11 +134,11 @@ public class ProductUI {
         if (type == 2) {
             System.out.println("Enter weight of product:");
             String weightInput = scanner.nextLine();
-            while (!weightInput.matches(Regex.DOUBLE_NUMBER)) {
-                System.out.println("Please choose type by enter a double number: ");
-                weightInput = scanner.nextLine();
-            }
-            weight = Double.parseDouble(scanner.nextLine());
+//            while (!weightInput.matches(Regex.DOUBLE_NUMBER)) {
+//                System.out.println("Please choose type by enter a double number: ");
+//                weightInput = scanner.nextLine();
+//            }
+            weight = Double.parseDouble(weightInput);
             while (weight <= 0) {
                 System.out.println("Weight cannot be 0 or negative number");
                 weight = Double.parseDouble(scanner.nextLine());
@@ -246,7 +245,7 @@ public class ProductUI {
      * Help user can edit the information of a product
      * </p>
      */
-    public void editProduct(String productName, CouponUI couponUI) {
+    public void editProduct(String productName, CouponUI couponUI,UserUI userUI) {
         if (productController.productList().containsKey(productName)) {
             Product product = productController.productList().get(productName);
             int userInput = 0;
@@ -290,7 +289,7 @@ public class ProductUI {
                         product.setTaxType(taxType);
                     }
                     case 6 -> couponUI.editCouponList(product);
-
+                    case 7 -> productUI(couponUI,userUI);
                     default -> {
                         System.out.println();
                         System.out.println("Update product detail successfully!");
