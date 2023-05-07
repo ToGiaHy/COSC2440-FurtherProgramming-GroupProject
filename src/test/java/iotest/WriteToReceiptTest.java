@@ -1,8 +1,10 @@
 /**
  * @author Group 11
  */
-package io;
+package iotest;
 
+import io.CartRelatedActions;
+import io.ReadProductsFile;
 import org.junit.jupiter.api.Test;
 import product.ProductController;
 import shoppingcart.ShoppingCartController;

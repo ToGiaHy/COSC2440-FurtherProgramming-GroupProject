@@ -1,4 +1,6 @@
-package io;
+package iotest;
+import io.CartRelatedActions;
+import io.ReadProductsFile;
 import org.junit.jupiter.api.Test;
 import shoppingcart.*;
 import product.*;
@@ -6,7 +8,7 @@ import product.*;
 import static org.junit.jupiter.api.Assertions.assertNotNull;
 import static org.junit.jupiter.api.Assertions.assertTrue;
 
-public class ReadFromFile {
+public class ReadFromFileTest {
     ProductController productController = new ProductController();
     ShoppingCartController shoppingCartController = new ShoppingCartController();
     CartRelatedActions cartRelatedActions = new CartRelatedActions(productController,shoppingCartController);
