@@ -6,8 +6,8 @@ package shoppingcart;
 import java.util.List;
 
 public class ShoppingCartController {
-    ShoppingCartModel shoppingCartModel = new ShoppingCartModel();
-    ShoppingCartView shoppingCartView = new ShoppingCartView();
+    private ShoppingCartModel shoppingCartModel = new ShoppingCartModel();
+    private ShoppingCartView shoppingCartView = new ShoppingCartView();
 
     /**
      * add the shopping cart instance to the shopping cart list

@@ -6,8 +6,8 @@ package product;
 import java.util.Map;
 
 public class ProductController {
-    ProductModel productModel = new ProductModel();
-    ProductView productView = new ProductView();
+    private ProductModel productModel = new ProductModel();
+    private ProductView productView = new ProductView();
 
     /**
      * Add a product into the product hashmap

@@ -1,10 +1,14 @@
+/**
+ * @author Group 11
+ */
 package shoppingcart;
-
 import utils.TaxType;
 import product.*;
 import io.ReadProductsFile;
 import org.junit.jupiter.api.Test;
-
+import java.util.HashMap;
+import java.util.Map;
+import static org.junit.jupiter.api.Assertions.*;
 class ShoppingCartTest {
     ProductController productController = new ProductController();
     ReadProductsFile readProductsFile = new ReadProductsFile(productController);
@@ -12,44 +16,40 @@ class ShoppingCartTest {
     /**
      Dell G15 has Free Tax and a percent coupon named Birthday of 10%
      It has a price of 40 which will deduct to 35 if apply the coupon
-     Test: Successful
      */
     @Test
-    void cartAmountPercentCoupon() {
+    void cartAmountPercentCouponTest() {
         readProductsFile.read();
         ShoppingCart s1 = new ShoppingCart(productController);
         Product p1 = productController.productList().get("Dell G15");
         s1.setCoupon("Birthday");
         s1.addItem(p1.getName(),1);
-        System.out.println(s1.cartAmount());
+        assertEquals(35,s1.getAmount());
     }
     /**
      Iphone 12 has Free Tax and a price coupon named Bonjour of 10
      It has a price of 16.5 which will deduct to 6.5 if apply the coupon
-     Test: Successful
      */
     @Test
-    void cartAmountPriceCoupon() {
+    void cartAmountPriceCouponTest() {
         readProductsFile.read();
         ShoppingCart s1 = new ShoppingCart(productController);
         Product p1 = productController.productList().get("Iphone 12");
         s1.setCoupon("Bonjour");
         s1.addItem(p1.getName(),1);
-        System.out.println(s1.cartAmount());
+        assertEquals(6.5,s1.getAmount());
     }
 
     /**
-     It will add in the product ball sucessfully
+     It will add in the product ball successfully
      */
     @Test
-
-    void addItem() {
+    void addItemTest() {
         //expected to return the cart with the product "Ball" by the quantity of 5
-        Product p1 = new PhysicalProduct("Ball","Football sporting equipment",10,10.0, TaxType.FREE,10);
+        Product p1 = new PhysicalProduct("Ball","Football sporting equipment",10,10.0,TaxType.FREE,10);
         productController.productList().put("Ball",p1);
         ShoppingCart s1 = new ShoppingCart(productController);
-        s1.addItem("Ball",5);
-        System.out.println(s1);
+        assertTrue(s1.addItem("Ball",5));
     }
 
     /**
@@ -63,7 +63,7 @@ class ShoppingCartTest {
         productController.productList().put("Ball",p1);
         ShoppingCart s1 = new ShoppingCart(productController);
         s1.addItem("Ball",20);
-        System.out.println(s1);
+        assertTrue(s1.getItems().size()<1);
     }
 
     /**
@@ -73,12 +73,11 @@ class ShoppingCartTest {
         The double value having more 0s is because of how Java handle double (Can be ignored)
      */
     @Test
-    void taxInCart() {
-        //expected to return the cart with the product "Ball" by the quantity of 5
+    void taxInCartTest() {
         Product p1 = new PhysicalProduct("Ball","Football sporting equipment",10,10.0,TaxType.NORMAL,10);
         productController.productList().put("Ball",p1);
         ShoppingCart s1 = new ShoppingCart(productController);
         s1.addItem("Ball",1);
-        System.out.println(s1.cartAmount());
+        assertEquals(s1.cartAmount(),12.000000014901161);
     }
 }
