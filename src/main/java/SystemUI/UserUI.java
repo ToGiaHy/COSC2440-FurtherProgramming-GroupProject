@@ -1,7 +1,6 @@
 /**
- * @author <Vo Thanh Thong - s3878071>
+ * @author Group 11
  */
-
 package SystemUI;
 
 import Product.CouponDatabase;
