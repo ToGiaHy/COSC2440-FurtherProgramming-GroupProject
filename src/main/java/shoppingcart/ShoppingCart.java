@@ -227,7 +227,7 @@ public class ShoppingCart {
      *
      * @return the coupon discount
      */
-    public Double getCouponDiscount() {
+    public double getCouponDiscount() {
         double total = 0;
         for (String product : this.items.keySet()) {
             if (productController.productList().get(product).getCouponList().containsKey(this.coupon)) {
