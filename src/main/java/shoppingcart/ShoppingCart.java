@@ -36,7 +36,6 @@ public class ShoppingCart {
      * Constructor
      */
     public ShoppingCart(ProductController productController) {
-        this.cartId = "C" + NEXT_ID++;
         this.productController = productController;
     }
 

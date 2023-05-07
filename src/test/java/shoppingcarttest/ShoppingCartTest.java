@@ -1,9 +1,10 @@
 /**
  * @author Group 11
  */
-package shoppingcart;
+package shoppingcarttest;
 import utils.TaxType;
 import product.*;
+import shoppingcart.*;
 import io.ReadProductsFile;
 import org.junit.jupiter.api.Test;
 import java.util.HashMap;
@@ -24,7 +25,7 @@ class ShoppingCartTest {
         Product p1 = productController.productList().get("Dell G15");
         s1.setCoupon("Birthday");
         s1.addItem(p1.getName(),1);
-        assertEquals(35,s1.getAmount());
+        assertEquals(35,s1.cartAmount());
     }
     /**
      Iphone 12 has Free Tax and a price coupon named Bonjour of 10
@@ -37,7 +38,7 @@ class ShoppingCartTest {
         Product p1 = productController.productList().get("Iphone 12");
         s1.setCoupon("Bonjour");
         s1.addItem(p1.getName(),1);
-        assertEquals(6.5,s1.getAmount());
+        assertEquals(6.5,s1.cartAmount());
     }
 
     /**
