@@ -244,9 +244,8 @@ public class ShoppingCartUI {
                     }
                     cartEditUI(cartID, userUI);
                 }
-                case 4 -> {
-                    viewCartDetails();
-                }
+                case 4 -> viewCartDetails();
+
 
                 case 5 -> {
                     cartController.viewCarts();
@@ -267,10 +266,7 @@ public class ShoppingCartUI {
                     cartRelatedActions.writeReceipt(cartID);
                     cartRelatedActions.writeReceiptWithCustomName(cartID, fileName);
                 }
-                case 6 -> {
-                    System.out.println();
-                }
-
+                case 6 -> System.out.println();
             }
         }
     }

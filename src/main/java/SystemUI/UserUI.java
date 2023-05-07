@@ -59,7 +59,7 @@ public class UserUI {
      * Process the requirement of user input from the menu
      */
     public void userUI() {
-        int userInt = 0;
+        int userInt;
         do {
             userInt = menu();
 

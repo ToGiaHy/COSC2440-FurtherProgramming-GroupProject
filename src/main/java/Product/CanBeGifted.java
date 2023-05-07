@@ -5,6 +5,6 @@ package Product;
 
 
 public interface CanBeGifted {
-    public void setMessage(String msg);
-    public String getMessage();
+    void setMessage(String msg);
+    String getMessage();
 }

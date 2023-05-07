@@ -1,6 +1,6 @@
 package SystemUI;
 
-import java.util.Map;
+
 import java.util.Scanner;
 
 import Product.*;
@@ -59,7 +59,6 @@ public class CouponUI {
         String keyInput = scn.nextLine();
         // Check if the input matches a coupon
         if (product.getCouponList().containsKey(keyInput)) {
-            Coupon coupon = product.getCouponList().get(keyInput);
             System.out.println("What type do you want the coupon to be? (Percent or Price)");
             String couponOption = scn.nextLine();
             if (couponOption.equalsIgnoreCase("Percent")) {
@@ -131,9 +130,9 @@ public class CouponUI {
         while (userInput != 4) {
             userInput = editCouponMenu();
             switch (userInput) {
-                case 1 -> {
+                case 1 ->
                     product.displayCoupons();
-                }
+
                 case 2 -> {
                     Coupon coupon = createCoupon();
                     product.getCouponList().put(coupon.getCouponCode(), coupon);

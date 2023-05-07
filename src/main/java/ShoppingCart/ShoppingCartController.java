@@ -1,6 +1,5 @@
 package ShoppingCart;
 
-import java.util.ArrayList;
 import java.util.List;
 
 public class ShoppingCartController {
