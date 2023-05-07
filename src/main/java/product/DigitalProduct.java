@@ -1,8 +1,11 @@
 /**
  * @author Group 11
  */
-package Product;
+package product;
 
+
+import utils.Coupon;
+import utils.TaxType;
 
 import java.util.Map;
 
@@ -18,7 +21,7 @@ public class DigitalProduct extends Product {
     public DigitalProduct(String name, String description, int quantityAvailable, double price, TaxType taxType) {
         super(name, description, quantityAvailable, price, taxType);
     }
-    public DigitalProduct(String name, String description, int quantityAvailable, double price, TaxType taxType, Map<String,Coupon> couponList) {
+    public DigitalProduct(String name, String description, int quantityAvailable, double price, TaxType taxType, Map<String, Coupon> couponList) {
         super(name, description, quantityAvailable, price, taxType, couponList);
     }
     /**

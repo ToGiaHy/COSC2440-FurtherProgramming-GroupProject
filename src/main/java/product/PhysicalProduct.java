@@ -1,15 +1,18 @@
 /**
  * @author Group 11
  */
-package Product;
+package product;
+
+import utils.Coupon;
+import utils.TaxType;
 
 import java.util.Map;
 
-public class PhysicalProductCanBeGifted extends PhysicalProduct implements CanBeGifted {
+public class PhysicalProduct extends Product {
     /**
-     * Physical product gift attributes
+     * Physical product attributes
      */
-    private String message;
+    private double weight;
     /**
      * The constructor is not inherited,
      * but we can access it with "super"
@@ -20,15 +23,30 @@ public class PhysicalProductCanBeGifted extends PhysicalProduct implements CanBe
      * @param price             product price
      * @param weight            product weight (Only physical product have weight attribute)
      */
-    public PhysicalProductCanBeGifted(String name, String description, int quantityAvailable, double price, TaxType taxType, double weight, Map<String,Coupon> couponList, String message) {
-
-        super(name, description, quantityAvailable, price, taxType, couponList, weight);
-        this.message = message;
+    public PhysicalProduct(String name, String description, int quantityAvailable, double price, TaxType taxType, double weight) {
+        super(name, description, quantityAvailable, price, taxType);
+        this.weight = weight;
+    }
+    public PhysicalProduct(String name, String description, int quantityAvailable, double price, TaxType taxType, Map<String, Coupon> couponList, double weight) {
+        super(name, description, quantityAvailable, price, taxType, couponList);
+        this.weight = weight;
+    }
+    /**
+     * Getter methods
+     */
+    public double getWeight() {
+        return weight;
+    }
+    /**
+     * Setter methods
+     */
+    public void setWeight(Double weight) {
+        this.weight = weight;
     }
     /**
      * String representation of this product
      * <p>
-     * This method is called automatically when you use a PhysicalProductGift
+     * This method is called automatically when you use a PhysicalProduct
      * object in places where a String value is required.
      * </p>
      */
@@ -40,23 +58,8 @@ public class PhysicalProductCanBeGifted extends PhysicalProduct implements CanBe
                 this.getQuantityAvailable(),
                 this.getPrice(),
                 this.getTaxType().toString(),
-                this.getWeight()
+                this.weight
         );
-    }
-    /**
-     * Getter and Setter method of interface class
-     * <p>
-     * This method is used to get or set message for physical product which is used as a gift.
-     * </p>
-     */
-    @Override
-    public void setMessage(String msg) {
-        this.message = msg;
-    }
-
-    @Override
-    public String getMessage() {
-        return this.message;
     }
 
 }

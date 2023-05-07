@@ -1,7 +1,7 @@
 /**
  * @author Group 11
  */
-package SystemUI;
+package systemui;
 
 public class Regex {
     public final static String NUM_1_TO_6 = "[1-6]";

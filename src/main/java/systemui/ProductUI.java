@@ -1,9 +1,13 @@
 /**
  * @author Group 11
  */
-package SystemUI;
+package systemui;
 
-import Product.*;
+import utils.Coupon;
+import utils.PercentCoupon;
+import utils.PriceCoupon;
+import utils.TaxType;
+import product.*;
 
 import java.util.HashMap;
 import java.util.Map;

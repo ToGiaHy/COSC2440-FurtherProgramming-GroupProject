@@ -1,14 +1,9 @@
-package ShoppingCart;
+package shoppingcart;
 
-import Product.*;
+import utils.TaxType;
+import product.*;
 import io.ReadProductsFile;
 import org.junit.jupiter.api.Test;
-
-
-import java.util.HashMap;
-import java.util.Map;
-
-import static org.junit.jupiter.api.Assertions.*;
 
 class ShoppingCartTest {
     ProductController productController = new ProductController();
@@ -50,7 +45,7 @@ class ShoppingCartTest {
 
     void addItem() {
         //expected to return the cart with the product "Ball" by the quantity of 5
-        Product p1 = new PhysicalProduct("Ball","Football sporting equipment",10,10.0,TaxType.FREE,10);
+        Product p1 = new PhysicalProduct("Ball","Football sporting equipment",10,10.0, TaxType.FREE,10);
         productController.productList().put("Ball",p1);
         ShoppingCart s1 = new ShoppingCart(productController);
         s1.addItem("Ball",5);

@@ -3,8 +3,8 @@
  */
 package io;
 
-import Product.ProductController;
-import ShoppingCart.*;
+import product.ProductController;
+import shoppingcart.*;
 
 import java.io.*;
 import java.util.Arrays;

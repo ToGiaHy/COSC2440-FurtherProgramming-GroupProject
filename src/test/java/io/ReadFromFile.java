@@ -1,8 +1,8 @@
 package io;
 
 import org.junit.jupiter.api.Test;
-import Product.*;
-import ShoppingCart.*;
+import product.*;
+import shoppingcart.*;
 public class ReadFromFile {
     ProductController productController = new ProductController();
     ShoppingCartController shoppingCartController = new ShoppingCartController();

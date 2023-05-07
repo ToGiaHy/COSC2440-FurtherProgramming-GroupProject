@@ -1,7 +1,7 @@
 /**
  * @author Group 11
  */
-package ShoppingCart;
+package shoppingcart;
 
 import java.util.ArrayList;
 import java.util.List;

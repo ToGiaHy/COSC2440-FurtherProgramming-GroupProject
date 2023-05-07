@@ -1,13 +1,10 @@
 package io;
 
-import Product.ProductController;
-import ShoppingCart.ShoppingCart;
-import ShoppingCart.ShoppingCartController;
-import org.junit.jupiter.api.Assertions;
-import org.junit.jupiter.api.BeforeAll;
+import product.ProductController;
+import shoppingcart.ShoppingCartController;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
-import org.junit.jupiter.api.Assertions.*;
+
 public class WriteToReceipt {
     ProductController productController = new ProductController();
     ShoppingCartController shoppingCartController = new ShoppingCartController();

@@ -1,7 +1,7 @@
 /**
  * @author Group 11
  */
-package Product;
+package utils;
 
 import java.util.HashSet;
 import java.util.Set;

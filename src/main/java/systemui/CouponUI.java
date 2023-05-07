@@ -1,12 +1,16 @@
 /**
  * @author Group 11
  */
-package SystemUI;
+package systemui;
 
 
 import java.util.Scanner;
 
-import Product.*;
+import utils.Coupon;
+import utils.CouponDatabase;
+import utils.PercentCoupon;
+import utils.PriceCoupon;
+import product.*;
 
 
 public class CouponUI {
