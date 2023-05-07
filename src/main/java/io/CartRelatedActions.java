@@ -16,7 +16,7 @@ import java.util.stream.Collectors;
 public class CartRelatedActions implements FileActions {
     private final String CARTS_FILEPATH = "src/main/java/data/carts.txt";
     private final String RECEIPTS_FILEPATH = "src/main/java/data/receipts.txt";
-    private final String USER_RECEIPTS_PATH = "src/main/java/data/userreceipts/";
+    private final String USER_RECEIPTS_PATH = "src/main/java/data/user_receipts/";
     ProductController productController;
     ShoppingCartController shoppingCartController;
     /**
