@@ -3,9 +3,10 @@
  */
 package org.example;
 
-import Product.*;
-import ShoppingCart.ShoppingCartController;
-import SystemUI.UserUI;
+import utils.CouponDatabase;
+import product.*;
+import shoppingcart.ShoppingCartController;
+import systemui.UserUI;
 import io.CartRelatedActions;
 import io.ReadProductsFile;
 

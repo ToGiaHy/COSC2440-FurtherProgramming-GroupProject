@@ -1,20 +1,20 @@
 /**
  * @author Group 11
  */
-package ShoppingCart;
+package shoppingcart;
 
-import Product.PhysicalProduct;
-import Product.Product;
+import product.PhysicalProduct;
+import product.Product;
 
-import Product.PriceCoupon;
-import Product.PercentCoupon;
-import Product.PhysicalProductCanBeGifted;
-import Product.DigitalProductCanBeGifted;
+import utils.PriceCoupon;
+import utils.PercentCoupon;
+import product.PhysicalProductCanBeGifted;
+import product.DigitalProductCanBeGifted;
 
 import java.time.LocalDate;
 import java.util.*;
 
-import Product.ProductController;
+import product.ProductController;
 
 public class ShoppingCart {
     /**

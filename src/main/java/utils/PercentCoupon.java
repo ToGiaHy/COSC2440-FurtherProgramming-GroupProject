@@ -1,8 +1,9 @@
 /**
  * @author Group 11
  */
-package Product;
-public class PercentCoupon extends Coupon{
+package utils;
+
+public class PercentCoupon extends Coupon {
     private int value;
     public PercentCoupon(String couponCode, int value) {
         super(couponCode);

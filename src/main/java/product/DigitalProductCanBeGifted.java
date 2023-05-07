@@ -1,7 +1,10 @@
 /**
  * @author Group 11
  */
-package Product;
+package product;
+
+import utils.Coupon;
+import utils.TaxType;
 
 import java.util.Map;
 
@@ -24,7 +27,7 @@ public class DigitalProductCanBeGifted extends DigitalProduct implements CanBeGi
         this.message = message;
     }
 
-    public DigitalProductCanBeGifted(String name, String description, int quantityAvailable, double price, TaxType taxType, Map<String,Coupon> couponList, String message) {
+    public DigitalProductCanBeGifted(String name, String description, int quantityAvailable, double price, TaxType taxType, Map<String, Coupon> couponList, String message) {
         super(name, description, quantityAvailable, price, taxType, couponList);
         this.message = message;
     }

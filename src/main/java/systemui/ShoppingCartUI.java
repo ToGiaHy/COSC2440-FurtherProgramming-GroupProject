@@ -1,11 +1,11 @@
 /**
  * @author Group 11
  */
-package SystemUI;
+package systemui;
 
-import Product.ProductController;
-import ShoppingCart.ShoppingCart;
-import ShoppingCart.ShoppingCartController;
+import product.ProductController;
+import shoppingcart.ShoppingCart;
+import shoppingcart.ShoppingCartController;
 import io.CartRelatedActions;
 
 

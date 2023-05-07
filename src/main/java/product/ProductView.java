@@ -1,7 +1,7 @@
 /**
  * @author Group 11
  */
-package Product;
+package product;
 
 public class ProductView {
     /**

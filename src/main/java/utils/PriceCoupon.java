@@ -1,7 +1,7 @@
 /**
  * @author Group 11
  */
-package Product;
+package utils;
 
 public class PriceCoupon extends Coupon {
     private double value;

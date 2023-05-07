@@ -1,12 +1,12 @@
 /**
  * @author Group 11
  */
-package SystemUI;
+package systemui;
 
-import Product.CouponDatabase;
-import Product.ProductController;
+import utils.CouponDatabase;
+import product.ProductController;
 
-import ShoppingCart.ShoppingCartController;
+import shoppingcart.ShoppingCartController;
 
 import io.CartRelatedActions;
 
