@@ -9,6 +9,8 @@ import ShoppingCart.ShoppingCartController;
 import io.CartRelatedActions;
 
 
+import java.util.HashMap;
+import java.util.Map;
 import java.util.Objects;
 import java.util.Scanner;
 
@@ -209,6 +211,7 @@ public class ShoppingCartUI {
             switch (userInput) {
                 case 1 -> {
                     ShoppingCart cart = new ShoppingCart(productController);
+                    Map<String,String> giftTemp = new HashMap<>();
                     System.out.println("Pick a cart ID number: ");
                     int cartNumber = Integer.parseInt(scanner.nextLine());
                     String cartID = "C" + cartNumber;
@@ -217,6 +220,7 @@ public class ShoppingCartUI {
                     }
                     else{
                         cart.setCartId(cartID);
+                        cart.setGiftProductList(giftTemp);
                         cartController.shoppingCartList().add(cart);
                         cartController.viewCarts();
                         cartEditUI(cart.getId(), userUI);
