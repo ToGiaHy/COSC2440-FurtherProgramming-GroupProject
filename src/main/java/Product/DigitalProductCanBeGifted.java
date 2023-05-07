@@ -57,7 +57,6 @@ public class DigitalProductCanBeGifted extends DigitalProduct implements CanBeGi
     public void setMessage(String msg) {
         this.message = msg;
     }
-
     @Override
     public String getMessage() {
         return this.message;

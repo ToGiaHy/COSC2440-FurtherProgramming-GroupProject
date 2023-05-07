@@ -335,6 +335,10 @@ public class ShoppingCart {
         return String.format("%s,%s,%.2f\n", this.cartId, this.purchaseDate, this.cartAmount());
     }
 
+    /**
+     * Format the product to print the receipt and display to the console log
+     * @return String
+     */
     public String receiptToFileCustomName() {
         StringBuilder products = new StringBuilder();
         for (Map.Entry<String, Integer> items : this.getItems().entrySet()) {

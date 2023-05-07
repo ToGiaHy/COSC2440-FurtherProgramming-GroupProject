@@ -210,10 +210,18 @@ public class ShoppingCartUI {
             switch (userInput) {
                 case 1 -> {
                     ShoppingCart cart = new ShoppingCart(productController);
-                    cart.setCartId("C" + (cartController.shoppingCartList().size() + 1));
-                    cartController.shoppingCartList().add(cart);
-                    cartController.viewCarts();
-                    cartEditUI(cart.getId(), userUI);
+                    System.out.println("Pick a cart ID number: ");
+                    int cartNumber = Integer.parseInt(scanner.nextLine());
+                    String cartID = "C" + cartNumber;
+                    if(cartController.findCartByID(cartID) != null){
+                        System.out.println("Cart ID already exists");
+                    }
+                    else{
+                        cart.setCartId(cartID);
+                        cartController.shoppingCartList().add(cart);
+                        cartController.viewCarts();
+                        cartEditUI(cart.getId(), userUI);
+                    }
                 }
                 case 2 -> {
                     cartController.viewCarts();
@@ -259,8 +267,6 @@ public class ShoppingCartUI {
                     cartRelatedActions.writeReceiptWithCustomName(cartID, fileName);
                 }
                 case 6 -> System.out.println();
-
-
             }
         }
     }

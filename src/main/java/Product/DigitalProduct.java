@@ -7,7 +7,6 @@ package Product;
 import java.util.Map;
 
 public class DigitalProduct extends Product {
-
     /**
      * The constructor is not inherited,
      * but we can access it with "super"
@@ -19,13 +18,9 @@ public class DigitalProduct extends Product {
     public DigitalProduct(String name, String description, int quantityAvailable, double price, TaxType taxType) {
         super(name, description, quantityAvailable, price, taxType);
     }
-
     public DigitalProduct(String name, String description, int quantityAvailable, double price, TaxType taxType, Map<String,Coupon> couponList) {
         super(name, description, quantityAvailable, price, taxType, couponList);
     }
-
-
-
     /**
      * String representation of this product
      * <p>
@@ -43,5 +38,4 @@ public class DigitalProduct extends Product {
                 this.getTaxType().toString()
                 );
     }
-
 }
