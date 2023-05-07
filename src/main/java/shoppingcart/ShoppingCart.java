@@ -21,23 +21,24 @@ public class ShoppingCart {
      * Shopping cart attributes
      */
     // Use Set interface
-    private Map<String, Integer> items = new HashMap<>();
+    private Map<String, Integer> items;
     private static final double BASE = 0.1;
-    private static int NEXT_ID = 1;
+    private static int nextId = 1;
     private LocalDate purchaseDate;
     private String cartId;
 
     private Map<String, String> giftProductList;
 
-    ProductController productController;
+    private ProductController productController;
     private String coupon = "";
 
     /**
      * Constructor
      */
     public ShoppingCart(ProductController productController) {
-        this.cartId = "C" + NEXT_ID++;
+        this.cartId = "C" + nextId++;
         this.productController = productController;
+        this.items = new HashMap<>();
     }
 
     public ShoppingCart(String cartId, Map<String, Integer> items, String coupon, Map<String, String> giftProductList, ProductController productController) {
