@@ -3,11 +3,11 @@
  */
 package systemui;
 
+import product.*;
 import utils.Coupon;
 import utils.PercentCoupon;
 import utils.PriceCoupon;
 import utils.TaxType;
-import product.*;
 
 import java.util.HashMap;
 import java.util.Map;
@@ -86,7 +86,7 @@ public class ProductUI {
                     System.out.println("== Edit an exist product ==");
                     System.out.println("Enter name of the product to edit: ");
                     String productName = scanner.nextLine();
-                    editProduct(productName, couponUI,userUI);
+                    editProduct(productName, couponUI, userUI);
                     System.out.println();
                 }
                 case 5 -> {
@@ -249,7 +249,7 @@ public class ProductUI {
      * Help user can edit the information of a product
      * </p>
      */
-    public void editProduct(String productName, CouponUI couponUI,UserUI userUI) {
+    public void editProduct(String productName, CouponUI couponUI, UserUI userUI) {
         if (productController.productList().containsKey(productName)) {
             Product product = productController.productList().get(productName);
             int userInput = 0;
@@ -293,7 +293,7 @@ public class ProductUI {
                         product.setTaxType(taxType);
                     }
                     case 6 -> couponUI.editCouponList(product);
-                    case 7 -> productUI(couponUI,userUI);
+                    case 7 -> productUI(couponUI, userUI);
                     default -> {
                         System.out.println();
                         System.out.println("Update product detail successfully!");

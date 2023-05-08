@@ -4,13 +4,13 @@
 package systemui;
 
 
-import java.util.Scanner;
-
+import product.Product;
 import utils.Coupon;
 import utils.CouponDatabase;
 import utils.PercentCoupon;
 import utils.PriceCoupon;
-import product.*;
+
+import java.util.Scanner;
 
 
 public class CouponUI {
@@ -137,8 +137,7 @@ public class CouponUI {
         while (userInput != 4) {
             userInput = editCouponMenu();
             switch (userInput) {
-                case 1 ->
-                    product.displayCoupons();
+                case 1 -> product.displayCoupons();
 
                 case 2 -> {
                     Coupon coupon = createCoupon();

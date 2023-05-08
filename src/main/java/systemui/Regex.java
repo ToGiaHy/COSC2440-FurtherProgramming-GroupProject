@@ -4,10 +4,9 @@
 package systemui;
 
 public class Regex {
+    //Regex to validate user input
     public final static String NUM_1_TO_6 = "[1-6]";
     public final static String NUM_1_TO_8 = "[1-8]";
-
-    public final static String NUM_1_TO_4 = "[1-4]";
     public final static String NUM_1_TO_5 = "[1-5]";
     public final static String NUM_1_OR_2 = "[1-2]";
     public final static String NUM_1_TO_3 = "[1-3]";

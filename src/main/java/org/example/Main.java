@@ -3,12 +3,12 @@
  */
 package org.example;
 
-import utils.CouponDatabase;
-import product.*;
-import shoppingcart.ShoppingCartController;
-import systemui.UserUI;
 import io.CartRelatedActions;
 import io.ReadProductsFile;
+import product.ProductController;
+import shoppingcart.ShoppingCartController;
+import systemui.UserUI;
+import utils.CouponDatabase;
 
 
 public class Main {

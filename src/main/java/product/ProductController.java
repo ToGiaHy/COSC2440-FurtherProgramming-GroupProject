@@ -12,14 +12,14 @@ public class ProductController {
     /**
      * Add a product into the product hashmap
      * Check if product already exists or not
+     *
      * @param product
      * @return boolean
      */
     public boolean addProduct(Product product) {
-        if(productModel.getPRODUCTS().containsKey(product.getName())){
+        if (productModel.getPRODUCTS().containsKey(product.getName())) {
             return false;
-        }
-        else {
+        } else {
             productModel.getPRODUCTS().put(product.getName(), product);
             return true;
         }
@@ -28,25 +28,27 @@ public class ProductController {
     /**
      * Remove a product instance from the product hashmap
      * Check if the product exists or not
+     *
      * @param productName
      * @return boolean
      */
     public boolean removeProduct(String productName) {
-        if(productModel.getPRODUCTS().containsKey(productName)) {
+        if (productModel.getPRODUCTS().containsKey(productName)) {
             productModel.getPRODUCTS().remove(productName);
             return true;
-        }
-        else{
+        } else {
             return false;
         }
 
     }
+
     //Calls the ProductView class to display the products stored in the product model
-    public void viewProduct(){
+    public void viewProduct() {
         productView.displayAllProduct(productModel);
     }
+
     //Get the product list from the product model
-    public Map<String,Product> productList(){
+    public Map<String, Product> productList() {
         return productModel.getPRODUCTS();
     }
 

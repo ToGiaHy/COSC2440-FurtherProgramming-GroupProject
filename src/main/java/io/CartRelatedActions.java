@@ -4,7 +4,8 @@
 package io;
 
 import product.ProductController;
-import shoppingcart.*;
+import shoppingcart.ShoppingCart;
+import shoppingcart.ShoppingCartController;
 
 import java.io.*;
 import java.util.Arrays;
@@ -19,6 +20,7 @@ public class CartRelatedActions implements FileActions {
     private final String USER_RECEIPTS_PATH = "src/main/java/data/user_receipts/";
     ProductController productController;
     ShoppingCartController shoppingCartController;
+
     /**
      * Read the carts from a file and add the carts to the list
      */
@@ -75,6 +77,7 @@ public class CartRelatedActions implements FileActions {
             System.out.println("Error reading database file: " + e.getMessage());
         }
     }
+
     //  Write receipt to file receipt.txt
     public void writeReceipt(String cartId) {
         try {
@@ -85,6 +88,7 @@ public class CartRelatedActions implements FileActions {
             System.out.println("Error writing to database file: " + e.getMessage());
         }
     }
+
     //  Save receipt file with custom name from user
     public void writeReceiptWithCustomName(String cartId, String fileName) {
         if (fileName.contains(" ")) {
@@ -100,6 +104,7 @@ public class CartRelatedActions implements FileActions {
             System.out.println("Error writing to database file: " + e.getMessage());
         }
     }
+
     // Check if a cart id exists in the file
     public boolean exists(String cartId) {
         // Read from file

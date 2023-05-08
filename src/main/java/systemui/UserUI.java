@@ -3,14 +3,12 @@
  */
 package systemui;
 
-import utils.CouponDatabase;
-import product.ProductController;
-
-import shoppingcart.ShoppingCartController;
-
 import io.CartRelatedActions;
+import product.ProductController;
+import shoppingcart.ShoppingCartController;
+import utils.CouponDatabase;
 
-import java.util.*;
+import java.util.Scanner;
 
 public class UserUI {
     /**

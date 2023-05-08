@@ -17,10 +17,11 @@ public class DigitalProductCanBeGifted extends DigitalProduct implements CanBeGi
     /**
      * The constructor is not inherited,
      * but we can access it with "super"
-     * @param name product name
-     * @param description product description
+     *
+     * @param name              product name
+     * @param description       product description
      * @param quantityAvailable the number of products are available to buy
-     * @param price product price
+     * @param price             product price
      */
     public DigitalProductCanBeGifted(String name, String description, int quantityAvailable, double price, TaxType taxType, String message) {
         super(name, description, quantityAvailable, price, taxType);
@@ -31,6 +32,7 @@ public class DigitalProductCanBeGifted extends DigitalProduct implements CanBeGi
         super(name, description, quantityAvailable, price, taxType, couponList);
         this.message = message;
     }
+
     /**
      * String representation of this product
      * <p>
@@ -59,6 +61,7 @@ public class DigitalProductCanBeGifted extends DigitalProduct implements CanBeGi
     public void setMessage(String msg) {
         this.message = msg;
     }
+
     @Override
     public String getMessage() {
         return this.message;

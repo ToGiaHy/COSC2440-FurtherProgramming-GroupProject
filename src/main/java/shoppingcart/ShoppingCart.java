@@ -3,18 +3,14 @@
  */
 package shoppingcart;
 
-import product.PhysicalProduct;
-import product.Product;
-
-import utils.PriceCoupon;
+import product.*;
 import utils.PercentCoupon;
-import product.PhysicalProductCanBeGifted;
-import product.DigitalProductCanBeGifted;
+import utils.PriceCoupon;
 
 import java.time.LocalDate;
-import java.util.*;
-
-import product.ProductController;
+import java.util.HashMap;
+import java.util.Map;
+import java.util.Objects;
 
 public class ShoppingCart {
     /**

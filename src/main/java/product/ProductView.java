@@ -6,6 +6,7 @@ package product;
 public class ProductView {
     /**
      * Iterate and display all the product in the product model
+     *
      * @param productModel
      */
     public void displayAllProduct(ProductModel productModel) {

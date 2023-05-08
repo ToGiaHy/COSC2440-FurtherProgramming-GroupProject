@@ -13,6 +13,7 @@ public class PhysicalProductCanBeGifted extends PhysicalProduct implements CanBe
      * Physical product gift attributes
      */
     private String message;
+
     /**
      * The constructor is not inherited,
      * but we can access it with "super"
@@ -28,6 +29,7 @@ public class PhysicalProductCanBeGifted extends PhysicalProduct implements CanBe
         super(name, description, quantityAvailable, price, taxType, couponList, weight);
         this.message = message;
     }
+
     /**
      * String representation of this product
      * <p>
@@ -46,6 +48,7 @@ public class PhysicalProductCanBeGifted extends PhysicalProduct implements CanBe
                 this.getWeight()
         );
     }
+
     /**
      * Getter and Setter method of interface class
      * <p>
