@@ -17,4 +17,4 @@
 ---
 ## Video Demonstration
 
-**TODO:** [Link]https://www.youtube.com/watch?v=WJqikoRLlyI.
+**TODO:** [Link](https://www.youtube.com/watch?v=WJqikoRLlyI).
